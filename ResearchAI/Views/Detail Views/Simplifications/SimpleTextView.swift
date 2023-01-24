@@ -17,7 +17,7 @@ struct SimpleTextView: View, didFinishSpeakingProtocol {
                 
                 if simpleText {
                     
-                    let prompt = "summarize and simplify the following text in a way that a high school student would understand: \(text)"
+                    let prompt = "\(Constant.prompt.simplifyAndSummarize) \(text)"
                     
                     openAI.send(text: prompt) { response in
                         
@@ -46,7 +46,7 @@ struct SimpleTextView: View, didFinishSpeakingProtocol {
     @State var fullText = ""
     let line = "\n" + "\n"
     @State var textArray = [String]()
-    let paper: Paper
+    let paper: DecodedPaper
     @State var location = 0 {
         didSet {
             if savedPaper{

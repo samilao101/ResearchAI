@@ -20,7 +20,7 @@ final class OpenAIServicer: ObservableObject {
     private var client: OpenAISwift?
     
     func setup() {
-       client = OpenAISwift(authToken: "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")
+        client = OpenAISwift(authToken: Constant.keys.OpenAI)
     }
     
     func send(text: String, completion: @escaping (String) -> Void) {
@@ -50,14 +50,13 @@ final class OpenAISimplifyingServicer: ObservableObject {
     private var client: OpenAISwift?
     
     func setup() {
-       client = OpenAISwift(authToken: "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")
+        client = OpenAISwift(authToken: Constant.keys.OpenAI)
     }
     
     func send(text: String, completion: @escaping (String) -> Void) {
         
-        let prompt = "summarize and simplify the following text in such a way a high school student would understand: \(text). "
-        print("trying")
-        print(prompt)
+        let prompt = "\(Constant.prompt.simplifyAndSummarize) \(text). "
+    
         client?.sendCompletion(with: prompt, maxTokens: 500, completionHandler: { result in
             print(result)
             switch result {

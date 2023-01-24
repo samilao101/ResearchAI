@@ -9,14 +9,14 @@ import SwiftUI
 
 struct SavedPapersListView: View {
     
-    @EnvironmentObject var pdfManager: PDFManager
+    @EnvironmentObject var storage: StorageManager
     @State var listOfPapers = [String]()
     
     var body: some View {
         VStack{
         List(listOfPapers, id:\.self){ paper in
             NavigationLink {
-                DocumentPDFViewer(pdfDocument: pdfManager.load(withName: paper)!, documentName: paper.replacingOccurrences(of: ".pdf", with: ""))
+                SavedPaperPDFView(pdfDocument: storage.load(withName: paper)!, documentName: paper.replacingOccurrences(of: ".pdf", with: ""))
             } label: {
                 Text(paper)
             }
@@ -24,7 +24,7 @@ struct SavedPapersListView: View {
         }
         }
         .onAppear {
-            listOfPapers = pdfManager.listSavedPDFs()
+            listOfPapers = storage.listSavedPDFs()
         }.navigationTitle("Saved Papers:")
     }
 }

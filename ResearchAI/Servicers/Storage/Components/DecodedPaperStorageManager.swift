@@ -8,49 +8,10 @@
 import Foundation
 import CoreData
 
-class CorePaperViewModel: ObservableObject {
-    
-    private let context: NSManagedObjectContext
-    
-    init(context: NSManagedObjectContext) {
-        self.context = context
-    }
-    
-    func savePaper(_ paper: Paper, paperName: String) {
-        let entity = NSEntityDescription.insertNewObject(forEntityName: "PaperEntity", into: context)
-        
-        entity.setValue(paper.id.uuidString, forKey: "id")
-        entity.setValue(paper.title, forKey: "title")
-        
-        let sectionsData = try? JSONEncoder().encode(paper.sections)
-        entity.setValue(sectionsData, forKey: "sectionsData")
-        
-        try? context.save()
-    }
-    
-    func loadPaper(name: String) -> Paper? {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "PaperEntity")
-        request.predicate = NSPredicate(format: "title == %@", name)
-        
-        guard let result = try? context.fetch(request),
-            let entity = result.first as? NSManagedObject,
-            let title = entity.value(forKey: "title") as? String,
-            let sectionsData = entity.value(forKey: "sectionsData") as? Data,
-            let sections = try? JSONDecoder().decode([Paper.Section].self, from: sectionsData)
-            else {
-                return nil
-        }
-        
-        return Paper(id: UUID(), title: title, sections: sections)
-    }
-}
+class DecodedPaperStorageManager: ObservableObject {
+    @Published var paper: DecodedPaper?
 
-
-
-class PaperViewModel: ObservableObject {
-    @Published var paper: Paper?
-
-    func loadPaper(name: String) -> Paper? {
+    func loadPaper(name: String) -> DecodedPaper? {
         print("trying")
         if paper == nil {
             print("LOADING DATA")
@@ -71,7 +32,7 @@ class PaperViewModel: ObservableObject {
                   print(jsonString)
                 }
                 let decoder = JSONDecoder()
-                let loadedPaper = try decoder.decode(Paper.self, from: data)
+                let loadedPaper = try decoder.decode(DecodedPaper.self, from: data)
                 paper = loadedPaper
                 return paper
 
@@ -83,7 +44,7 @@ class PaperViewModel: ObservableObject {
         return paper
     }
 
-    func savePaper(paperToSave: Paper, name:String) {
+    func savePaper(paperToSave: DecodedPaper, name:String) {
         // use a JSON encoder to convert the paper to a JSON file
         let encoder = JSONEncoder()
         if let data = try? encoder.encode(paperToSave) {
@@ -103,3 +64,43 @@ class PaperViewModel: ObservableObject {
         }
     }
 }
+
+
+//class CorePaperViewModel: ObservableObject {
+//    
+//    private let context: NSManagedObjectContext
+//    
+//    init(context: NSManagedObjectContext) {
+//        self.context = context
+//    }
+//    
+//    func savePaper(_ paper: DecodedPaper, paperName: String) {
+//        let entity = NSEntityDescription.insertNewObject(forEntityName: "PaperEntity", into: context)
+//        
+//        entity.setValue(paper.id.uuidString, forKey: "id")
+//        entity.setValue(paper.title, forKey: "title")
+//        
+//        let sectionsData = try? JSONEncoder().encode(paper.sections)
+//        entity.setValue(sectionsData, forKey: "sectionsData")
+//        
+//        try? context.save()
+//    }
+//    
+//    func loadPaper(name: String) -> DecodedPaper? {
+//        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "PaperEntity")
+//        request.predicate = NSPredicate(format: "title == %@", name)
+//        
+//        guard let result = try? context.fetch(request),
+//            let entity = result.first as? NSManagedObject,
+//            let title = entity.value(forKey: "title") as? String,
+//            let sectionsData = entity.value(forKey: "sectionsData") as? Data,
+//            let sections = try? JSONDecoder().decode([DecodedPaper.Section].self, from: sectionsData)
+//            else {
+//                return nil
+//        }
+//        
+//        return DecodedPaper(id: UUID(), title: title, sections: sections)
+//    }
+//}
+
+

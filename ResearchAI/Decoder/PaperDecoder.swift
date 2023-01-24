@@ -10,9 +10,9 @@ import Alamofire
 import XMLParsing
 
 
-class DedodedPaper : ObservableObject {
+class PaperDecoder : ObservableObject {
     
-    @Published var paper: Paper?
+    @Published var paper: DecodedPaper?
     @Published var gotPaper = false
     
     private func getDecodedPaper(data: Data)  {
@@ -21,11 +21,11 @@ class DedodedPaper : ObservableObject {
             
             let decoded = try XMLDecoder().decode(TEI.self, from: data)
             
-            let paper = Paper(title: decoded.teiHeader.fileDesc.titleStmt.title,
+            let paper = DecodedPaper(title: decoded.teiHeader.fileDesc.titleStmt.title,
                              
                               sections: decoded.text.body.div.map({ division in
                     
-                Paper.Section(head: division.head ?? "" , paragraph: division.paragraphs ?? [""] )
+                DecodedPaper.Section(head: division.head ?? "" , paragraph: division.paragraphs ?? [""] )
             
                                 })
                     )
@@ -47,12 +47,12 @@ class DedodedPaper : ObservableObject {
     }
     
     func sendPDF(pdfFileURL: URL) {
-        
-        let url = URL(string: "http://192.168.12.152:8070/api/processFulltextDocument")
+//
+////        let url = URL(string: "http://192.168.12.152:8070/api/processFulltextDocument")
 //        let url = URL(string: "https://cloud.science-miner.com/grobid/api/processFulltextDocument")
         
         let session = URLSession.shared
-        var request = URLRequest(url: url!)
+        var request = URLRequest(url: URLModel.shared.currentURL)
         request.httpMethod = "POST"
 
         let formData = MultipartFormData()

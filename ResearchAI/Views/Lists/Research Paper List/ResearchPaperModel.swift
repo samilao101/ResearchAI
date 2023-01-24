@@ -18,7 +18,7 @@ class ResearchPaperModel: ObservableObject {
 
     func search(query: String) {
         let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let url = URL(string: "https://export.arxiv.org/api/query?search_query=all:\(encodedQuery)")!
+        let url = URL(string: "\(Constant.URLstring.ArxivSearch)\(encodedQuery)")!
         let request = URLRequest(url: url)
         URLSession.shared.dataTask(with: request) { data, response, error in
             // Parse the response data to create an array of ResearchPaper objects

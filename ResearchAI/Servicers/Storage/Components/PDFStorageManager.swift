@@ -1,19 +1,26 @@
+//
+//  PDFStorageManager.swift
+//  ResearchAI
+//
+//  Created by Sam Santos on 1/15/23.
+//
+
 import Foundation
 import PDFKit
 
-class PDFManager: ObservableObject {
-    static let shared = PDFManager()
+class PDFStorageManager: ObservableObject {
+    static let shared = StorageManager()
 
     let fileManager = FileManager.default
     let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     @Published var savedDocument = false
 
-    func save(pdf: PDFDocument, withName name: String, dataURL: URL)  {
+    func save(withName name: String, pdfDataUrl: URL)  {
         
          DispatchQueue.main.async  {
                
                     do {
-                        let url = dataURL
+                        let url = pdfDataUrl
                         let pdfData = try Data.init(contentsOf: url)
                         let resourceDocPath = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)).last! as URL
                         let pdfNameFromUrl = "\(name).pdf"

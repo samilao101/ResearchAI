@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ResearchPaperView: View {
-    @EnvironmentObject var pdfManager: PDFManager
+    @EnvironmentObject var pdfManager: StorageManager
     @ObservedObject var viewModel = OpenAIServicer()
     var researchPaper: ResearchPaper
     @State var simplified: String = ""
@@ -50,7 +50,7 @@ struct ResearchPaperView: View {
                 }
             }.onAppear {
                 viewModel.setup()
-                let prompt = "rewrite and provide only a simplified version of this research paper summary in a way that a high school student would understand: \(researchPaper.summary). "
+                let prompt = "\(Constant.prompt.simplifyAndSummarize)\(researchPaper.summary). "
                 viewModel.send(text: prompt) { response in
                     DispatchQueue.main.async {
                       simplified = response

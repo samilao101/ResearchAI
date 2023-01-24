@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Paper: Codable, Identifiable {
+struct DecodedPaper: Codable, Identifiable {
     
     var id = UUID()
     let title: String

@@ -11,7 +11,7 @@ struct LinksView: View {
     
     let paperName: String
     @State var showPDF = false
-    @EnvironmentObject var pdfManager: PDFManager
+    @EnvironmentObject var pdfManager: StorageManager
     
     let link: ResearchPaper.Link
     
@@ -30,7 +30,7 @@ struct LinksView: View {
             
             
         .fullScreenCover(isPresented: $showPDF) {
-            CustomPDFView(paperName: paperName, goBack: $showPDF, displayedPDFURL: URL(string:link.href.toHttps())!).environmentObject(pdfManager)
+            ResearchPaperPDFView(paperName: paperName, goBack: $showPDF, displayedPDFURL: URL(string:link.href.toHttps())!).environmentObject(pdfManager)
                 .ignoresSafeArea()
         }
     }

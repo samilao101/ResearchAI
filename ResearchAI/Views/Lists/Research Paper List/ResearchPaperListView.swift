@@ -9,11 +9,13 @@ import SwiftUI
 
 struct ResearchPaperListView: View {
     
-    @StateObject var pdfManager = PDFManager()
+    @StateObject var urlModel = URLModel.shared
+    @StateObject var storage = StorageManager()
     @ObservedObject var model: ResearchPaperModel
     @State var textWriten = ""
 
     var body: some View {
+    
         VStack {
             HStack {
                 TextField("Type here...", text: $textWriten)
@@ -34,7 +36,7 @@ struct ResearchPaperListView: View {
                 Spacer()
             } else {
                 List(model.researchPapers) { researchPaper in
-                    NavigationLink(destination: ResearchPaperView(researchPaper: researchPaper).environmentObject(pdfManager)) {
+                    NavigationLink(destination: ResearchPaperView(researchPaper: researchPaper).environmentObject(storage)) {
                         VStack(alignment: .leading) {
                             Text(researchPaper.title)
                                 .font(.headline)
@@ -45,13 +47,20 @@ struct ResearchPaperListView: View {
                 }
             }
         }
+         
         .onAppear {
-            print(pdfManager.listSavedPDFs())
+            storage.load()
+            print(storage.listSavedPDFs())
         }
         .toolbar {
+            ToolbarItemGroup(placement: .navigationBarLeading) {
+                Toggle("online", isOn: $urlModel.online)
+                    .toggleStyle(.button)
+                    .tint(.green)
+            }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 NavigationLink {
-                    SavedPapersListView().environmentObject(pdfManager)
+                    SavedPapersListView().environmentObject(storage)
                 } label: {
                     HStack{
                     Image(systemName: "newspaper")
