@@ -7,6 +7,7 @@
 
 import Foundation
 import PDFKit
+import SwiftUI
 
 class PDFStorageManager: ObservableObject {
     static let shared = StorageManager()
