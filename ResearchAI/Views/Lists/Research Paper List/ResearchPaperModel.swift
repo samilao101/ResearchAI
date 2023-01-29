@@ -14,7 +14,7 @@ class ResearchPaperModel: ObservableObject {
     
     @Published var noResults = true
     
-    @Published var researchPapers: [ResearchPaper] = []
+    @Published var researchPapers: [ArxivResearchPaperMetaData] = []
 
     func search(query: String) {
         let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -29,17 +29,17 @@ class ResearchPaperModel: ObservableObject {
                         self.noResults = false
                     }
                     let papers = feed.entry.map { entry in
-                        ResearchPaper(
+                        ArxivResearchPaperMetaData(
                             title: entry.title,
                             authors: entry.author.map { author in
-                                ResearchPaper.Author(name: author.name)
+                                ArxivResearchPaperMetaData.Author(name: author.name)
                             },
                             published: entry.published,
                             updated: entry.updated,
                             summary: entry.summary,
                             link: entry.link.map { link in
                                                         
-                                ResearchPaper.Link(title: link.title ?? "", href: link.href, rel: link.rel, type: link.type ?? "")
+                                ArxivResearchPaperMetaData.Link(title: link.title ?? "", href: link.href, rel: link.rel, type: link.type ?? "")
                                                     }
 
                         )

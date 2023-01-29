@@ -2,37 +2,34 @@
 //  ResearchPaper.swift
 //  ResearchAI
 //
-//  Created by Sam Santos on 12/28/22.
+//  Created by Sam Santos on 1/25/23.
 //
 
 import Foundation
 
 
-struct ResearchPaper: Decodable, Identifiable {
-    var id = UUID()
-    let title: String
-    let authors: [Author]
-    let published: String
-    let updated: String
-    let summary: String
-    let link: [Link]
+protocol ResearchPaperProtocol {
+    
+    var title: String { get }
+    var authors: [String] { get  }
+    var summary: String { get  }
+    var url: URL { get  }
+    
+}
 
-    enum CodingKeys: String, CodingKey {
-        case title, authors, published, updated, summary, link
-    }
 
-    struct Author: Decodable {
-        let name: String
-    }
-
-    struct Link: Decodable, Hashable {
-        let title: String?
-        let href: String
-        let rel: String
-        let type: String?
-
-        private enum CodingKeys: String, CodingKey {
-            case title, href, rel, type
-        }
-    }
+struct ResearchPaperMetaData {
+    
+    
+    let source: ResearchPaperProtocol
+    
+    var title: String { source.title }
+    
+    var authors: [String] { source.authors }
+    
+    var summary: String { source.summary }
+    
+    var url: URL { source.url }
+    
+    
 }

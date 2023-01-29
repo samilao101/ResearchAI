@@ -35,12 +35,13 @@
 		22BADD612974429600F6163B /* PDFStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BADD602974429600F6163B /* PDFStorageManager.swift */; };
 		22BADD642974583200F6163B /* URLModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BADD632974583200F6163B /* URLModel.swift */; };
 		22BADD6629748B7E00F6163B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BADD6529748B7E00F6163B /* Constants.swift */; };
+		22BADD692982258000F6163B /* ResearchPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BADD682982258000F6163B /* ResearchPaper.swift */; };
 		22C2D9AA296FAB010010CBF7 /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C2D9A9296FAB010010CBF7 /* SpeechService.swift */; };
 		22D2FA37295CB06400D670D0 /* ResearchAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D2FA36295CB06400D670D0 /* ResearchAIApp.swift */; };
 		22D2FA39295CB06400D670D0 /* ResearchPaperListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D2FA38295CB06400D670D0 /* ResearchPaperListView.swift */; };
 		22D2FA3B295CB06400D670D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22D2FA3A295CB06400D670D0 /* Assets.xcassets */; };
 		22D2FA3E295CB06400D670D0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22D2FA3D295CB06400D670D0 /* Preview Assets.xcassets */; };
-		22D2FA45295CE90A00D670D0 /* ResearchPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D2FA44295CE90A00D670D0 /* ResearchPaper.swift */; };
+		22D2FA45295CE90A00D670D0 /* ArxivResearchPaperMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D2FA44295CE90A00D670D0 /* ArxivResearchPaperMetaData.swift */; };
 		22D2FA47295CE93500D670D0 /* ResearchPaperModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D2FA46295CE93500D670D0 /* ResearchPaperModel.swift */; };
 		22D2FA49295CE95100D670D0 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D2FA48295CE95100D670D0 /* Feed.swift */; };
 		22D2FA4F295CF8A600D670D0 /* OpenAIServicer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D2FA4E295CF8A600D670D0 /* OpenAIServicer.swift */; };
@@ -73,13 +74,14 @@
 		22BADD602974429600F6163B /* PDFStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFStorageManager.swift; sourceTree = "<group>"; };
 		22BADD632974583200F6163B /* URLModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLModel.swift; sourceTree = "<group>"; };
 		22BADD6529748B7E00F6163B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		22BADD682982258000F6163B /* ResearchPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResearchPaper.swift; sourceTree = "<group>"; };
 		22C2D9A9296FAB010010CBF7 /* SpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
 		22D2FA33295CB06400D670D0 /* ResearchAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ResearchAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22D2FA36295CB06400D670D0 /* ResearchAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResearchAIApp.swift; sourceTree = "<group>"; };
 		22D2FA38295CB06400D670D0 /* ResearchPaperListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResearchPaperListView.swift; sourceTree = "<group>"; };
 		22D2FA3A295CB06400D670D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		22D2FA3D295CB06400D670D0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		22D2FA44295CE90A00D670D0 /* ResearchPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResearchPaper.swift; sourceTree = "<group>"; };
+		22D2FA44295CE90A00D670D0 /* ArxivResearchPaperMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArxivResearchPaperMetaData.swift; sourceTree = "<group>"; };
 		22D2FA46295CE93500D670D0 /* ResearchPaperModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResearchPaperModel.swift; sourceTree = "<group>"; };
 		22D2FA48295CE95100D670D0 /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		22D2FA4E295CF8A600D670D0 /* OpenAIServicer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIServicer.swift; sourceTree = "<group>"; };
@@ -200,9 +202,10 @@
 				22BADD6529748B7E00F6163B /* Constants.swift */,
 				22BADD522972F1F800F6163B /* PaperModel.swift */,
 				224282E6296A768B00E636DD /* DecodedPaper.swift */,
-				22D2FA44295CE90A00D670D0 /* ResearchPaper.swift */,
+				22D2FA44295CE90A00D670D0 /* ArxivResearchPaperMetaData.swift */,
 				22D2FA48295CE95100D670D0 /* Feed.swift */,
 				22BADD632974583200F6163B /* URLModel.swift */,
+				22BADD682982258000F6163B /* ResearchPaper.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -374,7 +377,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22D2FA4F295CF8A600D670D0 /* OpenAIServicer.swift in Sources */,
-				22D2FA45295CE90A00D670D0 /* ResearchPaper.swift in Sources */,
+				22D2FA45295CE90A00D670D0 /* ArxivResearchPaperMetaData.swift in Sources */,
 				2256FA31295F705400049F51 /* AnswersGPT.swift in Sources */,
 				2256FA34295F705400049F51 /* Recognizer.swift in Sources */,
 				2256FA32295F705400049F51 /* MessageBubble.swift in Sources */,
@@ -403,6 +406,7 @@
 				2256FA36295F705400049F51 /* Speaker.swift in Sources */,
 				22C2D9AA296FAB010010CBF7 /* SpeechService.swift in Sources */,
 				2256FA22295DDD0500049F51 /* LinksView.swift in Sources */,
+				22BADD692982258000F6163B /* ResearchPaper.swift in Sources */,
 				2256FA1E295D057000049F51 /* ResearchPaperView.swift in Sources */,
 				22BADD532972F1F800F6163B /* PaperModel.swift in Sources */,
 			);
@@ -545,6 +549,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -578,6 +583,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
