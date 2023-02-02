@@ -1,7 +1,7 @@
 import XMLParsing
 import SwiftUI
 
-struct Feed: Decodable {
+struct ArxivResearchPaperEntry: Decodable {
     let entry: [Entry]
 
     struct Entry: Decodable {

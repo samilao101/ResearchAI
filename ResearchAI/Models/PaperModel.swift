@@ -20,3 +20,27 @@ struct PaperModel: Identifiable {
     
     
 }
+
+struct DecodedPaper: Codable, Identifiable {
+    
+    var id = UUID()
+    let title: String
+    let sections: [Section]
+    
+    struct Section: Codable, Identifiable {
+        var id = UUID()
+        let head: String
+        let paragraph: [String]
+    }
+    
+}
+
+
+protocol ResearchPaperProtocol {
+    
+    var title: String { get }
+    var authors: [String] { get  }
+    var summary: String { get  }
+    var url: URL { get  }
+    
+}

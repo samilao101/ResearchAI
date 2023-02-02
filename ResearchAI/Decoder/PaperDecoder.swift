@@ -19,7 +19,7 @@ class PaperDecoder : ObservableObject {
         
         do {
             
-            let decoded = try XMLDecoder().decode(TEI.self, from: data)
+            let decoded = try XMLDecoder().decode(GrobidDecodedPaper.self, from: data)
             
             let paper = DecodedPaper(title: decoded.teiHeader.fileDesc.titleStmt.title,
                              

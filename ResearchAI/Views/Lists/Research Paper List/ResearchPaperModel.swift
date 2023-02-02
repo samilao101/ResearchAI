@@ -24,7 +24,7 @@ class ResearchPaperModel: ObservableObject {
             // Parse the response data to create an array of ResearchPaper objects
             if let data = data {
                 do {
-                let feed = try XMLDecoder().decode(Feed.self, from: data)
+                let feed = try XMLDecoder().decode(ArxivResearchPaperEntry.self, from: data)
                     DispatchQueue.main.async {
                         self.noResults = false
                     }

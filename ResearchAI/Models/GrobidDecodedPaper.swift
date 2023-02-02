@@ -7,23 +7,9 @@
 
 import Foundation
 
-struct DecodedPaper: Codable, Identifiable {
+struct GrobidDecodedPaper: Decodable {
     
-    var id = UUID()
-    let title: String
-    let sections: [Section]
-    
-    struct Section: Codable, Identifiable {
-        var id = UUID()
-        let head: String
-        let paragraph: [String]
-    }
-    
-}
-
-struct TEI: Decodable {
-    
-    let text: TEXT
+    let text: Text
     
     let teiHeader: TeiHeader
 
@@ -42,7 +28,7 @@ struct TEI: Decodable {
     }
     
     
-    struct TEXT: Decodable {
+    struct Text: Decodable {
         
         let body: Body
         
