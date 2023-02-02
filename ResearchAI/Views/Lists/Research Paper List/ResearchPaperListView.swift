@@ -11,7 +11,7 @@ struct ResearchPaperListView: View {
     
     @StateObject var urlModel = URLModel.shared
     @StateObject var storage = StorageManager()
-    @ObservedObject var model: ResearchPaperModel
+    @ObservedObject var model: ArxivQueryService
     @State var textWriten = ""
 
     var body: some View {

@@ -13,7 +13,7 @@ struct LinksView: View {
     @State var showPDF = false
     @EnvironmentObject var pdfManager: StorageManager
     
-    let link: ArxivResearchPaperMetaData.Link
+    let link: ArxivResearchPaperDetail.Link
     
     var body: some View {
 

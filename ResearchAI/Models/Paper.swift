@@ -8,7 +8,7 @@
 import Foundation
 import PDFKit
 
-struct PaperModel: Identifiable {
+struct Paper: Identifiable {
     
     var id: UUID {paper.id}
     

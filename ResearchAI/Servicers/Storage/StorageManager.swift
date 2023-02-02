@@ -14,7 +14,7 @@ class StorageManager: ObservableObject {
     let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     
     @Published var savedDocument = false
-    @Published var savedDocs : [PaperModel] = []
+    @Published var savedDocs : [Paper] = []
     
     func save(name: String, dataURL: URL, decodedPaper: ParsedPaper ) {
         
@@ -38,7 +38,7 @@ class StorageManager: ObservableObject {
                     
                     if let readingEntity = readingStorageManager.fetchEntity(id: pdfFileName) {
                         
-                        let newRecord = PaperModel(paper: decodedFile, pdf: pdfFile, reading: readingEntity)
+                        let newRecord = Paper(paper: decodedFile, pdf: pdfFile, reading: readingEntity)
                         
                         savedDocs.append(newRecord)
                         

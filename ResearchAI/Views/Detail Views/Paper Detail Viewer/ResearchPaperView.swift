@@ -10,7 +10,7 @@ import SwiftUI
 struct ResearchPaperView: View {
     @EnvironmentObject var pdfManager: StorageManager
     @ObservedObject var viewModel = OpenAIServicer()
-    var researchPaper: ArxivResearchPaperMetaData
+    var researchPaper: ArxivResearchPaperDetail
     @State var simplified: String = ""
 
     var body: some View {

@@ -10,11 +10,11 @@ import XMLParsing
 
  
 
-class ResearchPaperModel: ObservableObject {
+class ArxivQueryService: ObservableObject {
     
     @Published var noResults = true
     
-    @Published var researchPapers: [ArxivResearchPaperMetaData] = []
+    @Published var researchPapers: [ArxivResearchPaperDetail] = []
 
     func search(query: String) {
         let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -29,17 +29,17 @@ class ResearchPaperModel: ObservableObject {
                         self.noResults = false
                     }
                     let papers = feed.entry.map { entry in
-                        ArxivResearchPaperMetaData(
+                        ArxivResearchPaperDetail(
                             title: entry.title,
                             authors: entry.author.map { author in
-                                ArxivResearchPaperMetaData.Author(name: author.name)
+                                ArxivResearchPaperDetail.Author(name: author.name)
                             },
                             published: entry.published,
                             updated: entry.updated,
                             summary: entry.summary,
                             link: entry.link.map { link in
                                                         
-                                ArxivResearchPaperMetaData.Link(title: link.title ?? "", href: link.href, rel: link.rel, type: link.type ?? "")
+                                ArxivResearchPaperDetail.Link(title: link.title ?? "", href: link.href, rel: link.rel, type: link.type ?? "")
                                                     }
 
                         )

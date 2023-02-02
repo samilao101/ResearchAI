@@ -12,7 +12,7 @@ struct ResearchAIApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView{
-            ResearchPaperListView(model: ResearchPaperModel())
+            ResearchPaperListView(model: ArxivQueryService())
                     .navigationTitle("Research Papers:")
             }
             .environment(\.colorScheme, .light)

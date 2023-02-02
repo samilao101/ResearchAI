@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct ArxivResearchPaperMetaData: Decodable, Identifiable {
+struct ArxivResearchPaperDetail: Decodable, Identifiable {
     var id = UUID()
     let title: String
     let authors: [Author]
