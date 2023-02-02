@@ -12,35 +12,11 @@ struct PaperModel: Identifiable {
     
     var id: UUID {paper.id}
     
-    let paper: DecodedPaper
+    let paper: ParsedPaper
     
     let pdf: PDFDocument
     
     let reading: ReadingEntity
     
-    
-}
-
-struct DecodedPaper: Codable, Identifiable {
-    
-    var id = UUID()
-    let title: String
-    let sections: [Section]
-    
-    struct Section: Codable, Identifiable {
-        var id = UUID()
-        let head: String
-        let paragraph: [String]
-    }
-    
-}
-
-
-protocol ResearchPaperProtocol {
-    
-    var title: String { get }
-    var authors: [String] { get  }
-    var summary: String { get  }
-    var url: URL { get  }
     
 }

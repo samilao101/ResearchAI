@@ -12,7 +12,7 @@ import XMLParsing
 
 class PaperDecoder : ObservableObject {
     
-    @Published var paper: DecodedPaper?
+    @Published var paper: ParsedPaper?
     @Published var gotPaper = false
     
     private func getDecodedPaper(data: Data)  {
@@ -21,11 +21,11 @@ class PaperDecoder : ObservableObject {
             
             let decoded = try XMLDecoder().decode(GrobidDecodedPaper.self, from: data)
             
-            let paper = DecodedPaper(title: decoded.teiHeader.fileDesc.titleStmt.title,
+            let paper = ParsedPaper(title: decoded.teiHeader.fileDesc.titleStmt.title,
                              
                               sections: decoded.text.body.div.map({ division in
                     
-                DecodedPaper.Section(head: division.head ?? "" , paragraph: division.paragraphs ?? [""] )
+                ParsedPaper.Section(head: division.head ?? "" , paragraph: division.paragraphs ?? [""] )
             
                                 })
                     )

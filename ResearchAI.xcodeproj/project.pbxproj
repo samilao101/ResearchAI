@@ -29,6 +29,7 @@
 		2256FA34295F705400049F51 /* Recognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA2D295F705400049F51 /* Recognizer.swift */; };
 		2256FA35295F705400049F51 /* SpeakerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA2E295F705400049F51 /* SpeakerButton.swift */; };
 		2256FA36295F705400049F51 /* Speaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA2F295F705400049F51 /* Speaker.swift */; };
+		22B566BC298B57DB00332804 /* ParsedPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B566BB298B57DB00332804 /* ParsedPaper.swift */; };
 		22BADD532972F1F800F6163B /* PaperModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BADD522972F1F800F6163B /* PaperModel.swift */; };
 		22BADD5929741CAE00F6163B /* SavedPaperPDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BADD5829741CAE00F6163B /* SavedPaperPDFView.swift */; };
 		22BADD5B29741E3800F6163B /* ResearchPaperPDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BADD5A29741E3800F6163B /* ResearchPaperPDFView.swift */; };
@@ -67,6 +68,7 @@
 		2256FA2D295F705400049F51 /* Recognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recognizer.swift; sourceTree = "<group>"; };
 		2256FA2E295F705400049F51 /* SpeakerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeakerButton.swift; sourceTree = "<group>"; };
 		2256FA2F295F705400049F51 /* Speaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Speaker.swift; sourceTree = "<group>"; };
+		22B566BB298B57DB00332804 /* ParsedPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedPaper.swift; sourceTree = "<group>"; };
 		22BADD522972F1F800F6163B /* PaperModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperModel.swift; sourceTree = "<group>"; };
 		22BADD5829741CAE00F6163B /* SavedPaperPDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPaperPDFView.swift; sourceTree = "<group>"; };
 		22BADD5A29741E3800F6163B /* ResearchPaperPDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResearchPaperPDFView.swift; sourceTree = "<group>"; };
@@ -199,10 +201,11 @@
 			children = (
 				22BADD6529748B7E00F6163B /* Constants.swift */,
 				22BADD632974583200F6163B /* URLModel.swift */,
-				22BADD522972F1F800F6163B /* PaperModel.swift */,
 				224282E6296A768B00E636DD /* GrobidDecodedPaper.swift */,
 				22D2FA48295CE95100D670D0 /* ArxivResearchPaperEntry.swift */,
 				22D2FA44295CE90A00D670D0 /* ArxivResearchPaperMetaData.swift */,
+				22B566BB298B57DB00332804 /* ParsedPaper.swift */,
+				22BADD522972F1F800F6163B /* PaperModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				22D2FA49295CE95100D670D0 /* ArxivResearchPaperEntry.swift in Sources */,
 				224282E9296A93E300E636DD /* SimpleTextView.swift in Sources */,
 				22BADD5929741CAE00F6163B /* SavedPaperPDFView.swift in Sources */,
+				22B566BC298B57DB00332804 /* ParsedPaper.swift in Sources */,
 				2256FA24295E17B200049F51 /* SimplificationView.swift in Sources */,
 				224282EB296B345E00E636DD /* DecodedPaperStorageManager.swift in Sources */,
 				22D2FA47295CE93500D670D0 /* ResearchPaperModel.swift in Sources */,

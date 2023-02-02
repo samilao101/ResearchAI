@@ -30,7 +30,7 @@ struct ResearchPaperPDFView: View {
     @State var showSimplified = false
     @State var pdfDocument : PDFDocument?
     @State var showSimpleText = false
-    var paper: DecodedPaper?
+    var paper: ParsedPaper?
     
     let displayedPDFURL: URL
     @StateObject var paperViewModel = DecodedPaperStorageManager()

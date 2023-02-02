@@ -46,7 +46,7 @@ struct SimpleTextView: View, didFinishSpeakingProtocol {
     @State var fullText = ""
     let line = "\n" + "\n"
     @State var textArray = [String]()
-    let paper: DecodedPaper
+    let paper: ParsedPaper
     @State var location = 0 {
         didSet {
             if savedPaper{

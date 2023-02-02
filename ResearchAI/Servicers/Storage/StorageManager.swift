@@ -16,7 +16,7 @@ class StorageManager: ObservableObject {
     @Published var savedDocument = false
     @Published var savedDocs : [PaperModel] = []
     
-    func save(name: String, dataURL: URL, decodedPaper: DecodedPaper ) {
+    func save(name: String, dataURL: URL, decodedPaper: ParsedPaper ) {
         
         pdfStorageManager.save(withName: name, pdfDataUrl: dataURL)
         decodedPaperStorageManager.savePaper(paperToSave: decodedPaper, name: name)

@@ -9,9 +9,9 @@ import Foundation
 import CoreData
 
 class DecodedPaperStorageManager: ObservableObject {
-    @Published var paper: DecodedPaper?
+    @Published var paper: ParsedPaper?
 
-    func loadPaper(name: String) -> DecodedPaper? {
+    func loadPaper(name: String) -> ParsedPaper? {
         print("trying")
         if paper == nil {
             print("LOADING DATA")
@@ -32,7 +32,7 @@ class DecodedPaperStorageManager: ObservableObject {
                   print(jsonString)
                 }
                 let decoder = JSONDecoder()
-                let loadedPaper = try decoder.decode(DecodedPaper.self, from: data)
+                let loadedPaper = try decoder.decode(ParsedPaper.self, from: data)
                 paper = loadedPaper
                 return paper
 
@@ -44,7 +44,7 @@ class DecodedPaperStorageManager: ObservableObject {
         return paper
     }
 
-    func savePaper(paperToSave: DecodedPaper, name:String) {
+    func savePaper(paperToSave: ParsedPaper, name:String) {
         // use a JSON encoder to convert the paper to a JSON file
         let encoder = JSONEncoder()
         if let data = try? encoder.encode(paperToSave) {
