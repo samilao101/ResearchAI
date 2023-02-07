@@ -1,10 +1,50 @@
 import XMLParsing
 import SwiftUI
 
-struct ArxivResearchPaperEntry: Decodable {
+//Michael: try removing 'RAI', change RAISummaryEntryProtocol to ResearchPaper
+//RAISummaryProtocol PaperSummary
+
+struct ArxivResearchPaperEntry: Decodable, RAISummaryEntryProtocol {
+   
+    var entries: [RAISummaryProtocol] {
+        return entry
+    }
+    
+    
     let entry: [Entry]
 
-    struct Entry: Decodable {
+    struct Entry: Decodable, RAISummaryProtocol {
+        var raiTitle: String {
+            title
+        }
+        
+        var raiAuthors: [String] {
+            var authors : [String] = []
+             author.map(({ author in
+                authors.append(author.name)
+            }))
+            return authors
+        }
+        
+        var raiPublished: String {
+            published
+        }
+        
+        var raiUpdated: String {
+            updated
+        }
+        
+        var raiSummary: String {
+            summary
+        }
+        
+        var raiLink: String {
+            let linked = link.first { link in
+                link.type == "application/pdf"
+            }
+            return linked!.href
+        }
+        
         let title: String
         let author: [Author]
         let published: String

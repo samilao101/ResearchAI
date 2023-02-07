@@ -9,9 +9,11 @@ import SwiftUI
 
 struct ResearchPaperListView: View {
     
+    
+    @StateObject var appState : AppState = AppState.shared
     @StateObject var urlModel = URLModel.shared
     @StateObject var storage = StorageManager()
-    @ObservedObject var model: ArxivQueryService
+    @ObservedObject var model: PaperSearchServicer
     @State var textWriten = ""
 
     var body: some View {
@@ -23,6 +25,11 @@ struct ResearchPaperListView: View {
                     .background(RoundedRectangle(cornerRadius: 4.0, style: .continuous)
                                   .stroke(.gray, lineWidth: 1.0))
                     .padding()
+                    .onChange(of: textWriten) { newValue in
+                        Task{
+                            await appState.query(newValue)
+                        }
+                    }
                 Button("Send"){
                     DispatchQueue.main.async {
                         send(string: textWriten)
@@ -31,25 +38,28 @@ struct ResearchPaperListView: View {
             }
             .foregroundColor(.black)
             .padding(.horizontal)
-            if model.noResults {
+            if appState.noResults {
                 Text("No Results...")
                 Spacer()
             } else {
-                List(model.researchPapers) { researchPaper in
-                    NavigationLink(destination: ResearchPaperView(researchPaper: researchPaper).environmentObject(storage)) {
+                List(appState.summaries) { summary in
+                    NavigationLink(destination: RAISummaryView(summary: summary).environmentObject(storage)) {
                         VStack(alignment: .leading) {
-                            Text(researchPaper.title)
+                            Text(summary.raiTitle)
                                 .font(.headline)
-                            Text(researchPaper.authors.map { $0.name }.joined(separator: ", "))
+                            Text(summary.raiAuthors.map { $0 }.joined(separator: ", "))
                                 .font(.subheadline)
                         }
                     }
                 }
+                
+               
             }
         }
          
         .onAppear {
             storage.load()
+            appState.load()
             print(storage.listSavedPDFs())
         }
         .toolbar {
@@ -73,8 +83,14 @@ struct ResearchPaperListView: View {
     }
     
     func send(string: String) {
-        model.search(query: string)
+//        model.search(query: string)
+        Task {
+            await appState.query(string)
+
+        }
     }
+    
+   
 }
 
 
