@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SavedPapersListView: View {
+struct SavedPaperListContainerView: View {
     
     @EnvironmentObject var storage: StorageManager
     @State var listOfPapers = [String]()
@@ -30,7 +30,18 @@ struct SavedPapersListView: View {
 }
 
 struct SavedPapersListView_Previews: PreviewProvider {
+    
+    static let storage = StorageManager()
+    
+    
     static var previews: some View {
-        SavedPapersListView()
+        
+        var sampleView = SavedPaperListContainerView()
+        sampleView.listOfPapers = ["Paper 1", "Paper 2"]
+        return NavigationView{
+            sampleView.environmentObject(storage)
+              
+    
+        }
     }
 }

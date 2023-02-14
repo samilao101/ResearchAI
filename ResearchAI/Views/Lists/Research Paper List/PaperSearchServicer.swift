@@ -22,6 +22,7 @@ class PaperSearchServicer: ObservableObject {
         
         let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let url = URL(string: "\(urlString)\(encodedQuery)")!
+    
         let request = URLRequest(url: url)
         
         let (data, _) = try await URLSession.shared.data(for: request)

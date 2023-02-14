@@ -18,19 +18,21 @@ let ttsAPIUrl = "https://texttospeech.googleapis.com/v1beta1/text:synthesize"
 
 class SpeechService: NSObject, AVAudioPlayerDelegate, ObservableObject {
     
+    var settingsModel = SettingsModel.shared
+    
     @Published var rate: Double = 1.0 {
         didSet{
-            UserDefaults.standard.set(rate, forKey: "rate")
+            settingsModel.storeAudioSettings(setting: .rate, value: rate)
         }
     }
     @Published var pitch: Float = 1.0 {
         didSet{
-            UserDefaults.standard.set(pitch, forKey: "pitch")
+            settingsModel.storeAudioSettings(setting: .pitch, value: pitch)
         }
     }
     @Published var volume: Float = 1.0 {
         didSet{
-            UserDefaults.standard.set(volume, forKey: "volume")
+            settingsModel.storeAudioSettings(setting: .volume, value: volume)
         }
     }
 
@@ -88,8 +90,15 @@ class SpeechService: NSObject, AVAudioPlayerDelegate, ObservableObject {
             
             
             DispatchQueue.main.async {
+                
+                let session = AVAudioSession.sharedInstance()
+                    try! session.setCategory(.playback, mode: .default, options: [])
+                    try! session.setActive(true)
+                    
+                
                 self.completionHandler = completion
                 self.player = try! AVAudioPlayer(data: audioData)
+                self.player!.prepareToPlay()
                 self.player?.delegate = self
                 self.player!.play() // plays the audioData
             }
@@ -166,6 +175,8 @@ class SpeechService: NSObject, AVAudioPlayerDelegate, ObservableObject {
     }
     
     func play() {
+     
+        
         player?.play()
     }
 }

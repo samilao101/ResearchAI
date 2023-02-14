@@ -18,20 +18,21 @@ class Speaker: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
     
     let synthesizer = AVSpeechSynthesizer()
     var delegate: didFinishSpeakingProtocol?
+    var settingsModel = SettingsModel.shared
     
     @Published var rate: Double = 0.5 {
         didSet{
-            UserDefaults.standard.set(rate, forKey: "rate")
+            settingsModel.storeAudioSettings(setting: .rate, value: rate)
         }
     }
     @Published var pitch: Float = 1.0 {
         didSet{
-            UserDefaults.standard.set(pitch, forKey: "pitch")
+            settingsModel.storeAudioSettings(setting: .pitch, value: pitch)
         }
     }
     @Published var volume: Float = 1.0 {
         didSet{
-            UserDefaults.standard.set(volume, forKey: "volume")
+            settingsModel.storeAudioSettings(setting: .volume, value: volume)
         }
     }
     

@@ -78,7 +78,7 @@ struct SavedPaperPDFView: View {
             viewModel.setup()
         }
         .sheet(isPresented: $showReader) {
-            SimpleTextView(openAI: viewModel, savedPaper: true, paper: paperViewModel.loadPaper(name: documentName)!)
+            PaperSpeaker(openAI: viewModel, savedPaper: true, paper: paperViewModel.loadPaper(name: documentName)!)
         }
     }
 }

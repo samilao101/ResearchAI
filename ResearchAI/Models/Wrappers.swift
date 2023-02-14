@@ -25,3 +25,28 @@ class DeboucedObservedObject<wrapped: ObservableObject>:ObservableObject {
     
      
 }
+
+@propertyWrapper struct ToHTTPs {
+    
+    private var text: String
+    var wrappedValue: String {
+        set {
+            text = newValue
+        }
+        
+        get{
+            text.toHttps()
+        }
+        
+    }
+    
+    init(wrappedValue: String) {
+        self.text = wrappedValue
+    }
+    
+    
+    
+}
+
+
+

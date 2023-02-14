@@ -38,5 +38,21 @@ struct Constant {
         
     }
     
+    struct log {
+        
+        static let hasTheUserEverLoggedInBefore =
+        "hasTheUserEverLoggedInBefore"
+        
+    }
+    
+    enum AudioSettings: String {
+        
+        case rate = "speakingRateValueForAudioSetting"
+        case pitch = "speakingPitchValueForAudioSetting"
+        case volume = "speakingVolumeValueForAudioSetting"
+        
+    }
+
+    
     
 }

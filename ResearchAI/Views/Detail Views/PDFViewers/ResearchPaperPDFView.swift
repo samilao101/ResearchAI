@@ -28,10 +28,9 @@ struct ResearchPaperPDFView: View {
     @Binding var goBack: Bool
     @State var showButton = false
     @State var showSimplified = false
-    @State var pdfDocument : PDFDocument?
     @State var showSimpleText = false
     var paper: ParsedPaper?
-    
+    let pdf: PDFDocument
     let displayedPDFURL: URL
     @StateObject var paperViewModel = DecodedPaperStorageManager()
     
@@ -39,7 +38,7 @@ struct ResearchPaperPDFView: View {
         GeometryReader { geometry in
             HStack{
                 ZStack{
-                    PDFResearchPaperView(documentURL: displayedPDFURL)
+                    PDFResearchPaperView(pdfDocument: pdf)
                         .onReceive(NotificationCenter.default.publisher(for: .PDFViewSelectionChanged)) { item in
                             guard let pdfView = item.object as? PDFView else { return }
                             self.selectedText = (pdfView.currentSelection?.string) ?? ""
@@ -59,9 +58,18 @@ struct ResearchPaperPDFView: View {
                         HStack{
                             if paperDecoder.gotPaper {
                                 readerButton
+                            } else {
+                                VStack{
+                                    ProgressView()
+                                    Text("Decoding")
+                                }
+                                .padding()
+                                .background(Color.gray)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
                             }
                             Spacer()
-                            if self.pdfDocument != nil && paperDecoder.gotPaper == true {
+                            if paperDecoder.gotPaper == true {
                                 saveButton
                             }
                         }
@@ -74,7 +82,7 @@ struct ResearchPaperPDFView: View {
                 if showSimplified {
                     SimplificationView(originalText: selectedText, viewModel: viewModel)
                         .background(RoundedRectangle(cornerRadius: 4.0, style: .continuous)
-                            .stroke(.gray, lineWidth: 1.0))
+                        .stroke(.gray, lineWidth: 1.0))
                         .onAppear {
                             viewModel.setup()
                         }
@@ -87,13 +95,10 @@ struct ResearchPaperPDFView: View {
             //        }
         }
         .sheet(isPresented: $showSimpleText, content: {
-            SimpleTextView(openAI: viewModel, savedPaper: false, paper: paperDecoder.paper!)
+            PaperSpeaker(openAI: viewModel, savedPaper: false, paper: paperDecoder.paper!)
         })
         .onAppear {
             viewModel.setup()
-            self.pdfDocument = PDFDocument(url: displayedPDFURL)!
-            //            let url = URL(string: "http://localhost:8070/api/processFulltextDocument")
-            //            sendPDF(pdfFileURL: displayedPDFURL, url: url!)
             paperDecoder.sendPDF(pdfFileURL: displayedPDFURL)
             storageManager.savedDocument = false 
             

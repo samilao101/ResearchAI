@@ -9,8 +9,9 @@ import Foundation
 
 
 
-struct RAIPaperDatabase {
+struct RAIPaperDatabase: Identifiable {
     
+    var id = UUID().uuidString
     var model: RAISummaryEntryProtocol.Type
     var urlString: String
     var name: String 

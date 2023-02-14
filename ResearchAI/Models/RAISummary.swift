@@ -34,7 +34,7 @@ struct RAISummary: Identifiable {
     var source: RAISummaryProtocol
     
     var raiTitle: String {
-        source.raiTitle
+        source.raiTitle.filter { !"\n".contains($0) }
     }
     
     var raiAuthors: [String] {
@@ -50,11 +50,11 @@ struct RAISummary: Identifiable {
     }
     
     var raiSummary: String {
-        source.raiSummary
+        source.raiSummary.filter { !"\n".contains($0) }
     }
     
     var raiLink: String {
-        source.raiLink
+        source.raiLink.toHttps()
     }
     
     

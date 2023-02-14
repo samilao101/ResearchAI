@@ -9,24 +9,27 @@
 /* Begin PBXBuildFile section */
 		221F113A2972E710007C507F /* ReadingStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221F11392972E710007C507F /* ReadingStorageManager.swift */; };
 		221F113D2972E84F007C507F /* AppContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 221F113B2972E84F007C507F /* AppContainer.xcdatamodeld */; };
+		22356A9D299A425500136E90 /* SavedPaperListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22356A9C299A425500136E90 /* SavedPaperListView.swift */; };
+		22356A9F299A489100136E90 /* researchpaper1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 22356A9E299A489100136E90 /* researchpaper1.pdf */; };
 		224282DB2969AC2B00E636DD /* XMLParsing in Frameworks */ = {isa = PBXBuildFile; productRef = 224282DA2969AC2B00E636DD /* XMLParsing */; };
 		224282DF2969AD6300E636DD /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 224282DE2969AD6300E636DD /* OpenAISwift */; };
 		224282E32969DAA200E636DD /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 224282E22969DAA200E636DD /* Alamofire */; };
 		224282E5296A743A00E636DD /* PaperDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224282E4296A743A00E636DD /* PaperDecoder.swift */; };
 		224282E7296A768B00E636DD /* GrobidDecodedPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224282E6296A768B00E636DD /* GrobidDecodedPaper.swift */; };
-		224282E9296A93E300E636DD /* SimpleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224282E8296A93E300E636DD /* SimpleTextView.swift */; };
+		224282E9296A93E300E636DD /* PaperSpeaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224282E8296A93E300E636DD /* PaperSpeaker.swift */; };
 		224282EB296B345E00E636DD /* DecodedPaperStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224282EA296B345E00E636DD /* DecodedPaperStorageManager.swift */; };
 		224282ED296C22E400E636DD /* AudioControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224282EC296C22E400E636DD /* AudioControlView.swift */; };
 		224AE08C298F132900F3EA17 /* Wrappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AE08B298F132900F3EA17 /* Wrappers.swift */; };
 		224AE0932991F33400F3EA17 /* RAISummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AE0922991F33400F3EA17 /* RAISummary.swift */; };
 		224AE09529926E7200F3EA17 /* RAISummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AE09429926E7200F3EA17 /* RAISummaryView.swift */; };
 		224AE0972992A39700F3EA17 /* RAIPaperDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AE0962992A39700F3EA17 /* RAIPaperDatabase.swift */; };
+		224AE09D299335E900F3EA17 /* DatabaseViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AE09C299335E900F3EA17 /* DatabaseViewer.swift */; };
 		2256FA1E295D057000049F51 /* ResearchPaperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA1D295D057000049F51 /* ResearchPaperView.swift */; };
 		2256FA20295DDA5200049F51 /* PDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA1F295DDA5200049F51 /* PDFView.swift */; };
 		2256FA22295DDD0500049F51 /* LinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA21295DDD0500049F51 /* LinksView.swift */; };
 		2256FA24295E17B200049F51 /* SimplificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA23295E17B200049F51 /* SimplificationView.swift */; };
 		2256FA26295F26A200049F51 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA25295F26A200049F51 /* StorageManager.swift */; };
-		2256FA28295F61AA00049F51 /* SavedPapersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA27295F61AA00049F51 /* SavedPapersListView.swift */; };
+		2256FA28295F61AA00049F51 /* SavedPaperListContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA27295F61AA00049F51 /* SavedPaperListContainerView.swift */; };
 		2256FA31295F705400049F51 /* AnswersGPT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA2A295F705400049F51 /* AnswersGPT.swift */; };
 		2256FA32295F705400049F51 /* MessageBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA2B295F705400049F51 /* MessageBubble.swift */; };
 		2256FA33295F705400049F51 /* TranscriptionDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA2C295F705400049F51 /* TranscriptionDataService.swift */; };
@@ -39,7 +42,7 @@
 		22BADD5929741CAE00F6163B /* SavedPaperPDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BADD5829741CAE00F6163B /* SavedPaperPDFView.swift */; };
 		22BADD5B29741E3800F6163B /* ResearchPaperPDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BADD5A29741E3800F6163B /* ResearchPaperPDFView.swift */; };
 		22BADD612974429600F6163B /* PDFStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BADD602974429600F6163B /* PDFStorageManager.swift */; };
-		22BADD642974583200F6163B /* URLModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BADD632974583200F6163B /* URLModel.swift */; };
+		22BADD642974583200F6163B /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BADD632974583200F6163B /* SettingsModel.swift */; };
 		22BADD6629748B7E00F6163B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BADD6529748B7E00F6163B /* Constants.swift */; };
 		22C2D9AA296FAB010010CBF7 /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C2D9A9296FAB010010CBF7 /* SpeechService.swift */; };
 		22D2FA37295CB06400D670D0 /* ResearchAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D2FA36295CB06400D670D0 /* ResearchAIApp.swift */; };
@@ -55,22 +58,25 @@
 /* Begin PBXFileReference section */
 		221F11392972E710007C507F /* ReadingStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingStorageManager.swift; sourceTree = "<group>"; };
 		221F113C2972E84F007C507F /* AppContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppContainer.xcdatamodel; sourceTree = "<group>"; };
+		22356A9C299A425500136E90 /* SavedPaperListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPaperListView.swift; sourceTree = "<group>"; };
+		22356A9E299A489100136E90 /* researchpaper1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = researchpaper1.pdf; sourceTree = "<group>"; };
 		224282E02969D4B100E636DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		224282E4296A743A00E636DD /* PaperDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperDecoder.swift; sourceTree = "<group>"; };
 		224282E6296A768B00E636DD /* GrobidDecodedPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrobidDecodedPaper.swift; sourceTree = "<group>"; };
-		224282E8296A93E300E636DD /* SimpleTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTextView.swift; sourceTree = "<group>"; };
+		224282E8296A93E300E636DD /* PaperSpeaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperSpeaker.swift; sourceTree = "<group>"; };
 		224282EA296B345E00E636DD /* DecodedPaperStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodedPaperStorageManager.swift; sourceTree = "<group>"; };
 		224282EC296C22E400E636DD /* AudioControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioControlView.swift; sourceTree = "<group>"; };
 		224AE08B298F132900F3EA17 /* Wrappers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wrappers.swift; sourceTree = "<group>"; };
 		224AE0922991F33400F3EA17 /* RAISummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAISummary.swift; sourceTree = "<group>"; };
 		224AE09429926E7200F3EA17 /* RAISummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAISummaryView.swift; sourceTree = "<group>"; };
 		224AE0962992A39700F3EA17 /* RAIPaperDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAIPaperDatabase.swift; sourceTree = "<group>"; };
+		224AE09C299335E900F3EA17 /* DatabaseViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseViewer.swift; sourceTree = "<group>"; };
 		2256FA1D295D057000049F51 /* ResearchPaperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResearchPaperView.swift; sourceTree = "<group>"; };
 		2256FA1F295DDA5200049F51 /* PDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFView.swift; sourceTree = "<group>"; };
 		2256FA21295DDD0500049F51 /* LinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinksView.swift; sourceTree = "<group>"; };
 		2256FA23295E17B200049F51 /* SimplificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplificationView.swift; sourceTree = "<group>"; };
 		2256FA25295F26A200049F51 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
-		2256FA27295F61AA00049F51 /* SavedPapersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPapersListView.swift; sourceTree = "<group>"; };
+		2256FA27295F61AA00049F51 /* SavedPaperListContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPaperListContainerView.swift; sourceTree = "<group>"; };
 		2256FA2A295F705400049F51 /* AnswersGPT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswersGPT.swift; sourceTree = "<group>"; };
 		2256FA2B295F705400049F51 /* MessageBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageBubble.swift; sourceTree = "<group>"; };
 		2256FA2C295F705400049F51 /* TranscriptionDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranscriptionDataService.swift; sourceTree = "<group>"; };
@@ -83,7 +89,7 @@
 		22BADD5829741CAE00F6163B /* SavedPaperPDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPaperPDFView.swift; sourceTree = "<group>"; };
 		22BADD5A29741E3800F6163B /* ResearchPaperPDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResearchPaperPDFView.swift; sourceTree = "<group>"; };
 		22BADD602974429600F6163B /* PDFStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFStorageManager.swift; sourceTree = "<group>"; };
-		22BADD632974583200F6163B /* URLModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLModel.swift; sourceTree = "<group>"; };
+		22BADD632974583200F6163B /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		22BADD6529748B7E00F6163B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		22C2D9A9296FAB010010CBF7 /* SpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
 		22D2FA33295CB06400D670D0 /* ResearchAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ResearchAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,6 +127,14 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
+		224AE09B299335D500F3EA17 /* Databases */ = {
+			isa = PBXGroup;
+			children = (
+				224AE09C299335E900F3EA17 /* DatabaseViewer.swift */,
+			);
+			path = Databases;
+			sourceTree = "<group>";
+		};
 		2256FA29295F6FB600049F51 /* ChatAI */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,7 +160,8 @@
 		22BADD5529741A5600F6163B /* Saved Paper List */ = {
 			isa = PBXGroup;
 			children = (
-				2256FA27295F61AA00049F51 /* SavedPapersListView.swift */,
+				2256FA27295F61AA00049F51 /* SavedPaperListContainerView.swift */,
+				22356A9C299A425500136E90 /* SavedPaperListView.swift */,
 			);
 			path = "Saved Paper List";
 			sourceTree = "<group>";
@@ -182,7 +197,7 @@
 		22BADD5F2974201F00F6163B /* Simplifications */ = {
 			isa = PBXGroup;
 			children = (
-				224282E8296A93E300E636DD /* SimpleTextView.swift */,
+				224282E8296A93E300E636DD /* PaperSpeaker.swift */,
 				2256FA23295E17B200049F51 /* SimplificationView.swift */,
 			);
 			path = Simplifications;
@@ -213,7 +228,7 @@
 				224AE0962992A39700F3EA17 /* RAIPaperDatabase.swift */,
 				22BADD6529748B7E00F6163B /* Constants.swift */,
 				224AE08B298F132900F3EA17 /* Wrappers.swift */,
-				22BADD632974583200F6163B /* URLModel.swift */,
+				22BADD632974583200F6163B /* SettingsModel.swift */,
 				22D2FA48295CE95100D670D0 /* ArxivResearchPaperEntry.swift */,
 				224AE0922991F33400F3EA17 /* RAISummary.swift */,
 				22D2FA44295CE90A00D670D0 /* ArxivResearchPaperDetail.swift */,
@@ -245,6 +260,7 @@
 		22C2D9AE2970FAFA0010CBF7 /* Lists */ = {
 			isa = PBXGroup;
 			children = (
+				224AE09B299335D500F3EA17 /* Databases */,
 				22BADD54297418B700F6163B /* Research Paper List */,
 				22BADD5529741A5600F6163B /* Saved Paper List */,
 			);
@@ -289,6 +305,7 @@
 		22D2FA35295CB06400D670D0 /* ResearchAI */ = {
 			isa = PBXGroup;
 			children = (
+				22356A9E299A489100136E90 /* researchpaper1.pdf */,
 				22B566BD298B5B5100332804 /* AppState.swift */,
 				22D2FA36295CB06400D670D0 /* ResearchAIApp.swift */,
 				22C2D9AD2970FAD00010CBF7 /* Views */,
@@ -380,6 +397,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22D2FA3E295CB06400D670D0 /* Preview Assets.xcassets in Resources */,
+				22356A9F299A489100136E90 /* researchpaper1.pdf in Resources */,
 				22D2FA3B295CB06400D670D0 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -392,11 +410,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				22D2FA4F295CF8A600D670D0 /* OpenAIServicer.swift in Sources */,
+				224AE09D299335E900F3EA17 /* DatabaseViewer.swift in Sources */,
 				22D2FA45295CE90A00D670D0 /* ArxivResearchPaperDetail.swift in Sources */,
 				2256FA31295F705400049F51 /* AnswersGPT.swift in Sources */,
 				2256FA34295F705400049F51 /* Recognizer.swift in Sources */,
 				2256FA32295F705400049F51 /* MessageBubble.swift in Sources */,
-				22BADD642974583200F6163B /* URLModel.swift in Sources */,
+				22BADD642974583200F6163B /* SettingsModel.swift in Sources */,
 				2256FA26295F26A200049F51 /* StorageManager.swift in Sources */,
 				22BADD6629748B7E00F6163B /* Constants.swift in Sources */,
 				224AE0972992A39700F3EA17 /* RAIPaperDatabase.swift in Sources */,
@@ -407,7 +426,7 @@
 				224282E7296A768B00E636DD /* GrobidDecodedPaper.swift in Sources */,
 				2256FA33295F705400049F51 /* TranscriptionDataService.swift in Sources */,
 				22D2FA49295CE95100D670D0 /* ArxivResearchPaperEntry.swift in Sources */,
-				224282E9296A93E300E636DD /* SimpleTextView.swift in Sources */,
+				224282E9296A93E300E636DD /* PaperSpeaker.swift in Sources */,
 				22BADD5929741CAE00F6163B /* SavedPaperPDFView.swift in Sources */,
 				22B566BC298B57DB00332804 /* ParsedPaper.swift in Sources */,
 				2256FA24295E17B200049F51 /* SimplificationView.swift in Sources */,
@@ -419,9 +438,10 @@
 				2256FA35295F705400049F51 /* SpeakerButton.swift in Sources */,
 				22B566BE298B5B5100332804 /* AppState.swift in Sources */,
 				224282E5296A743A00E636DD /* PaperDecoder.swift in Sources */,
+				22356A9D299A425500136E90 /* SavedPaperListView.swift in Sources */,
 				2256FA20295DDA5200049F51 /* PDFView.swift in Sources */,
 				22D2FA37295CB06400D670D0 /* ResearchAIApp.swift in Sources */,
-				2256FA28295F61AA00049F51 /* SavedPapersListView.swift in Sources */,
+				2256FA28295F61AA00049F51 /* SavedPaperListContainerView.swift in Sources */,
 				22BADD612974429600F6163B /* PDFStorageManager.swift in Sources */,
 				2256FA36295F705400049F51 /* Speaker.swift in Sources */,
 				22C2D9AA296FAB010010CBF7 /* SpeechService.swift in Sources */,

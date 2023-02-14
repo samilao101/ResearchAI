@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SimpleTextView: View, didFinishSpeakingProtocol {
+struct PaperSpeaker: View, didFinishSpeakingProtocol {
     
     func didFinishSpeaking() {
         if !stop {
@@ -42,6 +42,7 @@ struct SimpleTextView: View, didFinishSpeakingProtocol {
     
     @ObservedObject var speaker = SpeechService()
     @ObservedObject var openAI : OpenAIServicer
+    var settingsModel = SettingsModel()
     @State var savedPaper: Bool
     @State var fullText = ""
     let line = "\n" + "\n"
@@ -195,7 +196,7 @@ struct SimpleTextView: View, didFinishSpeakingProtocol {
                             didFinishSpeaking()
                             
                         } label: {
-                            Text("Full")
+                            Text("Start")
                         }
                         .padding()
                         .background(Color.green)
@@ -235,9 +236,11 @@ struct SimpleTextView: View, didFinishSpeakingProtocol {
             compileAllText()
             compileText()
             stop = true
-            speaker.rate = UserDefaults.standard.double(forKey: "rate")
-            speaker.pitch = UserDefaults.standard.float(forKey: "pitch")
-            speaker.volume = UserDefaults.standard.float(forKey: "volume")
+            
+            speaker.rate = settingsModel.retrieveAudioSettings(setting: .rate) as! Double
+            speaker.pitch = settingsModel.retrieveAudioSettings(setting: .pitch) as! Float
+            speaker.volume = settingsModel.retrieveAudioSettings(setting: .volume) as! Float
+            
             location = UserDefaults.standard.integer(forKey: paper.id.uuidString)
             if location < 0 {
                 location = 0

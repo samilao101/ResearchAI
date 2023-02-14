@@ -10,12 +10,15 @@ import SwiftUI
 struct ResearchPaperListView: View {
     
     
-    @StateObject var appState : AppState = AppState.shared
-    @StateObject var urlModel = URLModel.shared
-    @StateObject var storage = StorageManager()
-    @ObservedObject var model: PaperSearchServicer
+    @ObservedObject var appState : AppState = AppState.shared
+    @StateObject var urlModel = SettingsModel.shared
+    var storage = StorageManager()
     @State var textWriten = ""
 
+    init(){
+        print("Initiated")
+    }
+    
     var body: some View {
     
         VStack {
@@ -43,7 +46,7 @@ struct ResearchPaperListView: View {
                 Spacer()
             } else {
                 List(appState.summaries) { summary in
-                    NavigationLink(destination: RAISummaryView(summary: summary).environmentObject(storage)) {
+                    return NavigationLink(destination: RAISummaryView(summary: summary).environmentObject(storage)) {
                         VStack(alignment: .leading) {
                             Text(summary.raiTitle)
                                 .font(.headline)
@@ -70,7 +73,7 @@ struct ResearchPaperListView: View {
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 NavigationLink {
-                    SavedPapersListView().environmentObject(storage)
+                    SavedPaperListContainerView().environmentObject(storage)
                 } label: {
                     HStack{
                     Image(systemName: "newspaper")
@@ -93,6 +96,15 @@ struct ResearchPaperListView: View {
    
 }
 
+struct ResearchPaperListView_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        NavigationView {
+            ResearchPaperListView()
+        }
+    }
+    
+}
 
 
 

@@ -28,12 +28,9 @@ class AppState: ObservableObject {
     
     @Published var summaries: [RAISummary] = []
     
-    @Published var databases: [RAIPaperDatabase] = [
-        
-        RAIPaperDatabase(model: ArxivResearchPaperEntry.self,
-                         url: Constant.URLstring.ArxivSearch,
-                       name: "ARXIV")
-    ]
+    @Published var selectedDatabase =  RAIPaperDatabase(model: ArxivResearchPaperEntry.self,
+                                                        url: Constant.URLstring.ArxivSearch,
+                                                      name: "ARXIV")
     
     
     var cancellables = Set<AnyCancellable>()
@@ -59,7 +56,7 @@ class AppState: ObservableObject {
     func query(_ query: String) async {
         
         do {
-            let database = databases[0]
+            let database = selectedDatabase
             try await paperSearchServicer.querySearch(query: query, model: database.model,
                                                      url: database.urlString)
         } catch(let error) {

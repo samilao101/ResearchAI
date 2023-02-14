@@ -74,12 +74,12 @@ extension String {
 
 struct PDFResearchPaperView: UIViewRepresentable {
     
-    let documentURL: URL
-    var pdfDocument: PDFDocument = PDFDocument()
+
+    var pdfDocument: PDFDocument
     
-    init(documentURL: URL) {
-        self.documentURL = documentURL
-        self.pdfDocument = PDFDocument(url: self.documentURL)!
+    init(pdfDocument: PDFDocument) {
+        self.pdfDocument  = pdfDocument
+    
     }
     
     func makeUIView(context: Context) -> some UIView {

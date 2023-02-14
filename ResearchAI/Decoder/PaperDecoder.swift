@@ -52,7 +52,7 @@ class PaperDecoder : ObservableObject {
 //        let url = URL(string: "https://cloud.science-miner.com/grobid/api/processFulltextDocument")
         
         let session = URLSession.shared
-        var request = URLRequest(url: URLModel.shared.currentURL)
+        var request = URLRequest(url: SettingsModel.shared.currentURL)
         request.httpMethod = "POST"
 
         let formData = MultipartFormData()
@@ -82,6 +82,7 @@ class PaperDecoder : ObservableObject {
                         }
 
                         if let data = data, let _ = String(data: data, encoding: .utf8) {
+                            print("getting decoded paper")
                             self.getDecodedPaper(data: data)
                         } else {
                             print("Error: Could not parse data as XML")
