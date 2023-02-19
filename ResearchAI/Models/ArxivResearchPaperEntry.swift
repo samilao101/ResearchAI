@@ -4,7 +4,7 @@ import SwiftUI
 //Michael: try removing 'RAI', change RAISummaryEntryProtocol to ResearchPaper
 //RAISummaryProtocol PaperSummary
 
-struct ArxivResearchPaperEntry: Decodable, RAISummaryEntryProtocol {
+struct ArxivResearchPaperEntry: Codable, RAISummaryEntryProtocol {
    
     var entries: [RAISummaryProtocol] {
         return entry
@@ -13,7 +13,7 @@ struct ArxivResearchPaperEntry: Decodable, RAISummaryEntryProtocol {
     
     let entry: [Entry]
 
-    struct Entry: Decodable, RAISummaryProtocol {
+    struct Entry: Codable, RAISummaryProtocol {
         var raiTitle: String {
             title
         }
@@ -52,7 +52,7 @@ struct ArxivResearchPaperEntry: Decodable, RAISummaryEntryProtocol {
         let summary: String
         let link: [Link]
 
-        struct Link: Decodable {
+        struct Link: Codable {
             let title: String?
             let href: String
             let rel: String
@@ -62,7 +62,7 @@ struct ArxivResearchPaperEntry: Decodable, RAISummaryEntryProtocol {
                 case title, href, rel, type
             }
         }
-        struct Author: Decodable {
+        struct Author: Codable {
             let name: String
         }
 

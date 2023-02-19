@@ -14,7 +14,9 @@ struct ResearchPaperPDFView: View {
     
     let paperName: String
     @StateObject var viewModel = OpenAIServicer()
+    @ObservedObject var appState : AppState = AppState.shared
     
+    @EnvironmentObject var comprehensionLocalFileManager: LocalFileManager<Comprehension>
     @EnvironmentObject var storageManager: StorageManager
     @StateObject var paperDecoder = PaperDecoder()
     
@@ -58,6 +60,9 @@ struct ResearchPaperPDFView: View {
                         HStack{
                             if paperDecoder.gotPaper {
                                 readerButton
+                                    .onAppear {
+                                        appState.comprehension.decodedPaper = paperDecoder.paper
+                                    }
                             } else {
                                 VStack{
                                     ProgressView()
@@ -100,7 +105,7 @@ struct ResearchPaperPDFView: View {
         .onAppear {
             viewModel.setup()
             paperDecoder.sendPDF(pdfFileURL: displayedPDFURL)
-            storageManager.savedDocument = false 
+            storageManager.savedDocument = false
             
         }
     }
@@ -119,6 +124,22 @@ extension ResearchPaperPDFView {
                 storageManager.save(name: paperName, dataURL: displayedPDFURL, decodedPaper: paperDecoder.paper!)
                 
             }
+            
+            let comprehension = appState.comprehension
+            let encoder = JSONEncoder()
+             
+            do {
+                let jsonData = try encoder.encode(comprehension)
+                print(jsonData) // this will print the encoded data object to the console
+                print("I was able to encode and save it. ")
+    
+            } catch {
+                print("Error encoding comprehension:", error)
+            }
+            
+            print(comprehension.id.uuidString)
+            comprehensionLocalFileManager.saveModel(object: comprehension, id: comprehension.id.uuidString)
+        
             
         } label: {
             Text(storageManager.savedDocument ? "Saved": "Save to Device")

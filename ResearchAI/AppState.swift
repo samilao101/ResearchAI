@@ -31,7 +31,7 @@ class AppState: ObservableObject {
     @Published var selectedDatabase =  RAIPaperDatabase(model: ArxivResearchPaperEntry.self,
                                                         url: Constant.URLstring.ArxivSearch,
                                                       name: "ARXIV")
-    
+    var comprehension = Comprehension(summary: nil, pdfData: nil, decodedPaper: nil)
     
     var cancellables = Set<AnyCancellable>()
     

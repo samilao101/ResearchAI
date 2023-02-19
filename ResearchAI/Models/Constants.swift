@@ -9,6 +9,10 @@ import Foundation
 
 struct Constant {
     
+    enum Folders: String {
+        case comprehensions = "Comprehensions"
+    }
+    
     struct URLstring {
         
         static let local = "http://192.168.12.152:8070/api/processFulltextDocument"

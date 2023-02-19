@@ -17,30 +17,46 @@ struct SavedPaper : Identifiable {
 
 struct SavedPaperListView: View {
     
-    var listSavedPapers : [SavedPaper] {
-        didSet {
-            print("Value changed on View:")
-            print(listSavedPapers)
-        }
-    }
+    var listSavedPapers : [Comprehension]
+    
     
     var body: some View {
         VStack{
-            List(listSavedPapers){ paper in
+            
+            List(listSavedPapers) { paper in
+
                 NavigationLink {
-                    SavedPaperPDFView(pdfDocument: paper.pdf, documentName: paper.title.replacingOccurrences(of: ".pdf", with: ""))
+                    SavedPaperPDFView(pdfDocument: paper.pdfDocument!, documentName: paper.summary?.raiTitle ?? "No Title")
                 } label: {
                     HStack{
-                        Text(paper.title)
-                        Spacer()
-                        if let image = generatePdfThumbnail(for: paper.pdf) {
-                            Image(uiImage: image)
-                                .border(Color.black, width: 2)
-                                .cornerRadius(3)
-                        }
+                        Text(paper.summary!.raiTitle)
+                         Spacer()
+                        if let image = generatePdfThumbnail(for: paper.pdfDocument!) {
+                                              Image(uiImage: image)
+                                                  .border(Color.black, width: 2)
+                                                  .cornerRadius(3)
+                            }
                     }
                 }
+
+                
             }
+            
+//            List(listSavedPapers){ paper in
+//                NavigationLink {
+//                    SavedPaperPDFView(pdfDocument: paper.pdf, documentName: paper.title.replacingOccurrences(of: ".pdf", with: ""))
+//                } label: {
+//                    HStack{
+//                        Text(paper.title)
+//                        Spacer()
+//                        if let image = generatePdfThumbnail(for: paper.pdf) {
+//                            Image(uiImage: image)
+//                                .border(Color.black, width: 2)
+//                                .cornerRadius(3)
+//                        }
+//                    }
+//                }
+//            }
         }.navigationTitle("Saved Papers:")
     }
     
@@ -61,17 +77,17 @@ struct SavedPaperListView: View {
 #endif
 
 
-struct SavedPaperListView_Previews: PreviewProvider {
-
-    
-    static let papers: [SavedPaper] =
-   [SavedPaper(title: "Machine Learning", pdf: pdf)]
-    
-    static var previews: some View {
-        NavigationView{
-            SavedPaperListView(listSavedPapers: papers)
-        }
-    }
-    
-  
-}
+//struct SavedPaperListView_Previews: PreviewProvider {
+//
+//    
+//    static let papers: [SavedPaper] =
+//   [SavedPaper(title: "Machine Learning", pdf: pdf)]
+//    
+//    static var previews: some View {
+//        NavigationView{
+//            SavedPaperListView(listSavedPapers: papers)
+//        }
+//    }
+//    
+//  
+//}

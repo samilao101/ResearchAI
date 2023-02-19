@@ -40,6 +40,7 @@ struct PaperSpeaker: View, didFinishSpeakingProtocol {
         }
     }
     
+    @ObservedObject var appState : AppState = AppState.shared
     @ObservedObject var speaker = SpeechService()
     @ObservedObject var openAI : OpenAIServicer
     var settingsModel = SettingsModel()
@@ -245,6 +246,8 @@ struct PaperSpeaker: View, didFinishSpeakingProtocol {
             if location < 0 {
                 location = 0
             }
+            
+           
         }
         .onDisappear {
             speaker.pause()

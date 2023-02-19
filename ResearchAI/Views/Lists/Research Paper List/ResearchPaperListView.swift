@@ -14,6 +14,8 @@ struct ResearchPaperListView: View {
     @StateObject var urlModel = SettingsModel.shared
     var storage = StorageManager()
     @State var textWriten = ""
+    let ComprehensionLocalFileManager = LocalFileManager<Comprehension>(folder: .comprehensions , model: Comprehension.self )
+
 
     init(){
         print("Initiated")
@@ -46,7 +48,11 @@ struct ResearchPaperListView: View {
                 Spacer()
             } else {
                 List(appState.summaries) { summary in
-                    return NavigationLink(destination: RAISummaryView(summary: summary).environmentObject(storage)) {
+                    return NavigationLink(destination: RAISummaryView(summary: summary)
+                        .environmentObject(storage)
+                        .environmentObject(ComprehensionLocalFileManager)
+                    
+                    ) {
                         VStack(alignment: .leading) {
                             Text(summary.raiTitle)
                                 .font(.headline)
@@ -73,7 +79,9 @@ struct ResearchPaperListView: View {
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 NavigationLink {
-                    SavedPaperListContainerView().environmentObject(storage)
+                    SavedPaperListContainerView()
+                        .environmentObject(storage)
+                        .environmentObject(ComprehensionLocalFileManager)
                 } label: {
                     HStack{
                     Image(systemName: "newspaper")

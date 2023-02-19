@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		220EA12F29A12DCE00914032 /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220EA12E29A12DCE00914032 /* LocalFileManager.swift */; };
 		221F113A2972E710007C507F /* ReadingStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221F11392972E710007C507F /* ReadingStorageManager.swift */; };
 		221F113D2972E84F007C507F /* AppContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 221F113B2972E84F007C507F /* AppContainer.xcdatamodeld */; };
 		22356A9D299A425500136E90 /* SavedPaperListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22356A9C299A425500136E90 /* SavedPaperListView.swift */; };
@@ -36,6 +37,7 @@
 		2256FA34295F705400049F51 /* Recognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA2D295F705400049F51 /* Recognizer.swift */; };
 		2256FA35295F705400049F51 /* SpeakerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA2E295F705400049F51 /* SpeakerButton.swift */; };
 		2256FA36295F705400049F51 /* Speaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA2F295F705400049F51 /* Speaker.swift */; };
+		227CB959299F183300FF1646 /* Comprehension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227CB958299F183300FF1646 /* Comprehension.swift */; };
 		22B566BC298B57DB00332804 /* ParsedPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B566BB298B57DB00332804 /* ParsedPaper.swift */; };
 		22B566BE298B5B5100332804 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B566BD298B5B5100332804 /* AppState.swift */; };
 		22BADD532972F1F800F6163B /* Paper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BADD522972F1F800F6163B /* Paper.swift */; };
@@ -56,6 +58,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		220EA12E29A12DCE00914032 /* LocalFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileManager.swift; sourceTree = "<group>"; };
 		221F11392972E710007C507F /* ReadingStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingStorageManager.swift; sourceTree = "<group>"; };
 		221F113C2972E84F007C507F /* AppContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppContainer.xcdatamodel; sourceTree = "<group>"; };
 		22356A9C299A425500136E90 /* SavedPaperListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPaperListView.swift; sourceTree = "<group>"; };
@@ -83,6 +86,7 @@
 		2256FA2D295F705400049F51 /* Recognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recognizer.swift; sourceTree = "<group>"; };
 		2256FA2E295F705400049F51 /* SpeakerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeakerButton.swift; sourceTree = "<group>"; };
 		2256FA2F295F705400049F51 /* Speaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Speaker.swift; sourceTree = "<group>"; };
+		227CB958299F183300FF1646 /* Comprehension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comprehension.swift; sourceTree = "<group>"; };
 		22B566BB298B57DB00332804 /* ParsedPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedPaper.swift; sourceTree = "<group>"; };
 		22B566BD298B5B5100332804 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		22BADD522972F1F800F6163B /* Paper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paper.swift; sourceTree = "<group>"; };
@@ -123,6 +127,7 @@
 				2256FA25295F26A200049F51 /* StorageManager.swift */,
 				22BADD622974480900F6163B /* Components */,
 				221F113B2972E84F007C507F /* AppContainer.xcdatamodeld */,
+				220EA12E29A12DCE00914032 /* LocalFileManager.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -235,6 +240,7 @@
 				224282E6296A768B00E636DD /* GrobidDecodedPaper.swift */,
 				22B566BB298B57DB00332804 /* ParsedPaper.swift */,
 				22BADD522972F1F800F6163B /* Paper.swift */,
+				227CB958299F183300FF1646 /* Comprehension.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -447,8 +453,10 @@
 				22C2D9AA296FAB010010CBF7 /* SpeechService.swift in Sources */,
 				224AE08C298F132900F3EA17 /* Wrappers.swift in Sources */,
 				2256FA22295DDD0500049F51 /* LinksView.swift in Sources */,
+				227CB959299F183300FF1646 /* Comprehension.swift in Sources */,
 				2256FA1E295D057000049F51 /* ResearchPaperView.swift in Sources */,
 				22BADD532972F1F800F6163B /* Paper.swift in Sources */,
+				220EA12F29A12DCE00914032 /* LocalFileManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

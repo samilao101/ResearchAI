@@ -10,6 +10,8 @@ import PDFKit
 
 struct RAISummaryView: View {
     
+    @EnvironmentObject var comprehensionLocalFileManager: LocalFileManager<Comprehension>
+    @ObservedObject var appState : AppState = AppState.shared
     @EnvironmentObject var pdfManager: StorageManager
     @ObservedObject var viewModel = OpenAIServicer()
     @State var simplified: String = ""
@@ -55,9 +57,7 @@ struct RAISummaryView: View {
                     .bold()
                     .padding(.top)
                 Text(String(summary.raiSummary))
-                    .onAppear{
-                        print(summary.raiSummary)
-                    }
+                  
                 
                 
                 Button(action: {
@@ -81,9 +81,6 @@ struct RAISummaryView: View {
                         } else {
                             Text(simplified)
                         }
-                    }.onAppear {
-                        print(summary)
-
                     }
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 4.0, style: .continuous)
@@ -95,6 +92,9 @@ struct RAISummaryView: View {
                 
                 
                 .task {
+                    
+                    appState.comprehension = Comprehension(summary: summary, pdfData: nil, decodedPaper: nil)
+                    
                     if let fetchedPDF = await fetchPaper() {
                         await MainActor.run(body: {
                             pdf = fetchedPDF
@@ -103,7 +103,9 @@ struct RAISummaryView: View {
                    
                 }
                 .fullScreenCover(isPresented: $showPDF) {
-                    ResearchPaperPDFView(paperName: summary.raiTitle, goBack: $showPDF, pdf: pdf!, displayedPDFURL: URL(string:summary.raiLink)!).environmentObject(pdfManager)
+                    ResearchPaperPDFView(paperName: summary.raiTitle, goBack: $showPDF, pdf: pdf!, displayedPDFURL: URL(string:summary.raiLink)!)
+                        .environmentObject(pdfManager)
+                        .environmentObject(comprehensionLocalFileManager)
                         .ignoresSafeArea()
                 }
                 .navigationTitle("Paper:")
@@ -140,6 +142,7 @@ struct RAISummaryView: View {
         do {
             let url = URL(string:summary.raiLink.toHttps())!
             let (data, _) = try await URLSession.shared.data(from: url)
+            appState.comprehension.pdfData = data
             return PDFDocument(data: data)!
         } catch {
             print(error.localizedDescription)
