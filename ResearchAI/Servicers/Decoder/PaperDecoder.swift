@@ -16,38 +16,24 @@ class PaperDecoder : ObservableObject {
     @Published var gotPaper = false
     
     private func getDecodedPaper(data: Data)  {
-        print("here")
         
         do {
-            print("or here")
             let decoded = try XMLDecoder().decode(GrobidDecodedPaper.self, from: data)
-            print("or here 2")
-
             let paper = ParsedPaper(title: decoded.teiHeader.fileDesc.titleStmt.title, sections: decoded.text.body.div.map({ division in
                          ParsedPaper.Section(head: division.head ?? "" , paragraph: division.paragraphs ?? [""] )}))
-            print("or here 3")
 
             DispatchQueue.main.async {
-                print("or here 4")
-
                 self.gotPaper = true
                 self.paper = paper
             }
-
             
         } catch(let error) {
-            
-            print("error decoding")
-            print(error)
-            
+            print("Error decoding paper: \(error)")
         }
         
     }
     
     func sendPDF(pdfFileURL: URL) {
-//
-////        let url = URL(string: "http://192.168.12.152:8070/api/processFulltextDocument")
-//        let url = URL(string: "https://cloud.science-miner.com/grobid/api/processFulltextDocument")
         
         let session = URLSession.shared
         var request = URLRequest(url: SettingsModel.shared.currentURL)

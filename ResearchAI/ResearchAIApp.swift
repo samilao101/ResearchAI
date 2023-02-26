@@ -21,7 +21,6 @@ struct ResearchAIApp: App {
                         .navigationTitle("Research Papers:")
                     selectDatabaseButton
                 }
-                
             }
             .environment(\.colorScheme, .light)
             .navigationViewStyle(StackNavigationViewStyle())

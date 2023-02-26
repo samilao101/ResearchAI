@@ -21,7 +21,7 @@ class AppState: ObservableObject {
     var paperSearchServicer: PaperServicerProtocol = ArxivPaperServicer()
     
     @Published var summaries: [RAISummary] = []
-     
+    
     var comprehension = Comprehension(summary: nil, pdfData: nil, decodedPaper: nil)
     
     var noResults: Bool { summaries.isEmpty }
@@ -29,15 +29,14 @@ class AppState: ObservableObject {
     func query(_ query: String) async {
         
         do {
-           summaries = try await paperSearchServicer.querySearch(query: query)
+            summaries = try await paperSearchServicer.querySearch(query: query)
 
         } catch(let error) {
             print(error)
         }
-        
     }
     
- 
+    
     
     @StateObject var decoder = PaperDecoder()
     let openAIServicer = OpenAIServicer()

@@ -19,7 +19,6 @@
 		224282E5296A743A00E636DD /* PaperDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224282E4296A743A00E636DD /* PaperDecoder.swift */; };
 		224282E7296A768B00E636DD /* GrobidDecodedPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224282E6296A768B00E636DD /* GrobidDecodedPaper.swift */; };
 		224282E9296A93E300E636DD /* PaperSpeaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224282E8296A93E300E636DD /* PaperSpeaker.swift */; };
-		224282EB296B345E00E636DD /* DecodedPaperStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224282EA296B345E00E636DD /* DecodedPaperStorageManager.swift */; };
 		224282ED296C22E400E636DD /* AudioControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224282EC296C22E400E636DD /* AudioControlView.swift */; };
 		224AE08C298F132900F3EA17 /* Wrappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AE08B298F132900F3EA17 /* Wrappers.swift */; };
 		224AE0932991F33400F3EA17 /* RAISummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AE0922991F33400F3EA17 /* RAISummary.swift */; };
@@ -63,7 +62,6 @@
 		224282E4296A743A00E636DD /* PaperDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperDecoder.swift; sourceTree = "<group>"; };
 		224282E6296A768B00E636DD /* GrobidDecodedPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrobidDecodedPaper.swift; sourceTree = "<group>"; };
 		224282E8296A93E300E636DD /* PaperSpeaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperSpeaker.swift; sourceTree = "<group>"; };
-		224282EA296B345E00E636DD /* DecodedPaperStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodedPaperStorageManager.swift; sourceTree = "<group>"; };
 		224282EC296C22E400E636DD /* AudioControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioControlView.swift; sourceTree = "<group>"; };
 		224AE08B298F132900F3EA17 /* Wrappers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wrappers.swift; sourceTree = "<group>"; };
 		224AE0922991F33400F3EA17 /* RAISummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAISummary.swift; sourceTree = "<group>"; };
@@ -115,7 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				220EA12E29A12DCE00914032 /* LocalFileManager.swift */,
-				22BADD622974480900F6163B /* Components */,
+				221F11392972E710007C507F /* ReadingStorageManager.swift */,
 				221F113B2972E84F007C507F /* AppContainer.xcdatamodeld */,
 			);
 			path = Storage;
@@ -194,15 +192,6 @@
 			path = Simplifications;
 			sourceTree = "<group>";
 		};
-		22BADD622974480900F6163B /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				224282EA296B345E00E636DD /* DecodedPaperStorageManager.swift */,
-				221F11392972E710007C507F /* ReadingStorageManager.swift */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
 		22BADD672975DF2D00F6163B /* APIs */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +222,7 @@
 		22C2D9AC2970FA700010CBF7 /* Servicers */ = {
 			isa = PBXGroup;
 			children = (
+				22C2D9B02970FB2F0010CBF7 /* Decoder */,
 				22BADD672975DF2D00F6163B /* APIs */,
 				221F11382972E6EC007C507F /* Storage */,
 			);
@@ -301,7 +291,6 @@
 				22D2FA36295CB06400D670D0 /* ResearchAIApp.swift */,
 				22C2D9AD2970FAD00010CBF7 /* Views */,
 				22C2D9AC2970FA700010CBF7 /* Servicers */,
-				22C2D9B02970FB2F0010CBF7 /* Decoder */,
 				22C2D9AB2970FA350010CBF7 /* Models */,
 				224282E02969D4B100E636DD /* Info.plist */,
 				2256FA29295F6FB600049F51 /* ChatAI */,
@@ -419,7 +408,6 @@
 				22BADD5929741CAE00F6163B /* SavedPaperPDFView.swift in Sources */,
 				22B566BC298B57DB00332804 /* ParsedPaper.swift in Sources */,
 				2256FA24295E17B200049F51 /* SimplificationView.swift in Sources */,
-				224282EB296B345E00E636DD /* DecodedPaperStorageManager.swift in Sources */,
 				22D2FA47295CE93500D670D0 /* ArxivPaperServicer.swift in Sources */,
 				224AE0932991F33400F3EA17 /* RAISummary.swift in Sources */,
 				22D2FA39295CB06400D670D0 /* ResearchPaperListView.swift in Sources */,
