@@ -12,7 +12,6 @@ struct ResearchPaperListView: View {
     
     @ObservedObject var appState : AppState = AppState.shared
     @StateObject var urlModel = SettingsModel.shared
-    var storage = StorageManager()
     @State var textWriten = ""
     let ComprehensionLocalFileManager = LocalFileManager<Comprehension>(folder: .comprehensions , model: Comprehension.self )
 
@@ -49,7 +48,6 @@ struct ResearchPaperListView: View {
             } else {
                 List(appState.summaries) { summary in
                     return NavigationLink(destination: RAISummaryView(summary: summary)
-                        .environmentObject(storage)
                         .environmentObject(ComprehensionLocalFileManager)
                     
                     ) {
@@ -65,12 +63,6 @@ struct ResearchPaperListView: View {
                
             }
         }
-         
-        .onAppear {
-            storage.load()
-            appState.load()
-            print(storage.listSavedPDFs())
-        }
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarLeading) {
                 Toggle("online", isOn: $urlModel.online)
@@ -80,7 +72,6 @@ struct ResearchPaperListView: View {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 NavigationLink {
                     SavedPaperListContainerView()
-                        .environmentObject(storage)
                         .environmentObject(ComprehensionLocalFileManager)
                 } label: {
                     HStack{

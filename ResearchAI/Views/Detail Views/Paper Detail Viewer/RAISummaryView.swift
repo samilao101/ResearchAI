@@ -12,7 +12,6 @@ struct RAISummaryView: View {
     
     @EnvironmentObject var comprehensionLocalFileManager: LocalFileManager<Comprehension>
     @ObservedObject var appState : AppState = AppState.shared
-    @EnvironmentObject var pdfManager: StorageManager
     @ObservedObject var viewModel = OpenAIServicer()
     @State var simplified: String = ""
     @State var showPDF = false
@@ -104,7 +103,6 @@ struct RAISummaryView: View {
                 }
                 .fullScreenCover(isPresented: $showPDF) {
                     ResearchPaperPDFView(paperName: summary.raiTitle, goBack: $showPDF, pdf: pdf!, displayedPDFURL: URL(string:summary.raiLink)!)
-                        .environmentObject(pdfManager)
                         .environmentObject(comprehensionLocalFileManager)
                         .ignoresSafeArea()
                 }

@@ -1,5 +1,39 @@
+//
+//  ResearchPaperModel.swift
+//  ResearchAI
+//
+//  Created by Sam Santos on 12/28/22.
+//
+
+import Foundation
 import XMLParsing
-import SwiftUI
+
+class ArxivPaperServicer: ObservableObject, PaperServicerProtocol {
+        
+    var model = ArxivResearchPaperEntry.self
+    
+    let url = Constant.URLstring.ArxivSearch
+            
+    func querySearch(query: String) async throws -> [RAISummary] {
+        
+        let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let url = URL(string: "\(url)\(encodedQuery)")!
+    
+        let request = URLRequest(url: url)
+        
+        let (data, _) = try await URLSession.shared.data(for: request)
+        
+        let feed = try XMLDecoder().decode(model, from: data)
+        
+        let paperSummaries = feed.entries.map({RAISummary(source: $0)})
+        
+        return paperSummaries
+        
+    }
+
+}
+
+
 
 //Michael: try removing 'RAI', change RAISummaryEntryProtocol to ResearchPaper
 //RAISummaryProtocol PaperSummary

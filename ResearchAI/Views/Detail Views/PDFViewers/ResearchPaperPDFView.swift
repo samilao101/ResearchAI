@@ -15,9 +15,7 @@ struct ResearchPaperPDFView: View {
     let paperName: String
     @StateObject var viewModel = OpenAIServicer()
     @ObservedObject var appState : AppState = AppState.shared
-    
     @EnvironmentObject var comprehensionLocalFileManager: LocalFileManager<Comprehension>
-    @EnvironmentObject var storageManager: StorageManager
     @StateObject var paperDecoder = PaperDecoder()
     
     @State private var selectedText = "" {
@@ -105,7 +103,7 @@ struct ResearchPaperPDFView: View {
         .onAppear {
             viewModel.setup()
             paperDecoder.sendPDF(pdfFileURL: displayedPDFURL)
-            storageManager.savedDocument = false
+            comprehensionLocalFileManager.savedDocument = false
             
         }
     }
@@ -119,33 +117,18 @@ extension ResearchPaperPDFView {
         
         Button {
             
-            if !storageManager.savedDocument {
+            if !comprehensionLocalFileManager.savedDocument {
                 
-                storageManager.save(name: paperName, dataURL: displayedPDFURL, decodedPaper: paperDecoder.paper!)
+                let comprehension = appState.comprehension
+                comprehensionLocalFileManager.saveModel(object: comprehension, id: comprehension.id.uuidString)
                 
             }
-            
-            let comprehension = appState.comprehension
-            let encoder = JSONEncoder()
-             
-            do {
-                let jsonData = try encoder.encode(comprehension)
-                print(jsonData) // this will print the encoded data object to the console
-                print("I was able to encode and save it. ")
-    
-            } catch {
-                print("Error encoding comprehension:", error)
-            }
-            
-            print(comprehension.id.uuidString)
-            comprehensionLocalFileManager.saveModel(object: comprehension, id: comprehension.id.uuidString)
-        
             
         } label: {
-            Text(storageManager.savedDocument ? "Saved": "Save to Device")
+            Text(comprehensionLocalFileManager.savedDocument ? "Saved": "Save to Device")
         }
         .padding()
-        .background(storageManager.savedDocument ? Color.blue : Color.green)
+        .background(comprehensionLocalFileManager.savedDocument ? Color.blue : Color.green)
         .cornerRadius(8)
         .foregroundColor(.white)
         .padding(.bottom, 34)

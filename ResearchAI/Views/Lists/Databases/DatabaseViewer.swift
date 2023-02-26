@@ -7,6 +7,34 @@
 
 import SwiftUI
 
+
+struct DatabaseViewer: View {
+    
+    @ObservedObject var appState = AppState.shared
+    @Binding var selectingDatabase: Bool
+    @State var databases: [Database] = [
+        Database(name: "Arxiv", database: ArxivPaperServicer())
+    ]
+    
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 20) {
+                ForEach(0 ..< 1) { _ in
+                    HStack(spacing: 20) {
+                        ForEach(databases) { database in
+                            Card(title: database.name).onTapGesture {
+                                appState.paperSearchServicer = database.database
+                                selectingDatabase.toggle()
+                            }
+                        }
+                    }
+                }
+            }.padding()
+        }.padding()
+    }
+}
+
+
 struct Card: View {
     
     let title: String
@@ -21,34 +49,5 @@ struct Card: View {
         .background(Color.white)
         .cornerRadius(10)
         .shadow(radius: 10)
-    }
-}
-
-struct DatabaseViewer: View {
-    
-    @ObservedObject var appState = AppState.shared
-    @Binding var selectingDatabase: Bool
-    @State var databases: [RAIPaperDatabase] = [
-        
-        RAIPaperDatabase(model: ArxivResearchPaperEntry.self,
-                         url: Constant.URLstring.ArxivSearch,
-                       name: "ARXIV")
-    ]
-    
-    var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                ForEach(0 ..< 1) { _ in
-                    HStack(spacing: 20) {
-                        ForEach(databases) { database in
-                            Card(title: database.name).onTapGesture {
-                                appState.selectedDatabase = database
-                                selectingDatabase.toggle()
-                            }
-                        }
-                    }
-                }
-            }.padding()
-        }.padding()
     }
 }

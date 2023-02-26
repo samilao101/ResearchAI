@@ -16,49 +16,21 @@ class AppState: ObservableObject {
     
     static let shared = AppState()
     
-    private init() {
-        
-    }
+    private init() {}
     
-    var paperSearchServicer = PaperSearchServicer()
-    @StateObject var decoder = PaperDecoder()
-    
-    let openAIServicer = OpenAIServicer()
-    let storageManager = StorageManager.shared
+    var paperSearchServicer: PaperServicerProtocol = ArxivPaperServicer()
     
     @Published var summaries: [RAISummary] = []
-    
-    @Published var selectedDatabase =  RAIPaperDatabase(model: ArxivResearchPaperEntry.self,
-                                                        url: Constant.URLstring.ArxivSearch,
-                                                      name: "ARXIV")
+     
     var comprehension = Comprehension(summary: nil, pdfData: nil, decodedPaper: nil)
     
-    var cancellables = Set<AnyCancellable>()
-    
-    @Published var noResults = true
-
-    func load() {
-        
-        paperSearchServicer.$summaries
-            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
-            .receive(on: RunLoop.main)
-            .sink { _ in
-                
-            } receiveValue: { papers in
-                self.noResults = false
-                self.summaries = papers
-            }.store(in: &cancellables)
-        //Michael: try to use the other sink. 
-    }
-    
-
+    var noResults: Bool { summaries.isEmpty }
     
     func query(_ query: String) async {
         
         do {
-            let database = selectedDatabase
-            try await paperSearchServicer.querySearch(query: query, model: database.model,
-                                                     url: database.urlString)
+           summaries = try await paperSearchServicer.querySearch(query: query)
+
         } catch(let error) {
             print(error)
         }
@@ -66,6 +38,10 @@ class AppState: ObservableObject {
     }
     
  
+    
+    @StateObject var decoder = PaperDecoder()
+    let openAIServicer = OpenAIServicer()
+    let storageManager = StorageManager.shared
     
     
     

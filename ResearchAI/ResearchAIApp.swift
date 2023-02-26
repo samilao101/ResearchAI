@@ -19,45 +19,51 @@ struct ResearchAIApp: App {
                 ZStack{
                     ResearchPaperListView()
                         .navigationTitle("Research Papers:")
-                    VStack{
-                        Spacer()
-                        HStack{
-                            Button {
-                                selectingDatabase.toggle()
-                            } label: {
-                                       Image(systemName: "server.rack")
-                                           .resizable()
-                                           .aspectRatio(contentMode: .fit)
-                                           .frame(width: 50, height: 50)
-                                           
-                                   }
-                                   .frame(width: 70, height: 70)
-                                   .background(Color.white)
-                                   .foregroundColor(.black)
-                                   .clipShape(Circle())
-                                   .shadow(radius: 10)
-                                   .padding()
-                            Spacer()
-
-                        }
-                    }
+                    selectDatabaseButton
                 }
                 
             }
             .environment(\.colorScheme, .light)
             .navigationViewStyle(StackNavigationViewStyle())
             .onAppear {
-            
-                
-                
                 settingsModel.setupAudioDefaults()
-                
             }.fullScreenCover(isPresented: $selectingDatabase) {
-                    DatabaseViewer(selectingDatabase: $selectingDatabase)
+                DatabaseViewer(selectingDatabase: $selectingDatabase)
             }
-
+            
         }
     }
+}
+
+extension ResearchAIApp {
+    
+    private var selectDatabaseButton: some View {
+        VStack{
+            Spacer()
+            HStack{
+                Button {
+                    selectingDatabase.toggle()
+                } label: {
+                    Image(systemName: "server.rack")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 50, height: 50)
+                    
+                }
+                .frame(width: 70, height: 70)
+                .background(Color.white)
+                .foregroundColor(.black)
+                .clipShape(Circle())
+                .shadow(radius: 10)
+                .padding()
+                Spacer()
+                
+            }
+        }
+    }
+    
+    
+    
 }
 
 

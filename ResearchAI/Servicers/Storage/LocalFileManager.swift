@@ -20,6 +20,7 @@ class LocalFileManager<T: Codable>: ObservableObject {
         createFolderIfNeeded()
     }
     
+    @Published var savedDocument = false
     
     func createFolderIfNeeded() {
         
@@ -48,22 +49,15 @@ class LocalFileManager<T: Codable>: ObservableObject {
         let encoder = JSONEncoder()
         
         let encodedModel  = try? encoder.encode(object)
-        let decoder = JSONDecoder()
         
         guard let data = encodedModel, let path = getPathForModel(id: id) else
         { print("issue encoding")
             return }
-        
-        let decodedData = try? JSONDecoder().decode(T.self, from: data)
-        
-        if let decodedData = decodedData as? Comprehension {
-            print("Printing Decoded")
-            print(decodedData.summary?.raiTitle)
-            print(decodedData.summary?.raiAuthors)
-        }
+    
         
         do {
             try data.write(to: path)
+            self.savedDocument = true
             print("Success Saving!")
         } catch let error {
             print(error.localizedDescription)

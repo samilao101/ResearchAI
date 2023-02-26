@@ -7,35 +7,6 @@
 
 import Foundation
 
-protocol RAISummaryEntryProtocol: Codable {
-    
-    var entries: [RAISummaryProtocol] {get}
-}
-
-
-protocol RAISummaryProtocol {
-    var raiTitle: String { get }
-    var raiAuthors: [String] { get }
-    var raiPublished: String { get }
-    var raiUpdated: String { get }
-    var raiSummary: String { get }
-    var raiLink: String { get }
-}
-
-struct RAISummaryProtocolStub: RAISummaryProtocol {
-    let raiTitle: String
-    let raiAuthors: [String]
-    let raiPublished: String
-    let raiUpdated: String
-    let raiSummary: String
-    let raiLink: String
-}
-
-
-
-
-
-
 struct RAISummary: Codable, Identifiable {
     
     var id: String = UUID().uuidString
