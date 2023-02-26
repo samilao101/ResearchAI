@@ -17,9 +17,8 @@ struct SavedPaperPDFView: View {
     @State var showSimplified = false
     @StateObject var viewModel = OpenAIServicer()
     @State var showReader = false
+    let paper: ParsedPaper
     
-    @StateObject var paperViewModel = DecodedPaperStorageManager()
-
     
     @State private var selectedText = "" {
         didSet {
@@ -78,7 +77,7 @@ struct SavedPaperPDFView: View {
             viewModel.setup()
         }
         .sheet(isPresented: $showReader) {
-            PaperSpeaker(openAI: viewModel, savedPaper: true, paper: paperViewModel.loadPaper(name: documentName)!)
+            PaperSpeaker(openAI: viewModel, savedPaper: true, paper: paper )
         }
     }
 }

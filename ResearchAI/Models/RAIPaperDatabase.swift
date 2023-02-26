@@ -9,17 +9,10 @@ import Foundation
 
 
 
-struct RAIPaperDatabase: Identifiable {
+struct Database: Identifiable {
     
-    var id = UUID().uuidString
-    var model: RAISummaryEntryProtocol.Type
-    var urlString: String
-    var name: String 
-    
-    init(model: RAISummaryEntryProtocol.Type, url: String, name: String) {
-        self.model = model
-        self.name = name
-        self.urlString = url
-    }
+    let id = UUID()
+    let name : String
+    let database: PaperServicerProtocol
     
 }

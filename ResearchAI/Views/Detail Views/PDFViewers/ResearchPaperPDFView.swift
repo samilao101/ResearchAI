@@ -32,7 +32,6 @@ struct ResearchPaperPDFView: View {
     var paper: ParsedPaper?
     let pdf: PDFDocument
     let displayedPDFURL: URL
-    @StateObject var paperViewModel = DecodedPaperStorageManager()
     
     var body: some View {
         GeometryReader { geometry in
@@ -92,10 +91,6 @@ struct ResearchPaperPDFView: View {
                 }
             }
             
-            //        .sheet(isPresented: $showSimplified) {
-            //            SimplificationView(originalText: selectedText, viewModel: viewModel)
-            //
-            //        }
         }
         .sheet(isPresented: $showSimpleText, content: {
             PaperSpeaker(openAI: viewModel, savedPaper: false, paper: paperDecoder.paper!)

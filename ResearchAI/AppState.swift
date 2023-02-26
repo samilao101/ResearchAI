@@ -41,7 +41,6 @@ class AppState: ObservableObject {
     
     @StateObject var decoder = PaperDecoder()
     let openAIServicer = OpenAIServicer()
-    let storageManager = StorageManager.shared
     
     
     
