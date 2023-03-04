@@ -8,8 +8,13 @@
 import Foundation
 import PDFKit
 
-struct Comprehension: Codable, Identifiable {
-    
+struct Comprehension: Codable, Identifiable, Hashable {
+    static func == (lhs: Comprehension, rhs: Comprehension) -> Bool {
+        lhs.id == rhs.id
+    }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
     var pdfDocument : PDFDocument? {
         if pdfData == nil {
             return nil

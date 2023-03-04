@@ -9,48 +9,28 @@ import SwiftUI
 
 struct ResearchPaperListView: View {
     
-    
     @ObservedObject var appState : AppState = AppState.shared
     @StateObject var urlModel = SettingsModel.shared
     @State var textWriten = ""
     let ComprehensionLocalFileManager = LocalFileManager<Comprehension>(folder: .comprehensions , model: Comprehension.self )
-
-
-    init(){
-        print("Initiated")
-    }
     
     var body: some View {
-    
+        
         VStack {
             HStack {
                 TextField("Type here...", text: $textWriten)
-                    .padding(6.0)
-                    .background(RoundedRectangle(cornerRadius: 4.0, style: .continuous)
-                                  .stroke(.gray, lineWidth: 1.0))
-                    .padding()
-                    .onChange(of: textWriten) { newValue in
-                        Task{
-                            await appState.query(newValue)
-                        }
-                    }
-                Button("Send"){
-                    DispatchQueue.main.async {
-                        send(string: textWriten)
-                    }
-                }
+                    .textViewModifier()
+                Button("Send"){send(string: textWriten)}
+                    .buttonStyle(.borderedProminent)
+                    .foregroundColor(.white)
             }
-            .foregroundColor(.black)
             .padding(.horizontal)
             if appState.noResults {
                 Text("No Results...")
                 Spacer()
             } else {
                 List(appState.summaries) { summary in
-                    return NavigationLink(destination: RAISummaryView(summary: summary)
-                        .environmentObject(ComprehensionLocalFileManager)
-                    
-                    ) {
+                    NavigationLink(value: summary) {
                         VStack(alignment: .leading) {
                             Text(summary.raiTitle)
                                 .font(.headline)
@@ -59,8 +39,6 @@ struct ResearchPaperListView: View {
                         }
                     }
                 }
-                
-               
             }
         }
         .toolbar {
@@ -70,29 +48,23 @@ struct ResearchPaperListView: View {
                     .tint(.green)
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
+                
                 NavigationLink {
                     SavedPaperListContainerView()
                         .environmentObject(ComprehensionLocalFileManager)
                 } label: {
                     HStack{
-                    Image(systemName: "newspaper")
-                    Text("Saved Papers")
+                        Image(systemName: "newspaper")
+                        Text("Saved Papers")
                     }
                 }
-        }
+            }
         }
         
     }
-    
     func send(string: String) {
-//        model.search(query: string)
-        Task {
-            await appState.query(string)
-
-        }
+        Task { await appState.query(string)}
     }
-    
-   
 }
 
 struct ResearchPaperListView_Previews: PreviewProvider {

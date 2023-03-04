@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RAISummary: Codable, Identifiable {
+struct RAISummary: Codable, Identifiable, Hashable {
     
     var id: String = UUID().uuidString
     
@@ -81,6 +81,14 @@ struct RAISummary: Codable, Identifiable {
     
     init(source: RAISummaryProtocol?) {
         self.source = source
+    }
+    
+    static func == (lhs: RAISummary, rhs: RAISummary) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
     
 }

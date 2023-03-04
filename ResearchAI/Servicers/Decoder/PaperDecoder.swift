@@ -18,6 +18,7 @@ class PaperDecoder : ObservableObject {
     private func getDecodedPaper(data: Data)  {
         
         do {
+            print(String(data: data, encoding: .utf8))
             let decoded = try XMLDecoder().decode(GrobidDecodedPaper.self, from: data)
             let paper = ParsedPaper(title: decoded.teiHeader.fileDesc.titleStmt.title, sections: decoded.text.body.div.map({ division in
                          ParsedPaper.Section(head: division.head ?? "" , paragraph: division.paragraphs ?? [""] )}))
@@ -36,7 +37,7 @@ class PaperDecoder : ObservableObject {
     func sendPDF(pdfFileURL: URL) {
         
         let session = URLSession.shared
-        var request = URLRequest(url: SettingsModel.shared.currentURL)
+        var request = URLRequest(url: URL(string: "https://kermitt2-grobid.hf.space/api/processFulltextDocument")!)
         request.httpMethod = "POST"
 
         let formData = MultipartFormData()

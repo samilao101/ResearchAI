@@ -10,16 +10,22 @@ import SwiftUI
 @main
 struct ResearchAIApp: App {
     
+    let ComprehensionLocalFileManager = LocalFileManager<Comprehension>(folder: .comprehensions , model: Comprehension.self )
+    
     @State var selectingDatabase = true
     var settingsModel = SettingsModel.shared
     
     var body: some Scene {
         WindowGroup {
-            NavigationView{
+            NavigationStack{
                 ZStack{
                     ResearchPaperListView()
                         .navigationTitle("Research Papers:")
                     selectDatabaseButton
+                }
+                .navigationDestination(for: RAISummary.self) { summary in
+                    RAISummaryView(summary: summary)
+                        .environmentObject(ComprehensionLocalFileManager)
                 }
             }
             .environment(\.colorScheme, .light)

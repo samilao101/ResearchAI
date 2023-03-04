@@ -53,7 +53,6 @@ class LocalFileManager<T: Codable>: ObservableObject {
         guard let data = encodedModel, let path = getPathForModel(id: id) else
         { print("issue encoding")
             return }
-    
         
         do {
             try data.write(to: path)
