@@ -28,9 +28,7 @@ class ArxivPaperServicer: ObservableObject, PaperServicerProtocol {
         let paperSummaries = feed.entries.map({RAISummary(source: $0)})
         
         return paperSummaries
-        
     }
-
 }
 
 
@@ -44,7 +42,6 @@ struct ArxivResearchPaperEntry: Codable, RAISummaryEntryProtocol {
         return entry
     }
     
-    
     let entry: [Entry]
 
     struct Entry: Codable, RAISummaryProtocol {
@@ -53,11 +50,7 @@ struct ArxivResearchPaperEntry: Codable, RAISummaryEntryProtocol {
         }
         
         var raiAuthors: [String] {
-            var authors : [String] = []
-             author.map(({ author in
-                authors.append(author.name)
-            }))
-            return authors
+            return author.map({$0.name})
         }
         
         var raiPublished: String {
@@ -73,10 +66,7 @@ struct ArxivResearchPaperEntry: Codable, RAISummaryEntryProtocol {
         }
         
         var raiLink: String {
-            let linked = link.first { link in
-                link.type == "application/pdf"
-            }
-            return linked!.href
+            return link.first(where: {$0.type == "application/pdf"})!.href
         }
         
         let title: String

@@ -19,17 +19,19 @@ struct ResearchAIApp: App {
         WindowGroup {
             NavigationStack{
                 ZStack{
-                    ResearchPaperListView()
-                        .navigationTitle("Research Papers:")
-                    selectDatabaseButton
+                    ResearchPaperListView(comprehensions: ComprehensionLocalFileManager.getAllModels())
+                        
+                    DatabaseSelectionButton(selectingDatabase: $selectingDatabase)
                 }
                 .navigationDestination(for: RAISummary.self) { summary in
                     RAISummaryView(summary: summary)
                         .environmentObject(ComprehensionLocalFileManager)
                 }
+                .navigationDestination(for: [Comprehension].self) { comprehensions in
+                    SavedPaperListView(listSavedPapers: comprehensions)
+                }
             }
             .environment(\.colorScheme, .light)
-            .navigationViewStyle(StackNavigationViewStyle())
             .onAppear {
                 settingsModel.setupAudioDefaults()
             }.fullScreenCover(isPresented: $selectingDatabase) {
@@ -40,36 +42,6 @@ struct ResearchAIApp: App {
     }
 }
 
-extension ResearchAIApp {
-    
-    private var selectDatabaseButton: some View {
-        VStack{
-            Spacer()
-            HStack{
-                Button {
-                    selectingDatabase.toggle()
-                } label: {
-                    Image(systemName: "server.rack")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 50, height: 50)
-                    
-                }
-                .frame(width: 70, height: 70)
-                .background(Color.white)
-                .foregroundColor(.black)
-                .clipShape(Circle())
-                .shadow(radius: 10)
-                .padding()
-                Spacer()
-                
-            }
-        }
-    }
-    
-    
-    
-}
 
 
 

@@ -30,13 +30,10 @@ class AppState: ObservableObject {
         
         do {
             summaries = try await paperSearchServicer.querySearch(query: query)
-
         } catch(let error) {
             print(error)
         }
     }
-    
-    
     
     @StateObject var decoder = PaperDecoder()
     let openAIServicer = OpenAIServicer()

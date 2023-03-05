@@ -93,7 +93,7 @@ struct ResearchPaperPDFView: View {
             
         }
         .sheet(isPresented: $showSimpleText, content: {
-            PaperSpeaker(openAI: viewModel, savedPaper: false, paper: paperDecoder.paper!)
+            ReaderView(openAI: viewModel, savedPaper: false, paper: paperDecoder.paper!)
         })
         .onAppear {
             viewModel.setup()

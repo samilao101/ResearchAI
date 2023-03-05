@@ -12,7 +12,7 @@ struct ResearchPaperListView: View {
     @ObservedObject var appState : AppState = AppState.shared
     @StateObject var urlModel = SettingsModel.shared
     @State var textWriten = ""
-    let ComprehensionLocalFileManager = LocalFileManager<Comprehension>(folder: .comprehensions , model: Comprehension.self )
+    let comprehensions: [Comprehension]?
     
     var body: some View {
         
@@ -31,16 +31,12 @@ struct ResearchPaperListView: View {
             } else {
                 List(appState.summaries) { summary in
                     NavigationLink(value: summary) {
-                        VStack(alignment: .leading) {
-                            Text(summary.raiTitle)
-                                .font(.headline)
-                            Text(summary.raiAuthors.map { $0 }.joined(separator: ", "))
-                                .font(.subheadline)
-                        }
+                        ArticleRowView(title: summary.raiTitle, authors: summary.raiAuthors)
                     }
                 }
             }
         }
+        .navigationTitle("Research Papers:")
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarLeading) {
                 Toggle("online", isOn: $urlModel.online)
@@ -48,11 +44,7 @@ struct ResearchPaperListView: View {
                     .tint(.green)
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                
-                NavigationLink {
-                    SavedPaperListContainerView()
-                        .environmentObject(ComprehensionLocalFileManager)
-                } label: {
+                NavigationLink(value: comprehensions) {
                     HStack{
                         Image(systemName: "newspaper")
                         Text("Saved Papers")
@@ -67,15 +59,16 @@ struct ResearchPaperListView: View {
     }
 }
 
-struct ResearchPaperListView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        NavigationView {
-            ResearchPaperListView()
-        }
-    }
-    
-}
+//TODO
+//struct ResearchPaperListView_Previews: PreviewProvider {
+//
+//    static var previews: some View {
+//        NavigationView {
+//            ResearchPaperListView()
+//        }
+//    }
+//
+//}
 
 
 

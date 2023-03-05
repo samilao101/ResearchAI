@@ -21,41 +21,24 @@ struct SavedPaperListView: View {
     
     var body: some View {
         VStack{
-            
             List(listSavedPapers) { paper in
-
                 NavigationLink {
                     SavedPaperPDFView(pdfDocument: paper.pdfDocument!, documentName: paper.summary?.raiTitle ?? "No Title", paper: paper.decodedPaper!)
                 } label: {
                     HStack{
                         Text(paper.summary!.raiTitle)
-                         Spacer()
+                        Spacer()
                         if let image = generatePdfThumbnail(for: paper.pdfDocument!) {
-                                              Image(uiImage: image)
-                                                  .border(Color.black, width: 2)
-                                                  .cornerRadius(3)
-                            }
+                            Image(uiImage: image)
+                                .border(Color.black, width: 2)
+                                .cornerRadius(3)
+                        }
                     }
                 }
-
+                
                 
             }
             
-//            List(listSavedPapers){ paper in
-//                NavigationLink {
-//                    SavedPaperPDFView(pdfDocument: paper.pdf, documentName: paper.title.replacingOccurrences(of: ".pdf", with: ""))
-//                } label: {
-//                    HStack{
-//                        Text(paper.title)
-//                        Spacer()
-//                        if let image = generatePdfThumbnail(for: paper.pdf) {
-//                            Image(uiImage: image)
-//                                .border(Color.black, width: 2)
-//                                .cornerRadius(3)
-//                        }
-//                    }
-//                }
-//            }
         }.navigationTitle("Saved Papers:")
     }
     
@@ -69,10 +52,10 @@ struct SavedPaperListView: View {
 }
 
 #if DEBUG
-    let pdfPath = Bundle.main.path(forResource: "researchpaper1", ofType: "pdf")
-    let pdfUrl = URL(fileURLWithPath: pdfPath!)
-    let pdfData = try! Data(contentsOf: pdfUrl)
-    let pdf = PDFDocument(data: pdfData)!
+let pdfPath = Bundle.main.path(forResource: "researchpaper1", ofType: "pdf")
+let pdfUrl = URL(fileURLWithPath: pdfPath!)
+let pdfData = try! Data(contentsOf: pdfUrl)
+let pdf = PDFDocument(data: pdfData)!
 #endif
 
 

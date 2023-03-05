@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PaperSpeaker: View, didFinishSpeakingProtocol {
+struct ReaderView: View, didFinishSpeakingProtocol {
     
     func didFinishSpeaking() {
         if !stop {
