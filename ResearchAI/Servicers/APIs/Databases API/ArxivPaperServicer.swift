@@ -9,13 +9,14 @@ import Foundation
 import XMLParsing
 
 class ArxivPaperServicer: ObservableObject, PaperServicerProtocol {
+    var name: String = "Arxiv"
         
     var model = ArxivResearchPaperEntry.self
     
     let url = Constant.URLstring.ArxivSearch
             
     func querySearch(query: String) async throws -> [RAISummary] {
-        
+        print("searching arxiv")
         let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let url = URL(string: "\(url)\(encodedQuery)")!
     

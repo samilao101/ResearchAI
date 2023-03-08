@@ -17,7 +17,7 @@ struct DatabaseCardView: View {
                 .font(.headline)
                 .padding(.top, 10)
         }
-        .frame(width: 200, height: 75)
+        .frame(width: 150, height: 75)
         .background(Color.white)
         .cornerRadius(10)
         .shadow(radius: 10)

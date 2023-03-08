@@ -10,35 +10,43 @@ import SwiftUI
 struct DatabaseSelectionButton: View {
     
     @Binding var selectingDatabase: Bool
+    let name: String
     
     var body: some View {
         VStack{
             Spacer()
             HStack{
-                Button {
-                    selectingDatabase.toggle()
-                } label: {
-                    Image(systemName: "server.rack")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 50, height: 50)
-                    
+                VStack{
+                    Button {
+                        selectingDatabase.toggle()
+                    } label: {
+                        Image(systemName: "server.rack")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 50, height: 50)
+                        
+                    }
+                    .frame(width: 70, height: 70)
+                    .background(Color.white)
+                    .foregroundColor(.black)
+                    .clipShape(Circle())
+                    .shadow(radius: 10)
+                    Text(name)
+                        .bold()
                 }
-                .frame(width: 70, height: 70)
-                .background(Color.white)
-                .foregroundColor(.black)
-                .clipShape(Circle())
-                .shadow(radius: 10)
                 .padding()
-                Spacer()
+
                 
+                Spacer()
+
             }
+
         }
     }
 }
 
 struct DatabaseSelectionButton_Previews: PreviewProvider {
     static var previews: some View {
-        DatabaseSelectionButton(selectingDatabase: .constant(true))
+        DatabaseSelectionButton(selectingDatabase: .constant(true), name: "Arxiv")
     }
 }

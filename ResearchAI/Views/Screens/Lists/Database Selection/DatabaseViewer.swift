@@ -13,16 +13,24 @@ struct DatabaseViewer: View {
     @ObservedObject var appState = AppState.shared
     @Binding var selectingDatabase: Bool
     @State var databases: [Database] = [
-        Database(name: "Arxiv", database: ArxivPaperServicer())
+        Database(name: "Arxiv", database: ArxivPaperServicer()),
+        Database(name: "Core API", database: CoreAPIPaperServicer())
     ]
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 20) {
+            VStack {
+                HStack{
+                    Text("Select Database:")
+                        .font(.title)
+                        .bold()
+                    Spacer()
+                }
                 ForEach(0 ..< 1) { _ in
                     HStack(spacing: 20) {
                         ForEach(databases) { database in
-                            DatabaseCardView(title: database.name).onTapGesture {
+                            DatabaseCardView(title: database.name)
+                                .onTapGesture {
                                 appState.paperSearchServicer = database.database
                                 selectingDatabase.toggle()
                             }

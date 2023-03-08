@@ -75,6 +75,8 @@ struct ReaderView: View, didFinishSpeakingProtocol {
                             .padding()
                             .padding(.top, 8)
                             .id("view")
+                            .textSelection(.enabled)
+
                     }
                     .onAppear {
                         openAI.setup()

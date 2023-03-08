@@ -38,7 +38,7 @@ struct ResearchPaperPDFView: View {
             HStack{
                 ZStack{
                     PDFResearchPaperView(pdfDocument: pdf)
-                        .onReceive(NotificationCenter.default.publisher(for: .PDFViewSelectionChanged)) { item in
+                        .onReceive(NotificationCenter.default.publisher(for: .PDFDocumentDidBeginFind)) { item in
                             guard let pdfView = item.object as? PDFView else { return }
                             self.selectedText = (pdfView.currentSelection?.string) ?? ""
                         }

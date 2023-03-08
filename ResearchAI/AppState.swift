@@ -18,7 +18,11 @@ class AppState: ObservableObject {
     
     private init() {}
     
-    var paperSearchServicer: PaperServicerProtocol = ArxivPaperServicer()
+    @Published var paperSearchServicer: PaperServicerProtocol = ArxivPaperServicer() {
+        didSet {
+            self.summaries.removeAll()
+        }
+    }
     
     @Published var summaries: [RAISummary] = []
     

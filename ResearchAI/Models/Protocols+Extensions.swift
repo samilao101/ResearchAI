@@ -14,6 +14,8 @@ protocol PaperServicerProtocol {
     
     func querySearch(query: String) async throws -> [RAISummary]
     
+    var name: String { get }
+    
 }
 
 

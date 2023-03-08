@@ -20,6 +20,8 @@ struct Constant {
         static let online = "https://cloud.science-miner.com/grobid/api/processFulltextDocument"
         
         static let ArxivSearch = "https://export.arxiv.org/api/query?search_query=all:"
+        
+        static let CoreAPIBaseURL = "https://api.core.ac.uk/v3/"
     }
     
     struct UserDefaultkey {

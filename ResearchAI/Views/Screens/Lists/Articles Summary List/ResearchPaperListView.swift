@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ResearchPaperListView: View {
     
-    @ObservedObject var appState : AppState = AppState.shared
+    @EnvironmentObject var appState : AppState 
     @StateObject var urlModel = SettingsModel.shared
     @State var textWriten = ""
     let comprehensions: [Comprehension]?

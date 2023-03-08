@@ -66,6 +66,9 @@
                  .navigationTitle("Paper:")
              }
              .padding()
+             .onAppear {
+                 print(summary.raiLink)
+             }
              
          }
      }
