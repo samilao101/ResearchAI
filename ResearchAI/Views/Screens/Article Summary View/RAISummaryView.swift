@@ -12,7 +12,7 @@
 
  struct RAISummaryView: View {
      
-     @EnvironmentObject var comprehensionLocalFileManager: LocalFileManager<Comprehension>
+     let ComprehensionLocalFileManager = LocalFileManager<Comprehension>(folder: .comprehensions , model: Comprehension.self )
      @ObservedObject var appState : AppState = AppState.shared
      @ObservedObject var viewModel = OpenAIServicer()
      @State var simplified: String = ""
@@ -60,7 +60,6 @@
                  }
                  .fullScreenCover(isPresented: $showPDF) {
                      ResearchPaperPDFView(paperName: summary.raiTitle, goBack: $showPDF, pdf: pdf!, displayedPDFURL: URL(string:summary.raiLink)!)
-                         .environmentObject(comprehensionLocalFileManager)
                          .ignoresSafeArea()
                  }
                  .navigationTitle("Paper:")

@@ -13,9 +13,8 @@ import Combine
 
 
 final class OpenAIServicer: ObservableObject {
-    init() {
-        
-    }
+   
+    init() {}
     
     private var client: OpenAISwift?
     
@@ -23,22 +22,46 @@ final class OpenAIServicer: ObservableObject {
         client = OpenAISwift(authToken: Constant.keys.OpenAI)
     }
     
+    var chatMessages = [ChatMessage(role: .system, content: "You are a helpful ressearch assistant")]
+    
+//    func send(text: String, completion: @escaping (String) -> Void) {
+//        print("starting...")
+//        client?.sendCompletion(with: text, maxTokens: 500, completionHandler: { result in
+//            switch result {
+//            case .success(let model):
+//                print("positive")
+//                let output = model.choices.first?.text ?? ""
+//                completion(output)
+//            case .failure(let error):
+//                print("Error from OpenAI:")
+//                print(error)
+//
+//            }
+//        })
+//
+//    }
+    
     func send(text: String, completion: @escaping (String) -> Void) {
         print("starting...")
-        client?.sendCompletion(with: text, maxTokens: 500, completionHandler: { result in
+        
+        chatMessages.append(ChatMessage(role: .user, content: text))
+        
+        client?.sendChat(with: chatMessages, completionHandler: { result in
             switch result {
-            case .success(let model):
-                print("positive")
-                let output = model.choices.first?.text ?? ""
-                completion(output)
-            case .failure(let error):
-                print("Error from OpenAI:")
-                print(error)
                 
+            case .success(let response):
+                print(response)
+                self.chatMessages.append(response.choices.last?.message ?? ChatMessage(role: .system, content: "No response"))
+                completion(response.choices.last?.message.content ?? "No response")
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         })
+       
+  
         
     }
+ 
     
 }
 
@@ -49,8 +72,14 @@ final class OpenAISimplifyingServicer: ObservableObject {
     
     private var client: OpenAISwift?
     
+    var chatMessages = [ChatMessage(role: .system, content: "You are a helpful ressearch assistant")]
+    
     func setup() {
         client = OpenAISwift(authToken: Constant.keys.OpenAI)
+        print("Sending chat")
+        chat(text: "hello") { response in
+            print("response")
+        }
     }
     
     func send(text: String, completion: @escaping (String) -> Void) {
@@ -69,6 +98,26 @@ final class OpenAISimplifyingServicer: ObservableObject {
                 
             }
         })
+        
+    }
+    
+    func chat(text: String, completion: @escaping (String) -> Void) {
+        print("starting...")
+        
+        chatMessages.append(ChatMessage(role: .user, content: text))
+        
+        client?.sendChat(with: chatMessages, completionHandler: { result in
+            switch result {
+                
+            case .success(let response):
+                self.chatMessages.append(response.choices.last?.message ?? ChatMessage(role: .system, content: "No response"))
+                completion(response.choices.last?.message.content ?? "No response")
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        })
+       
+  
         
     }
     

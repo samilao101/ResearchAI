@@ -21,12 +21,9 @@ struct ResearchAIApp: App {
                 ZStack{
                     ResearchPaperListView(comprehensions: ComprehensionLocalFileManager.getAllModels())
                         .environmentObject(appState)
-                    
-                    DatabaseSelectionButton(selectingDatabase: $selectingDatabase, name: appState.paperSearchServicer.name)
-                }
+                    }
                 .navigationDestination(for: RAISummary.self) { summary in
                     RAISummaryView(summary: summary)
-                        .environmentObject(ComprehensionLocalFileManager)
                 }
                 .navigationDestination(for: [Comprehension].self) { comprehensions in
                     SavedPaperListView(listSavedPapers: comprehensions)
@@ -35,8 +32,6 @@ struct ResearchAIApp: App {
             .environment(\.colorScheme, .light)
             .onAppear {
                 settingsModel.setupAudioDefaults()
-            }.fullScreenCover(isPresented: $selectingDatabase) {
-                DatabaseViewer(selectingDatabase: $selectingDatabase)
             }
             
         }

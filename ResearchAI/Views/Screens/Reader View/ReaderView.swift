@@ -62,6 +62,8 @@ struct ReaderView: View, didFinishSpeakingProtocol {
     @State var simpleText = false
     @State var paused = false
 
+    @Binding  var showReader : Bool
+
     
     var body: some View {
         
@@ -69,6 +71,14 @@ struct ReaderView: View, didFinishSpeakingProtocol {
             
             ZStack{
                 VStack {
+                
+                    HStack {
+                        Spacer()
+                        Button("Done.") {
+                            showReader.toggle()
+                        }
+                        .padding(.horizontal)
+                    }
                     
                     ScrollView {
                         Text(fullText)

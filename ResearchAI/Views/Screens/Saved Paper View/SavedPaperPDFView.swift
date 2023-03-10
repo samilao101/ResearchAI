@@ -11,38 +11,52 @@ import SwiftUI
 
 struct SavedPaperPDFView: View {
     
-    var pdfDocument: PDFDocument
-    let documentName: String
-    @State var showButton = false
+    let comprehensionLocalFileManager = LocalFileManager<Comprehension>(folder: .comprehensions , model: Comprehension.self )
+    @State var pdfDocument: PDFDocument
+
+    var showButton: Bool { !selectedText.isEmpty }
     @State var showSimplified = false
     @StateObject var viewModel = OpenAIServicer()
     @State var showReader = false
-    let paper: ParsedPaper
-    
-    @State private var selectedText = "" {
+    @State var isHighlighting = false {
         didSet {
-            if selectedText != "" {
-                showButton = true
+            if isHighlighting == false {
+                selectedText = ""
             }
         }
     }
+    let comprehension: Comprehension?
+    
+    @State private var selectedText = ""
     
     var body: some View{
-        HStack{
+        
             ZStack{
-                DocumentPDFView(pdfDocument: pdfDocument)
+                SavedArticlePDFView(pdfDocument: $pdfDocument, textAnnotation: $selectedText, isHighlighting: $isHighlighting)
                     .onReceive(NotificationCenter.default.publisher(for: .PDFViewSelectionChanged)) { item in
                         guard let pdfView = item.object as? PDFView else { return }
                         self.selectedText = (pdfView.currentSelection?.string) ?? ""
                     }
-                    .navigationTitle(documentName)
+                    .navigationTitle(comprehension?.summary?.raiTitle ?? "")
                 VStack{
                     HStack{
                         if showButton {
                             Button {
                                 showSimplified.toggle()
+                                selectedText = ""
+                                
                             } label: {
                                 Text("Simplify")
+                            }
+                            .buttonModifier(color: .green)
+                            Button {
+                                isHighlighting.toggle()
+                                selectedText = ""
+                                print("save button pressed")
+                                saveDocument()
+                                
+                            } label: {
+                                Text("Highlight")
                             }
                             .buttonModifier(color: .green)
                         }
@@ -58,18 +72,29 @@ struct SavedPaperPDFView: View {
                     Spacer()
                     
                 }
-            }
-            if showSimplified {
-                SimplificationView(originalText: selectedText, viewModel: viewModel)
-            }
+            
+            
+            
             
         }
         .onAppear {
             viewModel.setup()
         }
-        .sheet(isPresented: $showReader) {
-            ReaderView(openAI: viewModel, savedPaper: true, paper: paper )
+        .fullScreenCover(isPresented: $showReader) {
+            ReaderView(openAI: viewModel, savedPaper: true, paper: (comprehension?.decodedPaper)!, showReader: $showReader )
         }
+        .sheet(isPresented: $showSimplified) {
+            SimplificationView(originalText: selectedText, viewModel: viewModel)
+        }
+    }
+    
+    private func saveDocument() {
+        
+        print("function fired")
+        
+        let compToSave = Comprehension(id: comprehension!.id, summary: comprehension!.summary, pdfData: pdfDocument.dataRepresentation(), decodedPaper: comprehension!.decodedPaper)
+        comprehensionLocalFileManager.saveModel(object: compToSave, id: comprehension!.id.uuidString)
+        
     }
 }
 

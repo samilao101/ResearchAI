@@ -83,6 +83,10 @@ struct CoreResearchPaperEntry: Codable, RAISummaryEntryProtocol {
             links.first(where: {$0.type == "download"})?.url ?? "no url"
         }
         
+        var raitags: [String] {
+            tags?.filter({!$0.contains("conference")}).filter({$0.count < 15}) ?? [""]
+        }
+        
         let id: Int
         let title: String
         let abstract: String?
@@ -90,7 +94,7 @@ struct CoreResearchPaperEntry: Codable, RAISummaryEntryProtocol {
         let publishedDate: Date?
         let updatedDate: Date?
         let fulltextStatus: String?
-        let tags: [String]
+        let tags: [String]?
         let links: [Link]
         let disabled: Bool
         

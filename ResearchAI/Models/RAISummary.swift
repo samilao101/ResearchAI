@@ -37,6 +37,10 @@ struct RAISummary: Codable, Identifiable, Hashable {
         source?.raiLink.toHttps() ?? ""
     }
     
+    var raitags: [String] {
+        source?.raitags ?? [""]
+    }
+    
     enum CodingKeys: String, CodingKey {
         case raiTitle
         case raiAuthors
@@ -45,6 +49,7 @@ struct RAISummary: Codable, Identifiable, Hashable {
         case raiSummary
         case raiLink
         case id // add id property to CodingKeys
+        case raitags
     }
         
     func encode(to encoder: Encoder) throws {
@@ -56,6 +61,7 @@ struct RAISummary: Codable, Identifiable, Hashable {
         try container.encode(raiSummary, forKey: .raiSummary)
         try container.encode(raiLink, forKey: .raiLink)
         try container.encode(id, forKey: .id) // encode id property
+        try container.encode(raitags, forKey: .raitags)
     }
         
     init(from decoder: Decoder) throws {
@@ -67,6 +73,7 @@ struct RAISummary: Codable, Identifiable, Hashable {
         let raiSummary = try container.decode(String.self, forKey: .raiSummary)
         let raiLink = try container.decode(String.self, forKey: .raiLink)
         let id = try container.decode(String.self, forKey: .id) // decode id property
+        let raitags = try container.decode([String].self, forKey: .raitags)
         self.init(source: nil) // initialize with empty source
         self.source = RAISummaryProtocolStub(
             raiTitle: raiTitle,
@@ -74,7 +81,8 @@ struct RAISummary: Codable, Identifiable, Hashable {
             raiPublished: raiPublished,
             raiUpdated: raiUpdated,
             raiSummary: raiSummary,
-            raiLink: raiLink
+            raiLink: raiLink,
+            raitags: raitags
         )
         self.id = id // set decoded id
     }

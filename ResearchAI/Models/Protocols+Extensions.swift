@@ -32,6 +32,7 @@ protocol RAISummaryProtocol {
     var raiUpdated: String { get }
     var raiSummary: String { get }
     var raiLink: String { get }
+    var raitags: [String] {get}
 }
 
 struct RAISummaryProtocolStub: RAISummaryProtocol {
@@ -41,4 +42,5 @@ struct RAISummaryProtocolStub: RAISummaryProtocol {
     let raiUpdated: String
     let raiSummary: String
     let raiLink: String
+    var raitags: [String]
 }

@@ -14,15 +14,13 @@ import Combine
 @MainActor
 class AppState: ObservableObject {
     
-    static let shared = AppState()
+    static let shared = AppState(servicer: CoreAPIPaperServicer())
     
-    private init() {}
-    
-    @Published var paperSearchServicer: PaperServicerProtocol = ArxivPaperServicer() {
-        didSet {
-            self.summaries.removeAll()
-        }
+    init(servicer: PaperServicerProtocol ) {
+        paperSearchServicer = servicer
     }
+    
+    @Published var paperSearchServicer: PaperServicerProtocol
     
     @Published var summaries: [RAISummary] = []
     

@@ -53,7 +53,7 @@ class LocalFileManager<T: Codable>: ObservableObject {
         guard let data = encodedModel, let path = getPathForModel(id: id) else
         { print("issue encoding")
             return }
-        
+        print(path)
         do {
             try data.write(to: path)
             self.savedDocument = true
@@ -141,6 +141,7 @@ class LocalFileManager<T: Codable>: ObservableObject {
                 return}
             
             guard let decodedModel = try? decoder.decode(T.self, from: data ) else {
+                print("issue")
                 print("error decoding")
                 return}
             

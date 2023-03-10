@@ -15,7 +15,7 @@ struct ResearchPaperPDFView: View {
     let paperName: String
     @StateObject var viewModel = OpenAIServicer()
     @ObservedObject var appState : AppState = AppState.shared
-    @EnvironmentObject var comprehensionLocalFileManager: LocalFileManager<Comprehension>
+    let comprehensionLocalFileManager = LocalFileManager<Comprehension>(folder: .comprehensions , model: Comprehension.self )
     @StateObject var paperDecoder = PaperDecoder()
     
     @State private var selectedText = "" {
@@ -32,6 +32,7 @@ struct ResearchPaperPDFView: View {
     var paper: ParsedPaper?
     let pdf: PDFDocument
     let displayedPDFURL: URL
+    @State var showReader = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -92,8 +93,8 @@ struct ResearchPaperPDFView: View {
             }
             
         }
-        .sheet(isPresented: $showSimpleText, content: {
-            ReaderView(openAI: viewModel, savedPaper: false, paper: paperDecoder.paper!)
+        .fullScreenCover(isPresented: $showReader, content: {
+            ReaderView(openAI: viewModel, savedPaper: false, paper: paperDecoder.paper!, showReader: $showReader)
         })
         .onAppear {
             viewModel.setup()
@@ -136,7 +137,7 @@ extension ResearchPaperPDFView {
         Button {
             
             if paperDecoder.paper != nil {
-                showSimpleText.toggle()
+                showReader.toggle()
             }
             
         } label: {

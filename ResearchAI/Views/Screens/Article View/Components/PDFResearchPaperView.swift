@@ -53,29 +53,7 @@ struct PDFResearchPaperView: UIViewRepresentable {
 
 
 
-struct DocumentPDFView: UIViewRepresentable {
-    
-  
-    var pdfDocument: PDFDocument
-    
-    func makeUIView(context: Context) -> some UIView {
-        let pdfView : PDFView = PDFView()
-        
-        pdfView.document = pdfDocument
-        pdfView.autoScales = true
-        pdfView.displayDirection = .vertical
-        pdfView.minScaleFactor = 0.5
-        pdfView.maxScaleFactor = 5.0
-    
-        
-        return pdfView
-    }
-    
-    func updateUIView(_ uiView: UIViewType, context: Context) {
-        
-    }
-    
-}
+
 
 
 

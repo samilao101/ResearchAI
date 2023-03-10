@@ -17,13 +17,14 @@ struct SavedPaper : Identifiable {
 
 struct SavedPaperListView: View {
     
+
     var listSavedPapers : [Comprehension]
-    
+
     var body: some View {
         VStack{
             List(listSavedPapers) { paper in
                 NavigationLink {
-                    SavedPaperPDFView(pdfDocument: paper.pdfDocument!, documentName: paper.summary?.raiTitle ?? "No Title", paper: paper.decodedPaper!)
+                    SavedPaperPDFView(pdfDocument:PDFDocument(data:paper.pdfData!)!, comprehension: paper)
                 } label: {
                     HStack{
                         Text(paper.summary!.raiTitle)
