@@ -43,12 +43,18 @@ struct ResearchPaperListView: View {
                     .toggleStyle(.button)
                     .tint(.green)
             }
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-                NavigationLink(value: comprehensions) {
-                    HStack{
-                        Image(systemName: "newspaper")
-                        Text("Saved Papers")
+            if appState.savedComprehesions != nil {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    NavigationLink {
+                        SavedPaperListView()
+                            .environmentObject(appState)
+                    } label: {
+                        HStack{
+                            Image(systemName: "newspaper")
+                            Text("Saved Papers")
+                        }
                     }
+
                 }
             }
         }

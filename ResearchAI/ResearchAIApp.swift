@@ -22,17 +22,15 @@ struct ResearchAIApp: App {
                     ResearchPaperListView(comprehensions: ComprehensionLocalFileManager.getAllModels())
                         .environmentObject(appState)
                     }
-                .navigationDestination(for: RAISummary.self) { summary in
-                    RAISummaryView(summary: summary)
-                }
-                .navigationDestination(for: [Comprehension].self) { comprehensions in
-                    SavedPaperListView(listSavedPapers: comprehensions)
-                }
+                        .navigationDestination(for: RAISummary.self) { summary in
+                            RAISummaryView(summary: summary)
+                        }
             }
             .environment(\.colorScheme, .light)
             .onAppear {
                 settingsModel.setupAudioDefaults()
             }
+          
             
         }
     }

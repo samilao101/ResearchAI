@@ -14,10 +14,13 @@ class PDFViewController: UIViewController, PDFViewDelegate {
     
     var pdfDocument: PDFDocument
     
-    init(pdfDocument: PDFDocument) {
+    init(pdfDocument: PDFDocument, saveHighlightedPDF: @escaping (Data) -> ()) {
         self.pdfDocument = pdfDocument
+        self.saveHighlightedPDF = saveHighlightedPDF
         super.init(nibName: nil, bundle: nil)
     }
+    
+    var saveHighlightedPDF: (Data) -> ()
     
     required init?(coder: NSCoder) {
         
@@ -91,6 +94,7 @@ class PDFViewController: UIViewController, PDFViewDelegate {
         selections.forEach { selection in
             
             let highlight = PDFAnnotation(bounds: selection.bounds(for: page), forType: .highlight, withProperties: nil)
+            highlight.color = .green
             highlight.endLineStyle = .square
             
             page.addAnnotation(highlight)
@@ -101,7 +105,54 @@ class PDFViewController: UIViewController, PDFViewDelegate {
 //        annotation.contents = text
 //        page.addAnnotation(annotation)
         
+        saveHighlightedPDF(pdfDocument.dataRepresentation()!)
+        pdfView.clearSelection()
+    }
+    
+    @objc  func highlightAndAnnotate(text: String, selection: PDFSelection) {
         
+        print("annotating")
+        let selections = selection.selectionsByLine()
+        guard let page = selections.first?.pages.first else { return }
+        selections.forEach { selection in
+            
+            let highlight = PDFAnnotation(bounds: selection.bounds(for: page), forType: .highlight, withProperties: nil)
+            highlight.color = .orange
+            highlight.endLineStyle = .square
+            
+            page.addAnnotation(highlight)
+        }
+        
+        let annotation = PDFAnnotation(bounds: CGRect(x: selections[0].bounds(for: page).minX, y: selections[0].bounds(for: page).minY, width: 20, height: 20), forType: .text, withProperties: nil)
+        annotation.color = .orange
+        annotation.contents = text
+        page.addAnnotation(annotation)
+        
+        saveHighlightedPDF(pdfDocument.dataRepresentation()!)
+        pdfView.clearSelection()
+    }
+    
+    
+    @objc  func simplificationAnnotation(text: String, selection: PDFSelection) {
+        
+        print("annotating")
+        let selections = selection.selectionsByLine()
+        guard let page = selections.first?.pages.first else { return }
+        selections.forEach { selection in
+            
+            let highlight = PDFAnnotation(bounds: selection.bounds(for: page), forType: .highlight, withProperties: nil)
+            highlight.color = .yellow
+            highlight.endLineStyle = .square
+            
+            page.addAnnotation(highlight)
+        }
+        
+        let annotation = PDFAnnotation(bounds: CGRect(x: selections[0].bounds(for: page).minX, y: selections[0].bounds(for: page).minY, width: 20, height: 20), forType: .text, withProperties: nil)
+        annotation.color = .yellow
+        annotation.contents = text
+        page.addAnnotation(annotation)
+        
+        saveHighlightedPDF(pdfDocument.dataRepresentation()!)
         pdfView.clearSelection()
     }
     

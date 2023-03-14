@@ -18,6 +18,19 @@ struct SavedPaperPDFView: View {
     @State var showSimplified = false
     @StateObject var viewModel = OpenAIServicer()
     @State var showReader = false
+    
+    @State var simplificationAnnotation: String = "" {
+        didSet {
+            print("does it get here: \(annotationText)")
+            if simplificationAnnotation == "" {
+                selectedText = ""
+                showAnnotationView.toggle()
+            } else {
+                selection = tempSelection
+            }
+        }
+    }
+    
     @State var isHighlighting = false {
         didSet {
             if isHighlighting == false {
@@ -25,41 +38,44 @@ struct SavedPaperPDFView: View {
             }
         }
     }
+    
+    @State var annotationText : String = "" {
+        didSet {
+            print("does it get here: \(annotationText)")
+            if annotationText == "" {
+                selectedText = ""
+                showAnnotationView.toggle()
+            }
+        }
+    }
+    
+    @State var pdfDataBeingSaved: Data = Data()
+    @EnvironmentObject var appState : AppState
+    
+    @State var showAnnotationView: Bool = false
+   
+    
     let comprehension: Comprehension?
     
-    @State private var selectedText = ""
+    @State private var selectedText = "" 
+    @State var selection: PDFSelection? = nil
+    @State var tempSelection: PDFSelection? = nil
     
     var body: some View{
         
             ZStack{
-                SavedArticlePDFView(pdfDocument: $pdfDocument, textAnnotation: $selectedText, isHighlighting: $isHighlighting)
+                SavedArticlePDFView(pdfDocument: $pdfDocument, textAnnotation: $selectedText, isHighlighting: $isHighlighting, pdfData: $pdfDataBeingSaved, annotationText: $annotationText, selection: $selection, simplicationAnnotation: $simplificationAnnotation)
                     .onReceive(NotificationCenter.default.publisher(for: .PDFViewSelectionChanged)) { item in
                         guard let pdfView = item.object as? PDFView else { return }
+                        tempSelection = pdfView.currentSelection
                         self.selectedText = (pdfView.currentSelection?.string) ?? ""
                     }
                     .navigationTitle(comprehension?.summary?.raiTitle ?? "")
+                    .sheet(isPresented: $showAnnotationView) {
+                        AnnotationEditorView(annotation: $annotationText, show: $showAnnotationView)
+                    }
                 VStack{
                     HStack{
-                        if showButton {
-                            Button {
-                                showSimplified.toggle()
-                                selectedText = ""
-                                
-                            } label: {
-                                Text("Simplify")
-                            }
-                            .buttonModifier(color: .green)
-                            Button {
-                                isHighlighting.toggle()
-                                selectedText = ""
-                                print("save button pressed")
-                                saveDocument()
-                                
-                            } label: {
-                                Text("Highlight")
-                            }
-                            .buttonModifier(color: .green)
-                        }
                         Spacer()
                         Button {
                             showReader.toggle()
@@ -70,10 +86,53 @@ struct SavedPaperPDFView: View {
                         
                     }
                     Spacer()
+                    if showButton {
+                        HStack{
+                            Button {
+                                selection = tempSelection
+                                showSimplified.toggle()
+                                selectedText = ""
+                                
+                            } label: {
+                                
+                                HStack{
+                                    Image(systemName: "brain")
+                                    Text("Simplify")
+                                }
+                            }
+                            .buttonModifier(color: .yellow)
+                            .font(.subheadline)
+                            Button {
+                                isHighlighting.toggle()
+                                selectedText = ""
+                                print(" highlight pressed")
+                                
+                            } label: {
+                                HStack{
+                                    Image(systemName: "highlighter")
+                                    Text("Highlight")
+                                }
+                            }
+                            .buttonModifier(color: .green)
+                            .font(.subheadline)
+                            Button {
+                                selection = tempSelection
+                                showAnnotationView.toggle()
+                                selectedText = ""
+                                print("annotate pressed")
+                                
+                            } label: {
+                                HStack{
+                                    Image(systemName: "character.book.closed.fill")
+                                    Text("Annotate")
+                                }
+                            }
+                            .buttonModifier(color: .orange)
+                            .font(.subheadline)
+                        }
+                    }
                     
                 }
-            
-            
             
             
         }
@@ -84,15 +143,22 @@ struct SavedPaperPDFView: View {
             ReaderView(openAI: viewModel, savedPaper: true, paper: (comprehension?.decodedPaper)!, showReader: $showReader )
         }
         .sheet(isPresented: $showSimplified) {
-            SimplificationView(originalText: selectedText, viewModel: viewModel)
+            SimplificationViewWithAnnotation(annotationText: $simplificationAnnotation, originalText: selectedText, viewModel: viewModel, show: $showSimplified)
+        }
+        .onChange(of: pdfDataBeingSaved) { newData in
+            saveDocument(newData: newData)
+        }
+        .onDisappear {
+            appState.getSavedAllComprehensions()
+
         }
     }
     
-    private func saveDocument() {
+    private func saveDocument(newData: Data) {
         
         print("function fired")
         
-        let compToSave = Comprehension(id: comprehension!.id, summary: comprehension!.summary, pdfData: pdfDocument.dataRepresentation(), decodedPaper: comprehension!.decodedPaper)
+        let compToSave = Comprehension(id: comprehension!.id, summary: comprehension!.summary, pdfData: newData, decodedPaper: comprehension!.decodedPaper)
         comprehensionLocalFileManager.saveModel(object: compToSave, id: comprehension!.id.uuidString)
         
     }

@@ -17,14 +17,14 @@ struct SavedPaper : Identifiable {
 
 struct SavedPaperListView: View {
     
-
-    var listSavedPapers : [Comprehension]
+    @EnvironmentObject var appState : AppState
 
     var body: some View {
         VStack{
-            List(listSavedPapers) { paper in
+            List(appState.savedComprehesions!) { paper in
                 NavigationLink {
                     SavedPaperPDFView(pdfDocument:PDFDocument(data:paper.pdfData!)!, comprehension: paper)
+                        .environmentObject(appState)
                 } label: {
                     HStack{
                         Text(paper.summary!.raiTitle)
@@ -36,8 +36,6 @@ struct SavedPaperListView: View {
                         }
                     }
                 }
-                
-                
             }
             
         }.navigationTitle("Saved Papers:")

@@ -15,6 +15,8 @@
 		22356A9F299A489100136E90 /* researchpaper1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 22356A9E299A489100136E90 /* researchpaper1.pdf */; };
 		2240FC7329B8AC8D00BF850A /* SavedArticlePDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240FC7229B8AC8D00BF850A /* SavedArticlePDFView.swift */; };
 		2240FC7529B8AD4600BF850A /* PDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240FC7429B8AD4600BF850A /* PDFViewController.swift */; };
+		2240FCB329C071E100BF850A /* AnnotationEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240FCB229C071E100BF850A /* AnnotationEditorView.swift */; };
+		2240FCB529C087F900BF850A /* SimplicationWithAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240FCB429C087F900BF850A /* SimplicationWithAnnotation.swift */; };
 		224282DB2969AC2B00E636DD /* XMLParsing in Frameworks */ = {isa = PBXBuildFile; productRef = 224282DA2969AC2B00E636DD /* XMLParsing */; };
 		224282DF2969AD6300E636DD /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 224282DE2969AD6300E636DD /* OpenAISwift */; };
 		224282E32969DAA200E636DD /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 224282E22969DAA200E636DD /* Alamofire */; };
@@ -65,6 +67,8 @@
 		22356A9E299A489100136E90 /* researchpaper1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = researchpaper1.pdf; sourceTree = "<group>"; };
 		2240FC7229B8AC8D00BF850A /* SavedArticlePDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlePDFView.swift; sourceTree = "<group>"; };
 		2240FC7429B8AD4600BF850A /* PDFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewController.swift; sourceTree = "<group>"; };
+		2240FCB229C071E100BF850A /* AnnotationEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationEditorView.swift; sourceTree = "<group>"; };
+		2240FCB429C087F900BF850A /* SimplicationWithAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplicationWithAnnotation.swift; sourceTree = "<group>"; };
 		224282E02969D4B100E636DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		224282E4296A743A00E636DD /* PaperDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperDecoder.swift; sourceTree = "<group>"; };
 		224282E6296A768B00E636DD /* GrobidDecodedPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrobidDecodedPaper.swift; sourceTree = "<group>"; };
@@ -210,6 +214,7 @@
 			children = (
 				2240FC7229B8AC8D00BF850A /* SavedArticlePDFView.swift */,
 				2240FC7429B8AD4600BF850A /* PDFViewController.swift */,
+				2240FCB229C071E100BF850A /* AnnotationEditorView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -237,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				2256FA23295E17B200049F51 /* SimplificationView.swift */,
+				2240FCB429C087F900BF850A /* SimplicationWithAnnotation.swift */,
 			);
 			path = "Simplication View";
 			sourceTree = "<group>";
@@ -488,6 +494,7 @@
 				2240FC7329B8AC8D00BF850A /* SavedArticlePDFView.swift in Sources */,
 				22D2FA39295CB06400D670D0 /* ResearchPaperListView.swift in Sources */,
 				224AE09529926E7200F3EA17 /* RAISummaryView.swift in Sources */,
+				2240FCB329C071E100BF850A /* AnnotationEditorView.swift in Sources */,
 				2256FA35295F705400049F51 /* SpeakerButton.swift in Sources */,
 				22B566BE298B5B5100332804 /* AppState.swift in Sources */,
 				224282E5296A743A00E636DD /* PaperDecoder.swift in Sources */,
@@ -498,6 +505,7 @@
 				226EAC4D29B431DD002C060D /* CoreAPIServicer.swift in Sources */,
 				22C2D9AA296FAB010010CBF7 /* SpeechService.swift in Sources */,
 				224AE08C298F132900F3EA17 /* Wrappers.swift in Sources */,
+				2240FCB529C087F900BF850A /* SimplicationWithAnnotation.swift in Sources */,
 				227CB959299F183300FF1646 /* Comprehension.swift in Sources */,
 				22BADD532972F1F800F6163B /* Paper.swift in Sources */,
 				220EA12F29A12DCE00914032 /* LocalFileManager.swift in Sources */,

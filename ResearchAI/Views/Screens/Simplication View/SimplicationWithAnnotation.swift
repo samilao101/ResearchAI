@@ -1,18 +1,22 @@
 //
-//  SimplificationView.swift
+//  SimplicationWithAnnotation.swift
 //  ResearchAI
 //
-//  Created by Sam Santos on 12/29/22.
+//  Created by Sam Santos on 3/14/23.
 //
+
+import SwiftUI
 
 import SwiftUI
 import OpenAISwift
 
-struct SimplificationView: View {
+struct SimplificationViewWithAnnotation: View {
+    
+    @Binding var annotationText: String
     @State var simplified: String = ""
     @State var originalText: String
     @ObservedObject var viewModel : OpenAIServicer
-
+    @Binding var show: Bool
     
     var body: some View {
     ScrollView{
@@ -20,11 +24,25 @@ struct SimplificationView: View {
             VStack{
                 Text("Simplification:")
                     .bold()
-                Text(simplified)
+                if simplified.isEmpty {
+                    ProgressView()
+                } else {
+                    Text(simplified)
+                }
+                Spacer()
+                HStack {
+                    Button("Annotate Simplification") {
+                        annotationText = simplified
+                        show.toggle()
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(simplified.isEmpty)
+                }
             }
             .padding(6.0)
             .background(RoundedRectangle(cornerRadius: 4.0, style: .continuous)
                           .stroke(.gray, lineWidth: 1.0))
+            .background(Color.yellow)
             .padding()
             
             if simplified != "" {
@@ -43,7 +61,4 @@ struct SimplificationView: View {
             }
     }
 }
-
-
-
 
