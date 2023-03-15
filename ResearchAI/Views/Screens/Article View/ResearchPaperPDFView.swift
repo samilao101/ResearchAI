@@ -117,6 +117,8 @@ extension ResearchPaperPDFView {
                 
                 let comprehension = appState.comprehension
                 comprehensionLocalFileManager.saveModel(object: comprehension, id: comprehension.id.uuidString)
+                appState.getSavedAllComprehensions()
+                goBack.toggle()
                 
             }
             

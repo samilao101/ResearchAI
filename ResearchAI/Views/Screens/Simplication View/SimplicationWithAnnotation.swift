@@ -53,6 +53,7 @@ struct SimplificationViewWithAnnotation: View {
     }
             .onAppear{
                 let prompt = "rewrite and provide only a simplified version of this research paper summary in a way that a high school student would understand: \(originalText). Then provide a list of all the technical terms used in the text. "
+                print(prompt)
                 viewModel.send(text: prompt) { response in
                     DispatchQueue.main.async {
                       simplified = response

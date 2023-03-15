@@ -21,7 +21,6 @@ struct SavedPaperPDFView: View {
     
     @State var simplificationAnnotation: String = "" {
         didSet {
-            print("does it get here: \(annotationText)")
             if simplificationAnnotation == "" {
                 selectedText = ""
                 showAnnotationView.toggle()
@@ -91,7 +90,6 @@ struct SavedPaperPDFView: View {
                             Button {
                                 selection = tempSelection
                                 showSimplified.toggle()
-                                selectedText = ""
                                 
                             } label: {
                                 
