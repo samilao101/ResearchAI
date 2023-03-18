@@ -18,14 +18,16 @@ class PaperDecoder : ObservableObject {
     private func getDecodedPaper(data: Data)  {
         
         do {
-            print(String(data: data, encoding: .utf8))
+//            print(String(data: data, encoding: .utf8))
             let decoded = try XMLDecoder().decode(GrobidDecodedPaper.self, from: data)
-            let paper = ParsedPaper(title: decoded.teiHeader.fileDesc.titleStmt.title, sections: decoded.text.body.div.map({ division in
-                         ParsedPaper.Section(head: division.head ?? "" , paragraph: division.paragraphs ?? [""] )}))
+//            let paper = ParsedPaper(title: decoded.teiHeader.fileDesc.titleStmt.title, sections: decoded.text.body.div.map({ division in
+//                         ParsedPaper.Section(head: division.head ?? "" , paragraph: division.paragraphs ?? [""] )}))
 
+            print(decoded)
+            
             DispatchQueue.main.async {
                 self.gotPaper = true
-                self.paper = paper
+//                self.paper = paper
             }
             
         } catch(let error) {
@@ -41,6 +43,8 @@ class PaperDecoder : ObservableObject {
         request.httpMethod = "POST"
 
         let formData = MultipartFormData()
+        
+        let teiCoordinates = ["persName", "figure", "ref", "biblStruct", "formula"]
 
         session.downloadTask(with: pdfFileURL) { (tempLocalUrl, response, error) in
             if let tempLocalUrl = tempLocalUrl, error == nil {
@@ -50,7 +54,9 @@ class PaperDecoder : ObservableObject {
 
                 do {
                     formData.append(tempLocalUrl, withName: "input")
-
+                    for coordinate in teiCoordinates {
+                    formData.append(coordinate.data(using: .utf8)!, withName: "teiCoordinates")}
+                    
                     request.setValue(formData.contentType, forHTTPHeaderField: "Content-Type")
                     request.httpBody = try formData.encode()
 
