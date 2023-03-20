@@ -12,30 +12,19 @@ struct ReaderView: View, didFinishSpeakingProtocol {
     func didFinishSpeaking() {
         if !stop {
             if textArray.count > location - 1 {
-                
                 let text = textArray[location]
-                
                 if simpleText {
-                    
                     let prompt = "\(Constant.prompt.simplifyAndSummarize) \(text)"
-                    
                     openAI.send(text: prompt) { response in
-                        
                         fullText = fullText + response + line
                         speak(text: response)
                         location += 1
                     }
-                    
                 } else {
-                    
                     fullText = fullText + textArray[location] + line
                     speak(text: text)
                     location += 1
-                    
                 }
-                
-                
-                
             }
         }
     }
@@ -58,7 +47,6 @@ struct ReaderView: View, didFinishSpeakingProtocol {
     }
     @State var stop = true
     @State var showSettings = false
-    
     @State var simpleText = false
     @State var paused = false
 
@@ -71,26 +59,9 @@ struct ReaderView: View, didFinishSpeakingProtocol {
             
             ZStack{
                 VStack {
-                
-                    HStack {
-                        Spacer()
-                        Button("Done.") {
-                            showReader.toggle()
-                        }
-                        .padding(.horizontal)
-                    }
-                    
-                    ScrollView {
-                        Text(fullText)
-                            .padding()
-                            .padding(.top, 8)
-                            .id("view")
-                            .textSelection(.enabled)
-
-                    }
-                    .onAppear {
-                        openAI.setup()
-                    }
+                    doneButton
+                    readerView
+                    .onAppear { openAI.setup() }
                 }
                 VStack{
                     Spacer()
@@ -98,141 +69,18 @@ struct ReaderView: View, didFinishSpeakingProtocol {
                         AudioControlView(rate: $speaker.rate, pitch: $speaker.pitch, volume: $speaker.volume)
                     }
                     HStack{
-                        Button {
-                            
-                            if location > 1 {
-                                location -= 2
-                                fullText = ""
-                                for i in 0..<location {
-                                    fullText = fullText + textArray[i] + line
-                                }
-                            }
-                            
-                            speaker.pause()
-                            
-                        } label: {
-                            Text(" << ")
-                        }
-                        .padding()
-                        .background(Color.yellow)
-                        .cornerRadius(8)
-                        .foregroundColor(.white)
-                        Button {
-                            withAnimation {
-                                showSettings.toggle()
-                            }
-                        } label: {
-                            HStack{
-                                Image(systemName: "person.wave.2")
-                                Text("Audio")
-                            }
-                            .padding()
-                            .background(Color.blue)
-                            .cornerRadius(8)
-                            .foregroundColor(.white)
-                        }
-                        
-                        Button {
-                            
-                            if location != textArray.count - 1 {
-                                location += 1
-                            }
-                            
-                            speaker.pause()
-                            
-                            
-                            
-                        } label: {
-                            Text(" >> ")
-                        }
-                        .padding()
-                        .background(Color.green)
-                        .cornerRadius(8)
-                        .foregroundColor(.white)
+                        backWards
+                        audioButton
+                        forward
                     }
                     HStack{
-                        Button {
-                            
-                            if location != 0 {
-                                location -= 1
-                                fullText = ""
-                                for i in 0..<location - 1 {
-                                    fullText = fullText + textArray[i] + line
-                                }
-                            }
-                            
-                            speaker.pause()
-                            
-                        } label: {
-                            Image(systemName: "arrow.counterclockwise")
-                        }
-                        .padding()
-                        .background(Color.yellow)
-                        .cornerRadius(8)
-                        .foregroundColor(.white)
-                        
-                        Button {
-                            
-                            if stop {
-                                speaker.play()
-                                stop.toggle()
-                            } else {
-                                speaker.pause()
-                                stop.toggle()
-                            }
-                            
-                        } label: {
-                            Image(systemName: stop ? "play" : "pause")
-                        }
-                        
-                        .padding(.horizontal, 80)
-                        .padding(.vertical, 12)
-                        .background(Color.yellow)
-                        .cornerRadius(8)
-                        .foregroundColor(.white)
-                        
-                        Text("\(location)")
-                            .padding()
-                            .background(Color.yellow)
-                            .cornerRadius(8)
-                            .foregroundColor(.white)
-                            .padding(.top, 2)
-                        
+                        repeatButton
+                        play
+                        locationview
                     }
                     HStack{
-                        Button {
-                            
-                            stop = false
-                            simpleText = false
-                            fullText = ""
-                            speaker.pause()
-                            didFinishSpeaking()
-                            
-                        } label: {
-                            Text("Start")
-                        }
-                        .padding()
-                        .background(Color.green)
-                        .cornerRadius(8)
-                        .foregroundColor(.white)
-                        
-                        
-                        Button {
-                            
-                            stop = false
-                            simpleText = true
-                            fullText = ""
-                            speaker.pause()
-                            didFinishSpeaking()
-                            
-                        } label: {
-                            Text("Simplified")
-                        }
-                        .padding()
-                        .background(Color.orange)
-                        .cornerRadius(8)
-                        .foregroundColor(.white)
-                        
+                        startButton
+                        simpliefiedButton
                     }
                 }
             }
@@ -258,16 +106,11 @@ struct ReaderView: View, didFinishSpeakingProtocol {
             if location < 0 {
                 location = 0
             }
-            
-           
         }
         .onDisappear {
             speaker.pause()
             stop = true
         }
-        
-        
-        
     }
     
     func compileText() {
@@ -297,7 +140,8 @@ struct ReaderView: View, didFinishSpeakingProtocol {
         }
         
         print("Finished compiling all text")
-        
+        print(fullText.count)
+      
     }
     
     func speak(text: String) {
@@ -318,6 +162,166 @@ struct ReaderView: View, didFinishSpeakingProtocol {
     }
     
     
+    
+    
+}
+extension ReaderView {
+    
+    private var doneButton: some View {
+        HStack {
+            Spacer()
+            Button("Done.") {
+                showReader.toggle()
+            }
+            .padding(.horizontal)
+        }
+    }
+    
+    private var readerView: some View {
+        ScrollView {
+            Text(fullText)
+                .padding()
+                .padding(.top, 8)
+                .id("view")
+                .textSelection(.enabled)
+        }
+    }
+    
+    private var backWards: some View {
+        Button {
+            
+            if location > 1 {
+                location -= 2
+                fullText = ""
+                for i in 0..<location {
+                    fullText = fullText + textArray[i] + line
+                }
+            }
+            
+            speaker.pause()
+            
+        } label: {
+            Text(" << ")
+        }
+        .buttonModifier(color: .yellow)
+    }
+    
+    private var audioButton: some View {
+        Button {
+            
+            withAnimation {
+                showSettings.toggle()
+            }
+            
+        } label: {
+            HStack{
+                Image(systemName: "person.wave.2")
+                Text("Audio")
+            }
+        }
+        .buttonModifier(color: .blue)
+    }
+    
+    private var forward: some View {
+        Button {
+            
+            if location != textArray.count - 1 {
+                location += 1
+            }
+            
+            speaker.pause()
+            
+        } label: {
+            Text(" >> ")
+        }
+        .buttonModifier(color: .green)
+    }
+    
+    private var repeatButton: some View {
+        Button {
+            
+            if location != 0 {
+                location -= 1
+                fullText = ""
+                for i in 0..<location - 1 {
+                    fullText = fullText + textArray[i] + line
+                }
+            }
+            
+            speaker.pause()
+            
+        } label: {
+            Image(systemName: "arrow.counterclockwise")
+        }
+        .buttonModifier(color: .yellow)
+    }
+    
+    private var play: some View {
+        Button {
+            
+            if stop {
+                speaker.play()
+                stop.toggle()
+            } else {
+                speaker.pause()
+                stop.toggle()
+            }
+            
+        } label: {
+            Image(systemName: stop ? "play" : "pause")
+        }
+        
+        .padding(.horizontal, 80)
+        .padding(.vertical, 12)
+        .background(Color.yellow)
+        .cornerRadius(8)
+        .foregroundColor(.white)
+    }
+    
+    private var locationview: some View {
+        Text("\(location)")
+            .padding()
+            .background(Color.yellow)
+            .cornerRadius(8)
+            .foregroundColor(.white)
+            .padding(.top, 2)
+    }
+    
+    private var startButton: some View {
+        Button {
+            
+            stop = false
+            simpleText = false
+            fullText = ""
+            speaker.pause()
+            didFinishSpeaking()
+            
+        } label: {
+            Text("Start")
+        }
+        .padding()
+        .background(Color.green)
+        .cornerRadius(8)
+        .foregroundColor(.white)
+    }
+    
+    private var simpliefiedButton: some View {
+        Button {
+            
+            stop = false
+            simpleText = true
+            fullText = ""
+            speaker.pause()
+            didFinishSpeaking()
+            
+        } label: {
+            Text("Simplified")
+        }
+        .padding()
+        .background(Color.orange)
+        .cornerRadius(8)
+        .foregroundColor(.white)
+    }
     
 }
 

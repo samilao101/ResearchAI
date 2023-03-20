@@ -41,6 +41,7 @@ final class OpenAIServicer: ObservableObject {
 //
 //    }
     
+    
     func send(text: String, completion: @escaping (String) -> Void) {
         print("starting...")
         
