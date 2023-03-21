@@ -46,7 +46,7 @@ struct ResearchPaperListView: View {
             if appState.savedComprehesions != nil {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        SavedPaperListView()
+                        SavedPaperAlbumView()
                             .environmentObject(appState)
                     } label: {
                         HStack{

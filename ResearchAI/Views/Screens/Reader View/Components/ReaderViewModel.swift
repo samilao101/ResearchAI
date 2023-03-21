@@ -57,12 +57,18 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
         setup()
 
     }
+    deinit {
+        speaker.pause()
+        stop = true
+    }
     
     func setup() {
         compileTextArray()
         compileFullText()
         setLocation()
         setAudioSettings()
+        
+        stop = true
     }
     
     
