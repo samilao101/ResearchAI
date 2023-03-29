@@ -138,7 +138,7 @@ struct SavedPaperPDFView: View {
             viewModel.setup()
         }
         .fullScreenCover(isPresented: $showReader) {
-            ReaderView(openAI: viewModel, savedPaper: true, paper: (comprehension?.decodedPaper)!, showReader: $showReader )
+            ReaderView(openAI: viewModel, savedPaper: true, paper: (comprehension?.decodedPaper)!, showReader: $showReader, readerViewModel: ReaderViewModel(parsedPaper: (comprehension?.decodedPaper)!, savedPaper: true) )
         }
         .sheet(isPresented: $showSimplified) {
             SimplificationViewWithAnnotation(annotationText: $simplificationAnnotation, originalText: selectedText, viewModel: viewModel, show: $showSimplified)

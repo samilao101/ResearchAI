@@ -63,6 +63,7 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     }
     
     func setup() {
+        speaker.delegate = self
         compileTextArray()
         compileFullText()
         setLocation()
@@ -120,4 +121,68 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
         }
         
     }
+    
+    func goBackWard() {
+        if location > 1 {
+            location -= 2
+            fullText = ""
+            for i in 0..<location {
+                fullText = fullText + textArray[i] + line
+            }
+        }
+        
+        speaker.pause()
+    }
+    
+    
+    func showSettingsView() {
+            showSettings.toggle()
+    
+    }
+    
+    func goForward() {
+        if location != textArray.count - 1 {
+            location += 1
+        }
+        
+        speaker.pause()
+    }
+    
+    func repeatLastParagraph() {
+        if location != 0 {
+            location -= 1
+            fullText = ""
+            for i in 0..<location - 1 {
+                fullText = fullText + textArray[i] + line
+            }
+        }
+        speaker.pause()
+    }
+    
+    func playAudio() {
+        if stop {
+            speaker.play()
+            stop.toggle()
+        } else {
+            speaker.pause()
+            stop.toggle()
+        }
+    }
+    
+    func startAudio() {
+        stop = false
+        simpleText = false
+        fullText = ""
+        speaker.pause()
+        didFinishSpeaking()
+    }
+    
+    func simplifyAudio() {
+        stop = false
+        simpleText = true
+        fullText = ""
+        speaker.pause()
+        didFinishSpeaking()
+    }
+   
 }

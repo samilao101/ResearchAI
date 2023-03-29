@@ -52,6 +52,9 @@ struct ReaderView: View, didFinishSpeakingProtocol {
 
     @Binding  var showReader : Bool
 
+    @StateObject var readerViewModel: ReaderViewModel
+    
+
     
     var body: some View {
         
