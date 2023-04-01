@@ -293,11 +293,11 @@
 		226EAC3029B2EDCD002C060D /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				229C3B3E29C87B0E00ABE6BD /* ReaderViewModel.swift */,
 				224282EC296C22E400E636DD /* AudioControlView.swift */,
 				22259CF029C5D3F200D08815 /* ForwardButton.swift */,
 				22259CF229C5D40F00D08815 /* BackwardButton.swift */,
 				22259CF429C5D4EE00D08815 /* AudioButton.swift */,
-				229C3B3E29C87B0E00ABE6BD /* ReaderViewModel.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";

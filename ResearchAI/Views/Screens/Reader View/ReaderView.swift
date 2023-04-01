@@ -7,69 +7,22 @@
 
 import SwiftUI
 
-struct ReaderView: View, didFinishSpeakingProtocol {
+struct ReaderView: View {
     
-    func didFinishSpeaking() {
-        if !stop {
-            if textArray.count > location - 1 {
-                let text = textArray[location]
-                if simpleText {
-                    let prompt = "\(Constant.prompt.simplifyAndSummarize) \(text)"
-                    openAI.send(text: prompt) { response in
-                        fullText = fullText + response + line
-                        speak(text: response)
-                        location += 1
-                    }
-                } else {
-                    fullText = fullText + textArray[location] + line
-                    speak(text: text)
-                    location += 1
-                }
-            }
-        }
-    }
-    
-    @ObservedObject var appState : AppState = AppState.shared
-    @ObservedObject var speaker = SpeechService()
-    @ObservedObject var openAI : OpenAIServicer
-    var settingsModel = SettingsModel()
-    @State var savedPaper: Bool
-    @State var fullText = ""
-    let line = "\n" + "\n"
-    @State var textArray = [String]()
-    let paper: ParsedPaper
-    @State var location = 0 {
-        didSet {
-            if savedPaper{
-                UserDefaults.standard.set(location-1, forKey: paper.id.uuidString)
-            }
-        }
-    }
-    @State var stop = true
-    @State var showSettings = false
-    @State var simpleText = false
-    @State var paused = false
-
     @Binding  var showReader : Bool
-
     @StateObject var readerViewModel: ReaderViewModel
     
-
-    
     var body: some View {
-        
         ScrollViewReader{ value in
-            
             ZStack{
                 VStack {
                     doneButton
                     readerView
-                    .onAppear { openAI.setup() }
                 }
                 VStack{
                     Spacer()
-                    if showSettings {
-                        AudioControlView(rate: $speaker.rate, pitch: $speaker.pitch, volume: $speaker.volume)
+                    if readerViewModel.showSettings {
+                        AudioControlView(rate: $readerViewModel.speaker.rate, pitch: $readerViewModel.speaker.pitch, volume: $readerViewModel.speaker.volume)
                     }
                     HStack{
                         backWards
@@ -87,86 +40,18 @@ struct ReaderView: View, didFinishSpeakingProtocol {
                     }
                 }
             }
-            
-            .onChange(of: location) { _ in
+            .onChange(of: readerViewModel.location) { _ in
                 withAnimation {
                     value.scrollTo("view", anchor: .bottom)
                 }
             }
             
         }
-        .onAppear {
-            speaker.delegate = self
-            compileAllText()
-            compileText()
-            stop = true
-            
-            speaker.rate = settingsModel.retrieveAudioSettings(setting: .rate) as! Double
-            speaker.pitch = settingsModel.retrieveAudioSettings(setting: .pitch) as! Float
-            speaker.volume = settingsModel.retrieveAudioSettings(setting: .volume) as! Float
-            
-            location = UserDefaults.standard.integer(forKey: paper.id.uuidString)
-            if location < 0 {
-                location = 0
-            }
-        }
         .onDisappear {
-            speaker.pause()
-            stop = true
+            readerViewModel.speaker.pause()
+            readerViewModel.stop = true
         }
     }
-    
-    func compileText() {
-        
-        textArray.append(paper.title)
-        paper.sections.forEach { section in
-            textArray.append(section.head)
-            section.paragraph.forEach { paragraph in
-                textArray.append(paragraph)
-            }
-        }
-        print("finished compiling")
-    }
-    
-    //
-    func compileAllText(){
-        fullText = fullText  + paper.title +  line
-        
-        paper.sections.forEach { section in
-            
-            fullText = fullText + section.head + line
-            
-            section.paragraph.forEach { paragraph in
-                
-                fullText = fullText + paragraph + line
-            }
-        }
-        
-        print("Finished compiling all text")
-        print(fullText.count)
-      
-    }
-    
-    func speak(text: String) {
-        speaker.speak(text: text, voiceType: .wavenetEnglishFemale) {
-                
-        }
-        
-    }
-    
-    func speakAll() {
-        
-        textArray.forEach { text in
-            speaker.speak(text: text, voiceType: .wavenetEnglishFemale) {
-                
-            }
-        }
-        
-    }
-    
-    
-    
-    
 }
 extension ReaderView {
     
@@ -182,7 +67,7 @@ extension ReaderView {
     
     private var readerView: some View {
         ScrollView {
-            Text(fullText)
+            Text(readerViewModel.fullText)
                 .padding()
                 .padding(.top, 8)
                 .id("view")
@@ -191,264 +76,58 @@ extension ReaderView {
     }
     
     private var backWards: some View {
-        Button {
-            
-            if location > 1 {
-                location -= 2
-                fullText = ""
-                for i in 0..<location {
-                    fullText = fullText + textArray[i] + line
-                }
-            }
-            
-            speaker.pause()
-            
-        } label: {
-            Text(" << ")
-        }
-        .buttonModifier(color: .yellow)
+    Button { readerViewModel.goBackWard()}
+    label: { Text(" << ")}
+    .buttonModifier(color: .yellow)
     }
     
     private var audioButton: some View {
-        Button {
-            
-            withAnimation {
-                showSettings.toggle()
-            }
-            
-        } label: {
-            HStack{
-                Image(systemName: "person.wave.2")
-                Text("Audio")
-            }
-        }
-        .buttonModifier(color: .blue)
+    Button {withAnimation { readerViewModel.showSettingsView()}}
+    label: { HStack{ Image(systemName: "person.wave.2")
+            Text("Audio") }}
+    .buttonModifier(color: .blue)
     }
     
     private var forward: some View {
-        Button {
-            
-            if location != textArray.count - 1 {
-                location += 1
-            }
-            
-            speaker.pause()
-            
-        } label: {
-            Text(" >> ")
-        }
-        .buttonModifier(color: .green)
+    Button { readerViewModel.goForward()}
+    label: { Text(" >> ") }
+    .buttonModifier(color: .green)
     }
     
     private var repeatButton: some View {
-        Button {
-            
-            if location != 0 {
-                location -= 1
-                fullText = ""
-                for i in 0..<location - 1 {
-                    fullText = fullText + textArray[i] + line
-                }
-            }
-            
-            speaker.pause()
-            
-        } label: {
-            Image(systemName: "arrow.counterclockwise")
-        }
-        .buttonModifier(color: .yellow)
+        Button { readerViewModel.repeatLastParagraph() }
+    label: { Image(systemName: "arrow.counterclockwise")}
+            .buttonModifier(color: .yellow)
     }
     
     private var play: some View {
-        Button {
-            
-            if stop {
-                speaker.play()
-                stop.toggle()
-            } else {
-                speaker.pause()
-                stop.toggle()
-            }
-            
-        } label: {
-            Image(systemName: stop ? "play" : "pause")
-        }
+        Button { readerViewModel.playAudio() }
+    label: { Image(systemName: readerViewModel.stop ? "play" : "pause") }
         
-        .padding(.horizontal, 80)
-        .padding(.vertical, 12)
-        .background(Color.yellow)
-        .cornerRadius(8)
-        .foregroundColor(.white)
-    }
-    
-    private var locationview: some View {
-        Text("\(location)")
-            .padding()
+            .padding(.horizontal, 80)
+            .padding(.vertical, 12)
             .background(Color.yellow)
             .cornerRadius(8)
             .foregroundColor(.white)
+    }
+    
+    private var locationview: some View {
+        Text("\(readerViewModel.location)")
+            .buttonModifier(color: .yellow)
             .padding(.top, 2)
     }
     
     private var startButton: some View {
-        Button {
-            
-            stop = false
-            simpleText = false
-            fullText = ""
-            speaker.pause()
-            didFinishSpeaking()
-            
-        } label: {
-            Text("Start")
-        }
-        .padding()
-        .background(Color.green)
-        .cornerRadius(8)
-        .foregroundColor(.white)
+        Button { readerViewModel.startAudio()}
+        label: { Text("Start")}
+        .buttonModifier(color: .green)
     }
     
     private var simpliefiedButton: some View {
-        Button {
-            
-            stop = false
-            simpleText = true
-            fullText = ""
-            speaker.pause()
-            didFinishSpeaking()
-            
-        } label: {
-            Text("Simplified")
-        }
-        .padding()
-        .background(Color.orange)
-        .cornerRadius(8)
-        .foregroundColor(.white)
+        Button { readerViewModel.simplifyAudio()}
+        label: { Text("Simplified")}
+        .buttonModifier(color: .orange)
     }
     
 }
-
-
-
-//struct SectionView: View {
-//    let section: Paper.Section
-//
-//    var body: some View {
-//        List {
-//
-//            ForEach(section.paragraph, id:\.self) { paragraph in
-//                Text(paragraph)
-//                    .frame(width: 300)
-//            }
-//        }.onAppear {
-//            print("Section")
-//        }
-//    }
-//
-//}
-
-
-//struct TextView: View {
-//
-//    @ObservedObject var openAI : OpenAIServicer
-//
-//    @State var text : String
-//
-//    var body: some View {
-//
-//        Text(text)
-//            .onAppear {
-//                print("appearing")
-//                openAI.setup()
-//                simplify(text: text)
-//            }
-//
-//    }
-//
-//    func simplify(text: String)  {
-//        let prompt = "rewrite and provide only a simplified version of this research paper in a way that a high school student would understand. Do not summarize, keep it as long as the original text: \(text). "
-//        print("working on it")
-//        openAI.send(text: prompt) { response in
-//            self.text = response
-//        }
-//
-//    }
-//}
-
-
-//struct SimpleTextView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SimpleTextView(paper: <#Paper#>)
-//    }
-//}
-
-
-//
-////  SimpleTextView.swift
-////  ResearchAI
-////
-////  Created by Sam Santos on 1/8/23.
-////
-//
-//import SwiftUI
-//
-//struct SimpleTextView: View {
-//
-//    @ObservedObject var openAI = OpenAIServicer()
-//    @State var fullText = ""
-//
-//    let paper: Paper
-//
-//    var body: some View {
-//        ScrollView{
-//        VStack {
-//           Text(fullText)
-//            }
-//        }.onAppear {
-//            openAI.setup()
-//            compile()
-//        }
-//    }
-//
-//    func compile() {
-//        fullText.append(contentsOf: paper.title)
-//        paper.sections.forEach { section in
-//            fullText.append(contentsOf: section.head)
-//            section.paragraph.forEach { paragraph in
-//                fullText.append(contentsOf: paragraph)
-//            }
-//        }
-//        simplify(text: fullText)
-//    }
-//
-//    func simplify(text: String){
-//        let prompt = "rewrite and provide only a simplified version of this research paper in a way that a high school student would understand. Do not summarize, keep it as long as the original text: \(text). "
-//        openAI.send(text: prompt) { response in
-//            fullText = response
-//        }
-//    }
-//}
-//
-//struct SectionView: View {
-//    let section: Paper.Section
-//
-//    var body: some View {
-//        Group {
-//            Text(section.head)
-//                .font(.headline)
-//                .bold()
-//            ForEach(section.paragraph, id:\.self) { paragraph in
-//                Text(paragraph)
-//            }
-//        }
-//    }
-//}
-//
-////struct SimpleTextView_Previews: PreviewProvider {
-////    static var previews: some View {
-////        SimpleTextView(paper: <#Paper#>)
-////    }
-////}
-//
-//
 

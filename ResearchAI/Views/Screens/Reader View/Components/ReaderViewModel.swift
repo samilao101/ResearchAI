@@ -7,6 +7,17 @@
 
 import Foundation
 
+enum TextType {
+    case title
+    case heading
+    case paragraph
+}
+
+struct TextTypeString {
+    let string: String
+    let type: TextType
+}
+
 class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     
     func didFinishSpeaking() {
@@ -34,7 +45,7 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     var openAI = OpenAIServicer()
     
     @Published var fullText = ""
-    @Published var textArray = [String]()
+    @Published var textArray = [TextType]()
     var paper: ParsedPaper
     var location = 0 {
         didSet {
@@ -83,15 +94,18 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
         }
     }
     
-    func compileFullText() {
-        textArray.append(paper.title)
-        paper.sections.forEach { section in
-            textArray.append(section.head)
-            section.paragraph.forEach { paragraph in
-                textArray.append(paragraph)
-            }
-        }
-    }
+//    func compileFullText() {
+//        fullText = fullText  + paper.title +  line
+//        textArray.append(paper.title)
+//        paper.sections.forEach { section in
+//            fullText = fullText + section.head + line
+//            textArray.append(section.head)
+//            section.paragraph.forEach { paragraph in
+//                fullText = fullText + paragraph + line
+//                textArray.append(paragraph)
+//            }
+//        }
+//    }
     
     func setLocation() {
  
