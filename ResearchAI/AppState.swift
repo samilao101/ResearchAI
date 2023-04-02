@@ -28,7 +28,14 @@ class AppState: ObservableObject {
     
     @Published var savedComprehesions : [Comprehension]? = nil
     
-    var comprehension = Comprehension(summary: nil, pdfData: nil, decodedPaper: nil)
+    var comprehension = Comprehension(summary: nil, pdfData: nil, decodedPaper: nil) {
+        didSet {
+            print("seeing if decoded is not nil")
+            if comprehension.decodedPaper != nil {
+                print("decoded is not ni")
+            }
+        }
+    }
     
     var noResults: Bool { summaries.isEmpty }
     

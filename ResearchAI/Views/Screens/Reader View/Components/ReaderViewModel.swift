@@ -9,7 +9,7 @@ import Foundation
 
 enum TextType {
     case title
-    case heading
+    case section
     case paragraph
 }
 
@@ -23,19 +23,9 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     func didFinishSpeaking() {
         if !stop {
             if textArray.count > location - 1 {
+                location += 1
                 let text = textArray[location]
-                if simpleText {
-                    let prompt = "\(Constant.prompt.simplifyAndSummarize) \(text)"
-                    openAI.send(text: prompt) { [self] response in
-                        fullText = fullText + response + line
-                        speak(text: response)
-                        location += 1
-                    }
-                } else {
-                    fullText = fullText + textArray[location] + line
-                    speak(text: text)
-                    location += 1
-                }
+                speak(text: text.string)
             }
         }
     }
@@ -45,13 +35,14 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     var openAI = OpenAIServicer()
     
     @Published var fullText = ""
-    @Published var textArray = [TextType]()
+    @Published var textArray = [TextTypeString]()
+    
+    @Published var currentText: TextTypeString
+    
     var paper: ParsedPaper
     var location = 0 {
         didSet {
-            if savedPaper{
-                UserDefaults.standard.set(location-1, forKey: paper.id.uuidString)
-            }
+            currentText = textArray[location]
         }
     }
     var savedPaper: Bool
@@ -65,6 +56,7 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     init(parsedPaper: ParsedPaper, savedPaper: Bool) {
         self.paper = parsedPaper
         self.savedPaper = savedPaper
+        self.currentText = TextTypeString(string: parsedPaper.title, type: .title)
         setup()
 
     }
@@ -76,7 +68,6 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     func setup() {
         speaker.delegate = self
         compileTextArray()
-        compileFullText()
         setLocation()
         setAudioSettings()
         
@@ -85,35 +76,22 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     
     
     func compileTextArray() {
-        textArray.append(paper.title)
+        textArray.append(TextTypeString(string: paper.title, type: .title))
         paper.sections.forEach { section in
-            textArray.append(section.head)
+            textArray.append(TextTypeString(string: section.head, type: .section))
             section.paragraph.forEach { paragraph in
-                textArray.append(paragraph)
+                textArray.append(TextTypeString(string: paragraph, type: .paragraph))
             }
         }
     }
     
-//    func compileFullText() {
-//        fullText = fullText  + paper.title +  line
-//        textArray.append(paper.title)
-//        paper.sections.forEach { section in
-//            fullText = fullText + section.head + line
-//            textArray.append(section.head)
-//            section.paragraph.forEach { paragraph in
-//                fullText = fullText + paragraph + line
-//                textArray.append(paragraph)
-//            }
-//        }
-//    }
-    
     func setLocation() {
- 
+
       location = UserDefaults.standard.integer(forKey: paper.id.uuidString)
         if location < 0 {
             location = 0
         }
-        
+        currentText = textArray[location]
     }
     
     func setAudioSettings() {
@@ -130,7 +108,7 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     
     func speakAll() {
         textArray.forEach { text in
-            speaker.speak(text: text, voiceType: .wavenetEnglishFemale) {
+            speaker.speak(text: text.string, voiceType: .wavenetEnglishFemale) {
             }
         }
         
@@ -138,37 +116,30 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     
     func goBackWard() {
         if location > 1 {
-            location -= 2
-            fullText = ""
-            for i in 0..<location {
-                fullText = fullText + textArray[i] + line
-            }
+            location -= 1
         }
-        
         speaker.pause()
+        speaker.speak(text: textArray[location].string) {
+        }
     }
     
     
     func showSettingsView() {
-            showSettings.toggle()
-    
+        showSettings.toggle()
     }
     
     func goForward() {
         if location != textArray.count - 1 {
             location += 1
         }
-        
         speaker.pause()
+        speaker.speak(text: textArray[location].string) {
+        }
     }
     
     func repeatLastParagraph() {
         if location != 0 {
             location -= 1
-            fullText = ""
-            for i in 0..<location - 1 {
-                fullText = fullText + textArray[i] + line
-            }
         }
         speaker.pause()
     }
@@ -186,9 +157,9 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     func startAudio() {
         stop = false
         simpleText = false
-        fullText = ""
         speaker.pause()
-        didFinishSpeaking()
+        let text = textArray[location]
+        speak(text: text.string)
     }
     
     func simplifyAudio() {

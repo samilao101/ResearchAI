@@ -20,14 +20,15 @@ class PaperDecoder : ObservableObject {
         do {
 //            print(String(data: data, encoding: .utf8))
             let decoded = try XMLDecoder().decode(GrobidDecodedPaper.self, from: data)
-//            let paper = ParsedPaper(title: decoded.teiHeader.fileDesc.titleStmt.title, sections: decoded.text.body.div.map({ division in
-//                         ParsedPaper.Section(head: division.head ?? "" , paragraph: division.paragraphs ?? [""] )}))
+            let paper = ParsedPaper(title: decoded.teiHeader.fileDesc.titleStmt.title, sections: decoded.text.body.div.map({ division in
+                         ParsedPaper.Section(head: division.head ?? "" , paragraph: division.paragraphs ?? [""] )}))
 
+            print("abc")
             print(decoded)
             
             DispatchQueue.main.async {
                 self.gotPaper = true
-//                self.paper = paper
+                self.paper = paper
             }
             
         } catch(let error) {

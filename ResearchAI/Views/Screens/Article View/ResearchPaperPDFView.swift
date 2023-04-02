@@ -59,6 +59,8 @@ struct ResearchPaperPDFView: View {
                             if paperDecoder.gotPaper {
                                 readerButton
                                     .onAppear {
+                                        print("storing encoding")
+                                        print(paperDecoder.paper)
                                         appState.comprehension.decodedPaper = paperDecoder.paper
                                     }
                             } else {
@@ -114,7 +116,6 @@ extension ResearchPaperPDFView {
         Button {
             
             if !comprehensionLocalFileManager.savedDocument {
-                
                 let comprehension = appState.comprehension
                 comprehensionLocalFileManager.saveModel(object: comprehension, id: comprehension.id.uuidString)
                 appState.getSavedAllComprehensions()

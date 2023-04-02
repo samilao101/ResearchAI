@@ -9,11 +9,11 @@ import Foundation
 
 
 class LocalFileManager<T: Codable>: ObservableObject {
-        
+    
     let folder: Constant.Folders
     
     let model: T.Type
-
+    
     init(folder: Constant.Folders, model: T.Type) {
         self.folder = folder
         self.model = model
@@ -41,10 +41,9 @@ class LocalFileManager<T: Codable>: ObservableObject {
         }
         
     }
-
+    
     
     func saveModel(object: T, id: String) {
-        
         
         let encoder = JSONEncoder()
         
@@ -62,7 +61,7 @@ class LocalFileManager<T: Codable>: ObservableObject {
             print(error.localizedDescription)
         }
         
-
+        
     }
     
     func getModel(id: String) -> T? {
@@ -71,7 +70,7 @@ class LocalFileManager<T: Codable>: ObservableObject {
         else {
             print("Error Getting path")
             return nil}
-
+        
         let decoder = JSONDecoder()
         
         guard let data = try? Data(contentsOf: path) else {
@@ -106,7 +105,7 @@ class LocalFileManager<T: Codable>: ObservableObject {
         else {
             print("Error Getting path")
             return}
-      
+        
         do {
             try FileManager.default.removeItem(at: path)
             print("successfully deleted")
@@ -131,11 +130,11 @@ class LocalFileManager<T: Codable>: ObservableObject {
         guard let contents = try? FileManager.default.contentsOfDirectory(atPath: path) else { return nil }
         
         let decoder = JSONDecoder()
-
+        
         contents.forEach { content in
             
             guard let path = getPathForModel(id: content) else { return }
-    
+            
             guard let data = try? Data(contentsOf: path) else {
                 print("error getting data")
                 return}

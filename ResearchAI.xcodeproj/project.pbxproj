@@ -39,6 +39,11 @@
 		2256FA34295F705400049F51 /* Recognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA2D295F705400049F51 /* Recognizer.swift */; };
 		2256FA35295F705400049F51 /* SpeakerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA2E295F705400049F51 /* SpeakerButton.swift */; };
 		2256FA36295F705400049F51 /* Speaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA2F295F705400049F51 /* Speaker.swift */; };
+		225B8E4129D91A3E00EC8A96 /* TextPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B8E4029D91A3E00EC8A96 /* TextPresenterView.swift */; };
+		225B8E4329D9A89900EC8A96 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B8E4229D9A89900EC8A96 /* AudioPlayerView.swift */; };
+		225B8E4529D9AD8300EC8A96 /* MaskingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B8E4429D9AD8300EC8A96 /* MaskingView.swift */; };
+		225B8E4729D9BAE700EC8A96 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B8E4629D9BAE700EC8A96 /* OverlayView.swift */; };
+		225B8E4929D9C07100EC8A96 /* FrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B8E4829D9C07100EC8A96 /* FrameView.swift */; };
 		226EAC0E29B2D408002C060D /* View+Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226EAC0D29B2D408002C060D /* View+Modifiers.swift */; };
 		226EAC1929B2DF1A002C060D /* ArticleRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226EAC1829B2DF1A002C060D /* ArticleRowView.swift */; };
 		226EAC2A29B2E540002C060D /* PaperDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226EAC2929B2E540002C060D /* PaperDownloadManager.swift */; };
@@ -93,6 +98,11 @@
 		2256FA2D295F705400049F51 /* Recognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recognizer.swift; sourceTree = "<group>"; };
 		2256FA2E295F705400049F51 /* SpeakerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeakerButton.swift; sourceTree = "<group>"; };
 		2256FA2F295F705400049F51 /* Speaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Speaker.swift; sourceTree = "<group>"; };
+		225B8E4029D91A3E00EC8A96 /* TextPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPresenterView.swift; sourceTree = "<group>"; };
+		225B8E4229D9A89900EC8A96 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
+		225B8E4429D9AD8300EC8A96 /* MaskingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskingView.swift; sourceTree = "<group>"; };
+		225B8E4629D9BAE700EC8A96 /* OverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
+		225B8E4829D9C07100EC8A96 /* FrameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameView.swift; sourceTree = "<group>"; };
 		226EAC0D29B2D408002C060D /* View+Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Modifiers.swift"; sourceTree = "<group>"; };
 		226EAC1829B2DF1A002C060D /* ArticleRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRowView.swift; sourceTree = "<group>"; };
 		226EAC2929B2E540002C060D /* PaperDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperDownloadManager.swift; sourceTree = "<group>"; };
@@ -259,6 +269,11 @@
 			isa = PBXGroup;
 			children = (
 				224282E8296A93E300E636DD /* ReaderView.swift */,
+				225B8E4829D9C07100EC8A96 /* FrameView.swift */,
+				225B8E4429D9AD8300EC8A96 /* MaskingView.swift */,
+				225B8E4629D9BAE700EC8A96 /* OverlayView.swift */,
+				225B8E4229D9A89900EC8A96 /* AudioPlayerView.swift */,
+				225B8E4029D91A3E00EC8A96 /* TextPresenterView.swift */,
 				226EAC3029B2EDCD002C060D /* Components */,
 			);
 			path = "Reader View";
@@ -488,6 +503,7 @@
 				226EAC1929B2DF1A002C060D /* ArticleRowView.swift in Sources */,
 				22BADD6629748B7E00F6163B /* Constants.swift in Sources */,
 				226EAC2A29B2E540002C060D /* PaperDownloadManager.swift in Sources */,
+				225B8E4129D91A3E00EC8A96 /* TextPresenterView.swift in Sources */,
 				2240FC7529B8AD4600BF850A /* PDFViewController.swift in Sources */,
 				2226C2FA29ABA95000B624E7 /* Protocols+Extensions.swift in Sources */,
 				224AE0972992A39700F3EA17 /* RAIPaperDatabase.swift in Sources */,
@@ -501,16 +517,20 @@
 				22BADD5929741CAE00F6163B /* SavedPaperPDFView.swift in Sources */,
 				22B566BC298B57DB00332804 /* ParsedPaper.swift in Sources */,
 				2256FA24295E17B200049F51 /* SimplificationView.swift in Sources */,
+				225B8E4729D9BAE700EC8A96 /* OverlayView.swift in Sources */,
 				226EAC0E29B2D408002C060D /* View+Modifiers.swift in Sources */,
 				224AE0932991F33400F3EA17 /* RAISummary.swift in Sources */,
 				2240FC7329B8AC8D00BF850A /* SavedArticlePDFView.swift in Sources */,
+				225B8E4929D9C07100EC8A96 /* FrameView.swift in Sources */,
 				22259CF529C5D4EE00D08815 /* AudioButton.swift in Sources */,
+				225B8E4329D9A89900EC8A96 /* AudioPlayerView.swift in Sources */,
 				22D2FA39295CB06400D670D0 /* ResearchPaperListView.swift in Sources */,
 				224AE09529926E7200F3EA17 /* RAISummaryView.swift in Sources */,
 				2240FCB329C071E100BF850A /* AnnotationEditorView.swift in Sources */,
 				2256FA35295F705400049F51 /* SpeakerButton.swift in Sources */,
 				22B566BE298B5B5100332804 /* AppState.swift in Sources */,
 				22259CF129C5D3F200D08815 /* ForwardButton.swift in Sources */,
+				225B8E4529D9AD8300EC8A96 /* MaskingView.swift in Sources */,
 				224282E5296A743A00E636DD /* PaperDecoder.swift in Sources */,
 				22356A9D299A425500136E90 /* SavedPaperListView.swift in Sources */,
 				2256FA20295DDA5200049F51 /* PDFResearchPaperView.swift in Sources */,
@@ -665,7 +685,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -699,7 +719,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

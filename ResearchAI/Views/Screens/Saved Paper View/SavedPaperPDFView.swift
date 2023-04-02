@@ -76,12 +76,14 @@ struct SavedPaperPDFView: View {
                 VStack{
                     HStack{
                         Spacer()
-                        Button {
-                            showReader.toggle()
-                        } label: {
-                            Text("Show Reader")
+                        if (comprehension?.decodedPaper) != nil {
+                            Button {
+                                showReader.toggle()
+                            } label: {
+                                Text("Show Reader")
+                            }
+                            .buttonModifier(color: .orange)
                         }
-                        .buttonModifier(color: .orange)
                         
                     }
                     Spacer()
@@ -138,7 +140,7 @@ struct SavedPaperPDFView: View {
             viewModel.setup()
         }
         .fullScreenCover(isPresented: $showReader) {
-            ReaderView(showReader: $showReader, readerViewModel: ReaderViewModel(parsedPaper: (comprehension?.decodedPaper)!, savedPaper: true) )
+            AudioPlayerView(readerViewModel: ReaderViewModel(parsedPaper: (comprehension?.decodedPaper)!, savedPaper: true), goBack: $showReader)
         }
         .sheet(isPresented: $showSimplified) {
             SimplificationViewWithAnnotation(annotationText: $simplificationAnnotation, originalText: selectedText, viewModel: viewModel, show: $showSimplified)

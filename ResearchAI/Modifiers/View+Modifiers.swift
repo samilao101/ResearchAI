@@ -33,6 +33,18 @@ extension View {
             .padding(.top, 34)
     }
     
+    func buttonModifierChangedPadding(color: Color, lPad: Double, rPad: Double, tPad: Double, bPad: Double ) -> some View {
+        self
+            .padding()
+            .background(color)
+            .cornerRadius(8)
+            .foregroundColor(.white)
+            .padding(.leading, lPad )
+            .padding(.trailing, rPad )
+            .padding(.top, tPad )
+            .padding(.bottom, bPad )
+    }
+    
     
     func buttonModifierNoPadding(color: Color) -> some View {
         self
