@@ -14,21 +14,34 @@ class PaperDecoder : ObservableObject {
     
     @Published var paper: ParsedPaper?
     @Published var gotPaper = false
+    var object: Object = Object(div: [DIV(head: "", p: [P(value: "", ref: [REF(attributes: ["":""], content: "")])])], figures: [FIGURE(attributes: ["": ""], head: "", label: "", figDesc: "")])
     
     private func getDecodedPaper(data: Data)  {
         
+        
         do {
-//            print(String(data: data, encoding: .utf8))
             let decoded = try XMLDecoder().decode(GrobidDecodedPaper.self, from: data)
+//
+            let parser = XMLParser(data: data)
+            let handler = XMLHandler()
+            parser.delegate = handler
+            parser.parse()
+            
+            self.object = handler.currentObject
+            
             let paper = ParsedPaper(title: decoded.teiHeader.fileDesc.titleStmt.title, sections: decoded.text.body.div.map({ division in
                          ParsedPaper.Section(head: division.head ?? "" , paragraph: division.paragraphs ?? [""] )}))
 
-            print("abc")
-            print(decoded)
+         
+            let customPaper = ParsedPaper(title: decoded.teiHeader.fileDesc.titleStmt.title, sections: object.div.map({ div in
+                ParsedPaper.Section(head: div.head, paragraph: div.p.map({ p in
+                    p.value
+                }))
+            }))
             
             DispatchQueue.main.async {
                 self.gotPaper = true
-                self.paper = paper
+                self.paper = customPaper
             }
             
         } catch(let error) {
