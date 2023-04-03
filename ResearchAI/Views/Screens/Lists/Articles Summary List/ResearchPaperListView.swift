@@ -31,7 +31,7 @@ struct ResearchPaperListView: View {
             } else {
                 List(appState.summaries) { summary in
                     NavigationLink(value: summary) {
-                        ArticleRowView(title: summary.raiTitle, authors: summary.raiAuthors, tags: summary.raitags)
+                        ArticleRowView(title: summary.raiTitle, authors: summary.raiAuthors, tags: [""])
                     }
                 }
             }

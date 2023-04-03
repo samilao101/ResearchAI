@@ -14,7 +14,7 @@ import Combine
 @MainActor
 class AppState: ObservableObject {
     
-    static let shared = AppState(servicer: CoreAPIPaperServicer())
+    static let shared = AppState(servicer: ArxivPaperServicer())
     let comprehensionLocalFileManager = LocalFileManager<Comprehension>(folder: .comprehensions , model: Comprehension.self )
     
     init(servicer: PaperServicerProtocol ) {
