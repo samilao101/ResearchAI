@@ -20,6 +20,7 @@ struct AudioPlayerView: View {
                 .foregroundColor(.white)
             Rectangle()
                 .fill(.black)
+                .allowsHitTesting(false)
                 .mask(canvas)
                 .shadow(color: .white, radius: 5)
                 .overlay(OverlayView(readerViewModel: readerViewModel, goBack: $goBack))

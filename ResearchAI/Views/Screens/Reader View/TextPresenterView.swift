@@ -12,7 +12,18 @@ struct TextPresenterView: View {
     let text: TextTypeString
     
     var body: some View {
-        presenterView
+        ScrollViewReader{ value in
+            GeometryReader{ geo in
+                ScrollView(.vertical) {
+                        presenterView
+                        .frame(minHeight: geo.size.height) // Set the content’s min height to the parent
+                        .id("top")
+
+                }.onAppear {
+                    value.scrollTo("top", anchor: .top)
+                }
+            }
+        }
     }
 }
 
