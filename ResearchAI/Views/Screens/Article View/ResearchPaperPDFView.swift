@@ -96,7 +96,7 @@ struct ResearchPaperPDFView: View {
             
         }
         .fullScreenCover(isPresented: $showReader, content: {
-            ReaderView( showReader: $showReader, readerViewModel: ReaderViewModel(parsedPaper: paperDecoder.paper!, savedPaper: false))
+            ReaderView( showReader: $showReader, readerViewModel: ReaderViewModel(parsedPaper: paperDecoder.paper!, savedPaper: false, pdfDoc: pdf))
         })
         .onAppear {
             viewModel.setup()

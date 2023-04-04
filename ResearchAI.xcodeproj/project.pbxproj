@@ -46,6 +46,9 @@
 		225B8E4929D9C07100EC8A96 /* FrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B8E4829D9C07100EC8A96 /* FrameView.swift */; };
 		225B8E4B29DA030F00EC8A96 /* ArxivPaperServicer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B8E4A29DA030F00EC8A96 /* ArxivPaperServicer.swift */; };
 		225B8E4E29DAD49E00EC8A96 /* XMLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B8E4D29DAD49E00EC8A96 /* XMLHandler.swift */; };
+		225B8E6B29DB016A00EC8A96 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B8E6A29DB016A00EC8A96 /* SoundManager.swift */; };
+		225B8E6D29DB02AA00EC8A96 /* ding.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 225B8E6C29DB02AA00EC8A96 /* ding.mp3 */; };
+		2264A7E029DBB43E00825D98 /* ZoomScrollView .swift in Sources */ = {isa = PBXBuildFile; fileRef = 2264A7DF29DBB43E00825D98 /* ZoomScrollView .swift */; };
 		226EAC0E29B2D408002C060D /* View+Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226EAC0D29B2D408002C060D /* View+Modifiers.swift */; };
 		226EAC1929B2DF1A002C060D /* ArticleRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226EAC1829B2DF1A002C060D /* ArticleRowView.swift */; };
 		226EAC2A29B2E540002C060D /* PaperDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226EAC2929B2E540002C060D /* PaperDownloadManager.swift */; };
@@ -67,6 +70,7 @@
 		22D2FA3B295CB06400D670D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22D2FA3A295CB06400D670D0 /* Assets.xcassets */; };
 		22D2FA3E295CB06400D670D0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22D2FA3D295CB06400D670D0 /* Preview Assets.xcassets */; };
 		22D2FA4F295CF8A600D670D0 /* OpenAIServicer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D2FA4E295CF8A600D670D0 /* OpenAIServicer.swift */; };
+		22D90A4A29DC3E7000F9726C /* AudioHotLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D90A4929DC3E7000F9726C /* AudioHotLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +111,9 @@
 		225B8E4829D9C07100EC8A96 /* FrameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameView.swift; sourceTree = "<group>"; };
 		225B8E4A29DA030F00EC8A96 /* ArxivPaperServicer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArxivPaperServicer.swift; sourceTree = "<group>"; };
 		225B8E4D29DAD49E00EC8A96 /* XMLHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLHandler.swift; sourceTree = "<group>"; };
+		225B8E6A29DB016A00EC8A96 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
+		225B8E6C29DB02AA00EC8A96 /* ding.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ding.mp3; sourceTree = "<group>"; };
+		2264A7DF29DBB43E00825D98 /* ZoomScrollView .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZoomScrollView .swift"; sourceTree = "<group>"; };
 		226EAC0D29B2D408002C060D /* View+Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Modifiers.swift"; sourceTree = "<group>"; };
 		226EAC1829B2DF1A002C060D /* ArticleRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRowView.swift; sourceTree = "<group>"; };
 		226EAC2929B2E540002C060D /* PaperDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperDownloadManager.swift; sourceTree = "<group>"; };
@@ -129,6 +136,7 @@
 		22D2FA3A295CB06400D670D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		22D2FA3D295CB06400D670D0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		22D2FA4E295CF8A600D670D0 /* OpenAIServicer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIServicer.swift; sourceTree = "<group>"; };
+		22D90A4929DC3E7000F9726C /* AudioHotLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioHotLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +190,14 @@
 				225B8E4D29DAD49E00EC8A96 /* XMLHandler.swift */,
 			);
 			path = "Custom Parser";
+			sourceTree = "<group>";
+		};
+		225B8E6929DB013E00EC8A96 /* Sound Manager */ = {
+			isa = PBXGroup;
+			children = (
+				225B8E6A29DB016A00EC8A96 /* SoundManager.swift */,
+			);
+			path = "Sound Manager";
 			sourceTree = "<group>";
 		};
 		226EAC0C29B2D3F6002C060D /* Modifiers */ = {
@@ -287,6 +303,7 @@
 				225B8E4229D9A89900EC8A96 /* AudioPlayerView.swift */,
 				225B8E4029D91A3E00EC8A96 /* TextPresenterView.swift */,
 				226EAC3029B2EDCD002C060D /* Components */,
+				22D90A4929DC3E7000F9726C /* AudioHotLoader.swift */,
 			);
 			path = "Reader View";
 			sourceTree = "<group>";
@@ -325,6 +342,7 @@
 				22259CF029C5D3F200D08815 /* ForwardButton.swift */,
 				22259CF229C5D40F00D08815 /* BackwardButton.swift */,
 				22259CF429C5D4EE00D08815 /* AudioButton.swift */,
+				2264A7DF29DBB43E00825D98 /* ZoomScrollView .swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -360,6 +378,7 @@
 		22C2D9AC2970FA700010CBF7 /* Servicers */ = {
 			isa = PBXGroup;
 			children = (
+				225B8E6929DB013E00EC8A96 /* Sound Manager */,
 				22C2D9B02970FB2F0010CBF7 /* Decoder */,
 				22BADD672975DF2D00F6163B /* APIs */,
 				221F11382972E6EC007C507F /* Storage */,
@@ -411,6 +430,7 @@
 				226EAC0C29B2D3F6002C060D /* Modifiers */,
 				22C2D9AB2970FA350010CBF7 /* Models */,
 				224282E02969D4B100E636DD /* Info.plist */,
+				225B8E6C29DB02AA00EC8A96 /* ding.mp3 */,
 				2256FA29295F6FB600049F51 /* ChatAI */,
 				22D2FA3A295CB06400D670D0 /* Assets.xcassets */,
 				22D2FA3C295CB06400D670D0 /* Preview Content */,
@@ -494,6 +514,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				225B8E6D29DB02AA00EC8A96 /* ding.mp3 in Resources */,
 				22D2FA3E295CB06400D670D0 /* Preview Assets.xcassets in Resources */,
 				22356A9F299A489100136E90 /* researchpaper1.pdf in Resources */,
 				22D2FA3B295CB06400D670D0 /* Assets.xcassets in Resources */,
@@ -510,12 +531,14 @@
 				226EAC2F29B2EA9E002C060D /* PDFLoadingView.swift in Sources */,
 				22D2FA4F295CF8A600D670D0 /* OpenAIServicer.swift in Sources */,
 				2256FA31295F705400049F51 /* AnswersGPT.swift in Sources */,
+				22D90A4A29DC3E7000F9726C /* AudioHotLoader.swift in Sources */,
 				225B8E4B29DA030F00EC8A96 /* ArxivPaperServicer.swift in Sources */,
 				2256FA34295F705400049F51 /* Recognizer.swift in Sources */,
 				226EAC2C29B2E91C002C060D /* SummarizingView.swift in Sources */,
 				2256FA32295F705400049F51 /* MessageBubble.swift in Sources */,
 				22BADD642974583200F6163B /* SettingsModel.swift in Sources */,
 				226EAC1929B2DF1A002C060D /* ArticleRowView.swift in Sources */,
+				225B8E6B29DB016A00EC8A96 /* SoundManager.swift in Sources */,
 				22BADD6629748B7E00F6163B /* Constants.swift in Sources */,
 				226EAC2A29B2E540002C060D /* PaperDownloadManager.swift in Sources */,
 				225B8E4129D91A3E00EC8A96 /* TextPresenterView.swift in Sources */,
@@ -553,6 +576,7 @@
 				22D2FA37295CB06400D670D0 /* ResearchAIApp.swift in Sources */,
 				2256FA36295F705400049F51 /* Speaker.swift in Sources */,
 				226EAC4D29B431DD002C060D /* CoreAPIServicer.swift in Sources */,
+				2264A7E029DBB43E00825D98 /* ZoomScrollView .swift in Sources */,
 				22C2D9AA296FAB010010CBF7 /* SpeechService.swift in Sources */,
 				224AE08C298F132900F3EA17 /* Wrappers.swift in Sources */,
 				2240FCB529C087F900BF850A /* SimplicationWithAnnotation.swift in Sources */,

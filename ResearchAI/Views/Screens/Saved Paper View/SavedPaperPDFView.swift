@@ -140,7 +140,7 @@ struct SavedPaperPDFView: View {
             viewModel.setup()
         }
         .fullScreenCover(isPresented: $showReader) {
-            AudioPlayerView(readerViewModel: ReaderViewModel(parsedPaper: (comprehension?.decodedPaper)!, savedPaper: true), goBack: $showReader)
+            AudioPlayerView(readerViewModel: ReaderViewModel(parsedPaper: (comprehension?.decodedPaper)!, savedPaper: true , pdfDoc: self.pdfDocument), goBack: $showReader)
         }
         .sheet(isPresented: $showSimplified) {
             SimplificationViewWithAnnotation(annotationText: $simplificationAnnotation, originalText: selectedText, viewModel: viewModel, show: $showSimplified)

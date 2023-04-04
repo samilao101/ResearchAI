@@ -33,12 +33,14 @@ class PaperDecoder : ObservableObject {
                          ParsedPaper.Section(head: division.head ?? "" , paragraph: division.paragraphs ?? [""] )}))
 
          
-            let customPaper = ParsedPaper(title: decoded.teiHeader.fileDesc.titleStmt.title, sections: object.div.map({ div in
+            var customPaper = ParsedPaper(title: decoded.teiHeader.fileDesc.titleStmt.title, sections: object.div.map({ div in
                 ParsedPaper.Section(head: div.head, paragraph: div.p.map({ p in
                     p.value
-                }))
+                }), figAndParagraph: div.p)
             }))
             
+            customPaper.figures = object.figures
+           
             DispatchQueue.main.async {
                 self.gotPaper = true
                 self.paper = customPaper

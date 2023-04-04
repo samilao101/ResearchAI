@@ -39,13 +39,87 @@ extension TextPresenterView {
             Text(text.string)
                 .font(.title)
         case .paragraph:
-            Text(text.string)
-                .font(.headline)
-                .padding()
+            ParagraphWithImageViewer(text: text)
         }
     }
+}
+
+struct ParagraphWithImageViewer: View {
     
+    let text: TextTypeString
+    @State var showImages = false
+    let soundManager = SoundManager.instance
     
+    var body: some View {
+        
+        ZStack {
+            if showImages && (text.images != nil) {
+                ImagesViewer(images: text.images!, done: $showImages)
+            } else {
+                Text(text.string)
+                    .font(.headline)
+                    .padding()
+                
+                if let _ = text.images {
+                    VStack {
+                        HStack {
+                            Button("See Images") {
+                                showImages.toggle()
+                            }
+                            .buttonStyle(.bordered)
+                            .background(.black)
+                            .foregroundColor(.white)
+                            .onAppear {
+                                soundManager.playSound(sound: .ding)
+                            }
+                            Spacer()
+                        }
+                        .padding(.top, 100)
+                        Spacer()
+                    }
+                }
+            }
+            
+        }
+        
+    }
+}
+
+struct ImagesViewer: View {
+    
+    var images: [UIImage]
+    @Binding var done: Bool
+    
+    var body: some View {
+        ZStack{
+            VStack{
+                Text("Figures:")
+                ScrollView {
+        
+                        ForEach(images, id:\.self) { image in
+                            Image(uiImage: image)
+                                .resizable(resizingMode: .stretch)
+                                .scaledToFit()
+
+                        }
+                        .padding(.horizontal, 40)
+                    
+                }
+            }  .padding(.top, 100)
+            VStack {
+                HStack {
+                    Button("Done.") {
+                        done.toggle()
+                    }
+                    Spacer()
+                }
+                Spacer()
+            }  .padding(.top, 60)
+        }
+      
+
+        
+    }
 }
 
 struct TextPresenterView_Previews: PreviewProvider {

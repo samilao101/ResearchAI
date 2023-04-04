@@ -20,13 +20,13 @@ struct DIV: Identifiable {
     var p: [P]
 }
 
-struct P: Identifiable{
+struct P: Identifiable, Codable{
     var id = UUID()
     var value: String
     var ref: [REF]
 }
 
-struct REF: Identifiable {
+struct REF: Identifiable, Codable {
     var id = UUID()
     var attributes: [String: String]
     var content: String
@@ -36,7 +36,7 @@ struct REF: Identifiable {
     }
 }
 
-struct FIGURE: Identifiable {
+struct FIGURE: Identifiable, Codable {
     var id = UUID()
     var attributes: [String:String]
     var head: String

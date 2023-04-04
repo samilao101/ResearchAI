@@ -101,7 +101,7 @@ struct SavedPaperAlbumView: View {
     }
     
     func generatePdfThumbnail(of thumbnailSize: CGSize = CGSize(width: 200, height: 200) , for pdfDoc: PDFDocument, atPage pageIndex: Int = 0) -> UIImage? {
-        
+    
         let pdfDocumentPage = pdfDoc.page(at: pageIndex)
         return pdfDocumentPage?.thumbnail(of: thumbnailSize, for: PDFDisplayBox.trimBox)
     }
