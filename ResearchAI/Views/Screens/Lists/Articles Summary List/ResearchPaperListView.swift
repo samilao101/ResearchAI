@@ -33,7 +33,9 @@ struct ResearchPaperListView: View {
                     NavigationLink(value: summary) {
                         ArticleRowView(title: summary.raiTitle, authors: summary.raiAuthors, tags: [""])
                     }
+
                 }
+
             }
         }
         .navigationTitle("Research Papers:")

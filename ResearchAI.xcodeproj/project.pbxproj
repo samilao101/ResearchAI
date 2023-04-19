@@ -71,6 +71,7 @@
 		22D2FA3E295CB06400D670D0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22D2FA3D295CB06400D670D0 /* Preview Assets.xcassets */; };
 		22D2FA4F295CF8A600D670D0 /* OpenAIServicer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D2FA4E295CF8A600D670D0 /* OpenAIServicer.swift */; };
 		22D90A4A29DC3E7000F9726C /* AudioHotLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D90A4929DC3E7000F9726C /* AudioHotLoader.swift */; };
+		22D90A7D29E040FD00F9726C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D90A7C29E040FD00F9726C /* Color.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -137,6 +138,7 @@
 		22D2FA3D295CB06400D670D0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		22D2FA4E295CF8A600D670D0 /* OpenAIServicer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIServicer.swift; sourceTree = "<group>"; };
 		22D90A4929DC3E7000F9726C /* AudioHotLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioHotLoader.swift; sourceTree = "<group>"; };
+		22D90A7C29E040FD00F9726C /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				226EAC0D29B2D408002C060D /* View+Modifiers.swift */,
+				22D90A7C29E040FD00F9726C /* Color.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -545,6 +548,7 @@
 				2240FC7529B8AD4600BF850A /* PDFViewController.swift in Sources */,
 				2226C2FA29ABA95000B624E7 /* Protocols+Extensions.swift in Sources */,
 				224AE0972992A39700F3EA17 /* RAIPaperDatabase.swift in Sources */,
+				22D90A7D29E040FD00F9726C /* Color.swift in Sources */,
 				221F113A2972E710007C507F /* ReadingStorageManager.swift in Sources */,
 				221F113D2972E84F007C507F /* AppContainer.xcdatamodeld in Sources */,
 				224282ED296C22E400E636DD /* AudioControlView.swift in Sources */,

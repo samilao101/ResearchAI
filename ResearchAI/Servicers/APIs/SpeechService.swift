@@ -20,6 +20,8 @@ class SpeechService: NSObject, AVAudioPlayerDelegate, ObservableObject {
     
     var settingsModel = SettingsModel.shared
     
+    private var audioHotloader = HotLoader<Data>()
+    
     @Published var rate: Double = 1.0 {
         didSet{
             settingsModel.storeAudioSettings(setting: .rate, value: rate)
@@ -37,11 +39,12 @@ class SpeechService: NSObject, AVAudioPlayerDelegate, ObservableObject {
     }
 
     static let shared = SpeechService()
-    private(set) var busy: Bool = false {
-        didSet {
-            print("Done.")
-        }
-    }
+    private(set) var busy: Bool = false
+//    {
+//        didSet {
+//            print("Done.")
+//        }
+//    }
     
     var delegate: didFinishSpeakingProtocol?
 
@@ -55,16 +58,9 @@ class SpeechService: NSObject, AVAudioPlayerDelegate, ObservableObject {
         busy = false
     }
     
-    // Speak function.
-    func speak(text: String, voiceType: VoiceType = .wavenetEnglishFemale, completion: @escaping () -> Void) {
-        guard !self.busy else {
-            print("Speech Service busy!")
-            return
-        }
-        
-        self.busy = true
-        
-        DispatchQueue.global(qos: .background).async {
+    
+    func storeNext(text: String, voiceType: VoiceType = .wavenetEnglishFemale, location: Int) {
+        if !audioHotloader.checkIfItHasNext(location: location) {
             let postData = self.buildPostData(text: text, voiceType: voiceType)
             let headers = ["X-Goog-Api-Key": Constant.keys.GoogleTTS, "Content-Type": "application/json; charset=utf-8"]
             let response = self.makePOSTRequest(url: ttsAPIUrl, postData: postData, headers: headers)
@@ -73,35 +69,98 @@ class SpeechService: NSObject, AVAudioPlayerDelegate, ObservableObject {
             guard let audioContent = response["audioContent"] as? String else {
                 print("Invalid response: \(response)")
                 self.busy = false
-                DispatchQueue.main.async {
-                    completion()
-                }
                 return
             }
             
             // Decode the base64 string into a Data object
             guard let audioData = Data(base64Encoded: audioContent) else {
                 self.busy = false
-                DispatchQueue.main.async {
-                    completion()
-                }
                 return
             }
             
+            audioHotloader.put(store: audioData, location: location)
+        }
+    }
+    
+    // Speak function.
+    func speak(location: Int, text: String, voiceType: VoiceType = .wavenetEnglishFemale, completion: @escaping () -> Void) {
+        
+        print(1)
+        guard !self.busy else {
+            print("Speech Service busy!")
+            return
+        }
+        
+        self.busy = true
+    
+        var audioData : Data? = nil
+        print(2)
+
+        DispatchQueue.global(qos: .background).async {
+            print(3)
+
+            if !self.audioHotloader.checkIfItHasNext(location: location) {
+                
+                let postData = self.buildPostData(text: text, voiceType: voiceType)
+                let headers = ["X-Goog-Api-Key": Constant.keys.GoogleTTS, "Content-Type": "application/json; charset=utf-8"]
+                let response = self.makePOSTRequest(url: ttsAPIUrl, postData: postData, headers: headers)
+
+                // Get the `audioContent` (as a base64 encoded string) from the response.
+                guard let audioContent = response["audioContent"] as? String else {
+                    print("Invalid response: \(response)")
+                    self.busy = false
+                    DispatchQueue.main.async {
+                        completion()
+                    }
+                    return
+                }
+                print(4)
+
+                
+                if let audioD = Data(base64Encoded: audioContent) {
+                    print(5)
+                    audioData = audioD
+                } else {
+                    self.busy = false
+                    return
+                }
+                
+                
+            } else {
+                
             
-            DispatchQueue.main.async {
-                
-                let session = AVAudioSession.sharedInstance()
-                    try! session.setCategory(.playback, mode: .default, options: [])
-                    try! session.setActive(true)
+                if let audioD = self.audioHotloader.returnNext(location: location) {
+                    audioData = audioD
+                } else {
+                    self.busy = false
+                    return
                     
+                }
                 
-                self.completionHandler = completion
-                self.player = try! AVAudioPlayer(data: audioData)
-                self.player!.prepareToPlay()
-                self.player?.delegate = self
-                self.player!.play() // plays the audioData
             }
+                
+            DispatchQueue.main.async {
+                print(6)
+
+                if let audioData = audioData {
+                    print(7)
+
+                    let session = AVAudioSession.sharedInstance()
+                        try! session.setCategory(.playback, mode: .default, options: [])
+                        try! session.setActive(true)
+                        
+                    
+                    self.completionHandler = completion
+                    self.player = try! AVAudioPlayer(data: audioData)
+                    self.player!.prepareToPlay()
+                    self.player?.delegate = self
+                    self.player!.play() // plays the audioData
+                } else {
+                    self.busy = false
+                }
+            }
+            
+          
         }
     }
     

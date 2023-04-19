@@ -29,10 +29,12 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
             if textArray.count > location - 1 {
                 location += 1
                 let text = textArray[location]
-                speak(text: text.string)
+                speak(text: text.string, speakLocation: location)
             }
         }
     }
+    
+    
     
     var speaker = SpeechService()
     var settingsModel = SettingsModel()
@@ -131,27 +133,24 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
         speaker.volume = settingsModel.retrieveAudioSettings(setting: .volume) as! Float
     }
     
-    func speak(text: String) {
-        speaker.speak(text: text, voiceType: .wavenetEnglishFemale) {
-        }
-//        didFinishSpeaking()
-    }
-    
-    func speakAll() {
-        textArray.forEach { text in
-            speaker.speak(text: text.string, voiceType: .wavenetEnglishFemale) {
-            }
+    func speak(text: String, speakLocation: Int) {
+        speaker.speak(location: speakLocation, text: text, voiceType: .wavenetEnglishFemale) {
         }
         
+        let next = speakLocation + 1
+        if next < textArray.count {
+            speaker.storeNext(text: textArray[next].string, location: next)
+        }
+
     }
+
     
     func goBackWard() {
         if location > 1 {
             location -= 1
         }
         speaker.pause()
-        speaker.speak(text: textArray[location].string) {
-        }
+        speak(text: textArray[location].string, speakLocation: location)
     }
     
     
@@ -164,8 +163,8 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
             location += 1
         }
         speaker.pause()
-        speaker.speak(text: textArray[location].string) {
-        }
+        speak(text: textArray[location].string, speakLocation: location)
+        
     }
     
     func repeatLastParagraph() {
@@ -190,7 +189,7 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
         simpleText = false
         speaker.pause()
         let text = textArray[location]
-        speak(text: text.string)
+        speak(text: text.string, speakLocation: location)
     }
     
     func simplifyAudio() {
