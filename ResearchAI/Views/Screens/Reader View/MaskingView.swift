@@ -20,39 +20,65 @@ struct MaskingView: View {
                 
             VStack{
                 HStack {
-                    Spacer()
                     Button { }
                     label: {
                         
                         Text("Back")
+                            .bold()
                         
                     }
-                            .padding()
+                            .padding(8)
                             .background(.black.opacity(0.7))
                             .cornerRadius(8)
                             .foregroundColor(.white)
                             .padding(.top, 40)
                             .padding(.trailing)
-                }
+                    Spacer()
+                    ZStack{
+                        Circle()
+                            .stroke(style: .init(lineWidth: 1))
+                            .frame(width: 30, height: 40)
+                            .opacity(0.2)
+                        Text("\(readerViewModel.location)")
+                            .underline()
+
+                    }
+                    .opacity(0.6)
+                    Spacer()
+                    Button {
+                       
+                    }
+                    label: {
+                        
+                        ZStack{
+                            Text("+")
+                                .font(.system(size: 20))
+                            Circle()
+                                .stroke(style: .init(lineWidth: 2))
+                                .padding(6)
+                                .frame(width: 50)
+                        }
+                        
+                    }
+                            .background(.black.opacity(0.3))
+                            .cornerRadius(8)
+                        
+                            .foregroundColor(.white)
+                            .padding(.top, 40)
+                            .padding(.trailing)
+                    
+                        }
                 Spacer()
                 if readerViewModel.showSettings {
                     AudioControlView(rate: $readerViewModel.speaker.rate, pitch: $readerViewModel.speaker.pitch, volume: $readerViewModel.speaker.volume)
                 }
+               
                 HStack{
                     backWards
-                        
-                    audioButton
+                    play
                     forward
                 }
-                HStack{
-                    repeatButton
-                    play
-                    locationview
-                }
-                HStack{
-                    startButton
-                    simpliefiedButton
-                }
+              
             }
         }
     }
@@ -99,14 +125,17 @@ extension MaskingView {
     }
     
     private var play: some View {
-        Button { readerViewModel.playAudio() }
+        Button {
+            readerViewModel.playAudio()
+            
+        }
     label: { Image(systemName: readerViewModel.stop ? "play" : "pause") }
         
-            .padding(.horizontal, 80)
-            .padding(.vertical, 12)
+            .padding(.horizontal, 50)
+            .padding(.vertical, 16)
             .padding()
             .background(.black.opacity(0.7))
-            .cornerRadius(8)
+            .cornerRadius(16)
             .foregroundColor(.white)
     }
     

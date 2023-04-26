@@ -20,7 +20,7 @@ class SpeechService: NSObject, AVAudioPlayerDelegate, ObservableObject {
     
     var settingsModel = SettingsModel.shared
     
-    private var audioHotloader = HotLoader<Data>()
+    var audioHotloader = HotLoader<Data>()
     
     @Published var rate: Double = 1.0 {
         didSet{
@@ -60,25 +60,29 @@ class SpeechService: NSObject, AVAudioPlayerDelegate, ObservableObject {
     
     
     func storeNext(text: String, voiceType: VoiceType = .wavenetEnglishFemale, location: Int) {
+        
+        print("Storing Next: \(location)")
         if !audioHotloader.checkIfItHasNext(location: location) {
-            let postData = self.buildPostData(text: text, voiceType: voiceType)
-            let headers = ["X-Goog-Api-Key": Constant.keys.GoogleTTS, "Content-Type": "application/json; charset=utf-8"]
-            let response = self.makePOSTRequest(url: ttsAPIUrl, postData: postData, headers: headers)
+            DispatchQueue.global().async {
+                let postData = self.buildPostData(text: text, voiceType: voiceType)
+                let headers = ["X-Goog-Api-Key": Constant.keys.GoogleTTS, "Content-Type": "application/json; charset=utf-8"]
+                let response = self.makePOSTRequest(url: ttsAPIUrl, postData: postData, headers: headers)
 
-            // Get the `audioContent` (as a base64 encoded string) from the response.
-            guard let audioContent = response["audioContent"] as? String else {
-                print("Invalid response: \(response)")
-                self.busy = false
-                return
+                // Get the `audioContent` (as a base64 encoded string) from the response.
+                guard let audioContent = response["audioContent"] as? String else {
+                    print("Invalid response: \(response)")
+                    self.busy = false
+                    return
+                }
+                
+                // Decode the base64 string into a Data object
+                guard let audioData = Data(base64Encoded: audioContent) else {
+                    self.busy = false
+                    return
+                }
+                
+                self.audioHotloader.put(store: audioData, location: location)
             }
-            
-            // Decode the base64 string into a Data object
-            guard let audioData = Data(base64Encoded: audioContent) else {
-                self.busy = false
-                return
-            }
-            
-            audioHotloader.put(store: audioData, location: location)
         }
     }
     
@@ -98,7 +102,8 @@ class SpeechService: NSObject, AVAudioPlayerDelegate, ObservableObject {
 
         DispatchQueue.global(qos: .background).async {
             print(3)
-
+            
+            print("checking while playing")
             if !self.audioHotloader.checkIfItHasNext(location: location) {
                 
                 let postData = self.buildPostData(text: text, voiceType: voiceType)
@@ -106,6 +111,7 @@ class SpeechService: NSObject, AVAudioPlayerDelegate, ObservableObject {
                 let response = self.makePOSTRequest(url: ttsAPIUrl, postData: postData, headers: headers)
 
                 // Get the `audioContent` (as a base64 encoded string) from the response.
+                
                 guard let audioContent = response["audioContent"] as? String else {
                     print("Invalid response: \(response)")
                     self.busy = false
@@ -128,7 +134,7 @@ class SpeechService: NSObject, AVAudioPlayerDelegate, ObservableObject {
                 
             } else {
                 
-            
+                print("from storage 3,4,5")
                 if let audioD = self.audioHotloader.returnNext(location: location) {
                     audioData = audioD
                 } else {

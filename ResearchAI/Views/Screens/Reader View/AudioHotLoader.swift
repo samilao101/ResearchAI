@@ -14,25 +14,26 @@ class HotLoader<Element> {
     
     func checkIfItHasNext(location: Int) -> Bool {
         if let _ = Storage[location] {
-            print("it has it")
+            print("it has it: \(location)")
             return true
         } else {
-            print("it does not have it")
+            print("it does not have it: \(location)")
             return false
         }
     }
     
     func returnNext (location: Int) -> Element? {
         if let value = Storage[location] {
-            print("value")
+            print("returned stored: \(location)")
             return value
         } else {
-            print("nil")
+            print("it does not have next.")
             return nil
         }
     }
     
     func put(store: Element, location: Int) {
+        print("Stored Next: \(location)")
         Storage.updateValue(store, forKey: location)
     }
     

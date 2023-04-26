@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		220EA12F29A12DCE00914032 /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220EA12E29A12DCE00914032 /* LocalFileManager.swift */; };
+		220ED50429F6B521004D2619 /* ImageExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220ED50329F6B521004D2619 /* ImageExtractor.swift */; };
 		221F113A2972E710007C507F /* ReadingStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221F11392972E710007C507F /* ReadingStorageManager.swift */; };
 		221F113D2972E84F007C507F /* AppContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 221F113B2972E84F007C507F /* AppContainer.xcdatamodeld */; };
 		22259CF129C5D3F200D08815 /* ForwardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22259CF029C5D3F200D08815 /* ForwardButton.swift */; };
@@ -76,6 +77,7 @@
 
 /* Begin PBXFileReference section */
 		220EA12E29A12DCE00914032 /* LocalFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileManager.swift; sourceTree = "<group>"; };
+		220ED50329F6B521004D2619 /* ImageExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtractor.swift; sourceTree = "<group>"; };
 		221F11392972E710007C507F /* ReadingStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingStorageManager.swift; sourceTree = "<group>"; };
 		221F113C2972E84F007C507F /* AppContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppContainer.xcdatamodel; sourceTree = "<group>"; };
 		22259CF029C5D3F200D08815 /* ForwardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForwardButton.swift; sourceTree = "<group>"; };
@@ -346,6 +348,7 @@
 				22259CF229C5D40F00D08815 /* BackwardButton.swift */,
 				22259CF429C5D4EE00D08815 /* AudioButton.swift */,
 				2264A7DF29DBB43E00825D98 /* ZoomScrollView .swift */,
+				220ED50329F6B521004D2619 /* ImageExtractor.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -555,6 +558,7 @@
 				22BADD5B29741E3800F6163B /* ResearchPaperPDFView.swift in Sources */,
 				224282E7296A768B00E636DD /* GrobidDecodedPaper.swift in Sources */,
 				2256FA33295F705400049F51 /* TranscriptionDataService.swift in Sources */,
+				220ED50429F6B521004D2619 /* ImageExtractor.swift in Sources */,
 				224282E9296A93E300E636DD /* ReaderView.swift in Sources */,
 				22BADD5929741CAE00F6163B /* SavedPaperPDFView.swift in Sources */,
 				22B566BC298B57DB00332804 /* ParsedPaper.swift in Sources */,

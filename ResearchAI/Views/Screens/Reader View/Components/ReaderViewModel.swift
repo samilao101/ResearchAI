@@ -35,7 +35,7 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     }
     
     
-    
+    var imageExtractor = ImageExtractor()
     var speaker = SpeechService()
     var settingsModel = SettingsModel()
     var openAI = OpenAIServicer()
@@ -46,7 +46,7 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     @Published var currentText: TextTypeString
     
     var paper: ParsedPaper
-    var location = 0 {
+    @Published var location = 0 {
         didSet {
             currentText = textArray[location]
         }
@@ -54,7 +54,7 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     var savedPaper: Bool
     let line = "\n" + "\n"
 
-    var stop = true
+    @Published var stop = true
     var showSettings = false
     var simpleText = false
     var paused = false
@@ -71,6 +71,7 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     deinit {
         speaker.pause()
         stop = true
+        paused = false 
     }
     
     func setup() {
@@ -78,7 +79,6 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
         compileTextArray()
         setLocation()
         setAudioSettings()
-        
         stop = true
     }
     
@@ -94,7 +94,7 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
                     
                     p.ref.forEach { ref in
                         if ref.attributes["type"] == "figure" {
-                            images.append(extractImageWithCoordinates(coordinates: ref.attributes["coords"]!)!)
+                            images.append(imageExtractor.extractImageWithCoordinates(coordinates: ref.attributes["coords"]!, pdfDocument: pdfDocument)!)
                         }
                     }
                     
@@ -134,23 +134,34 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     }
     
     func speak(text: String, speakLocation: Int) {
+        
+        print("Speaking: \(speakLocation)")
         speaker.speak(location: speakLocation, text: text, voiceType: .wavenetEnglishFemale) {
+             print("Spoke: \(speakLocation)")
         }
         
         let next = speakLocation + 1
+        
         if next < textArray.count {
-            speaker.storeNext(text: textArray[next].string, location: next)
+            print("Checking while thinking")
+            if !speaker.audioHotloader.checkIfItHasNext(location: next) {
+                speaker.storeNext(text: textArray[next].string, location: next)
+            }
         }
 
     }
-
     
     func goBackWard() {
         if location > 1 {
             location -= 1
         }
         speaker.pause()
-        speak(text: textArray[location].string, speakLocation: location)
+        
+        if !stop {
+            speak(text: textArray[location].string, speakLocation: location)
+        } else {
+            paused = false
+        }
     }
     
     
@@ -163,7 +174,12 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
             location += 1
         }
         speaker.pause()
-        speak(text: textArray[location].string, speakLocation: location)
+        
+        if !stop {
+            speak(text: textArray[location].string, speakLocation: location)
+        } else {
+            paused = false
+        }
         
     }
     
@@ -175,19 +191,23 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     }
     
     func playAudio() {
+        
         if stop {
-            speaker.play()
-            stop.toggle()
+            if !paused {
+                startAudio()
+            } else {
+                stop = false
+                speaker.play()
+            }
         } else {
+            paused = true
+            stop = true
             speaker.pause()
-            stop.toggle()
         }
     }
     
     func startAudio() {
         stop = false
-        simpleText = false
-        speaker.pause()
         let text = textArray[location]
         speak(text: text.string, speakLocation: location)
     }
@@ -200,54 +220,6 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
         didFinishSpeaking()
     }
     
-    func extractImageWithCoordinates(coordinates: String) -> UIImage? {
-        
-        let coordinateValues = coordinates.split(separator: ",").compactMap { Double($0) }
-
-        if coordinateValues.count == 5 {
-            let page = Int(coordinateValues[0]) - 1 // Convert to zero-based index
-            let x1 = CGFloat(coordinateValues[1])
-            let y1 = CGFloat(coordinateValues[2])
-            let x2 = CGFloat(coordinateValues[3])
-            let y2 = CGFloat(coordinateValues[4])
-
-            if let image = extractImages(from: pdfDocument, page: page, x1: x1, y1: y1, x2: x2, y2: y2) {
-               return image
-            } else {
-                return nil
-            }
-        } else {
-            print("Error: Invalid coordinates format.")
-            return nil
-        }
-        
-    }
-    
-    func extractImages(from document: PDFDocument, page: Int, x1: CGFloat, y1: CGFloat, x2: CGFloat, y2: CGFloat) -> UIImage? {
-        guard let pdfPage = document.page(at: page) else {
-            print("Error: Unable to access the PDF page.")
-            return nil
-        }
-
-        let cropBox = pdfPage.bounds(for: .cropBox)
-        let rect = CGRect(x: min(x1, x2), y: cropBox.height - max(y1, y2), width: abs(x2 - x1), height: abs(y2 - y1))
-
-        UIGraphicsBeginImageContextWithOptions(rect.size, false, UIScreen.main.scale)
-        guard let context = UIGraphicsGetCurrentContext() else {
-            UIGraphicsEndImageContext()
-            return nil
-        }
-
-        context.translateBy(x: -rect.origin.x, y: -rect.origin.y)
-        context.scaleBy(x: 1, y: -1)
-        context.translateBy(x: 0, y: -cropBox.height)
-        pdfPage.draw(with: .cropBox, to: context)
-
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        return image
-    }
     
     
 

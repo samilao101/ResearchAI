@@ -18,6 +18,7 @@ struct AudioPlayerView: View {
             TextPresenterView(text: readerViewModel.currentText)
                 .padding(20)
                 .foregroundColor(.white)
+            
             Rectangle()
                 .fill(.black)
                 .allowsHitTesting(false)
@@ -44,9 +45,11 @@ struct AudioPlayerView: View {
                 }
                 
             } symbols: {
-           
+               
                 MaskingView(readerViewModel: readerViewModel)
                     .tag(0)
+                
+                
                 
             }
         }

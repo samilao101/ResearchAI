@@ -19,8 +19,6 @@ struct OverlayView: View {
             
             VStack{
                 HStack {
-                    
-                    Spacer()
                     Button {
                         goBack.toggle()
                         readerViewModel.speaker.pause()
@@ -29,17 +27,45 @@ struct OverlayView: View {
                     label: {
                         
                         Text("Back")
-            
+                            .bold() 
                         
                     }
-                            .padding()
-                            .background(.gray.opacity(0.3))
+                            .padding(8)
+                            .background(.black.opacity(0.7))
                             .cornerRadius(8)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 4.0, style: .continuous)
-                                              .stroke(.white, lineWidth: 1.0)
-                                              .padding(6)
-                            )
+                            .foregroundColor(.white)
+                            .padding(.top, 40)
+                            .padding(.trailing)
+                    Spacer()
+                    ZStack{
+                        Circle()
+                            .stroke(style: .init(lineWidth: 1))
+                            .frame(width: 30, height: 40)
+                            .opacity(0.2)
+                        Text("\(readerViewModel.location)")
+                            .underline()
+                            
+                    }
+                    .opacity(0.6)
+                    Spacer()
+                    Button {
+                       
+                    }
+                    label: {
+                        
+                        ZStack{
+                            Text("+")
+                                .font(.system(size: 20))
+                            Circle()
+                                .stroke(style: .init(lineWidth: 2))
+                                .padding(6)
+                                .frame(width: 50)
+                        }
+                        
+                    }
+                            .background(.black.opacity(0.3))
+                            .cornerRadius(8)
+                           
                             .foregroundColor(.white)
                             .padding(.top, 40)
                             .padding(.trailing)
@@ -51,20 +77,17 @@ struct OverlayView: View {
                 if readerViewModel.showSettings {
                     AudioControlView(rate: $readerViewModel.speaker.rate, pitch: $readerViewModel.speaker.pitch, volume: $readerViewModel.speaker.volume)
                 }
-                HStack{
-                    backWards
-                    audioButton
-                    forward
+               
+                ZStack{
+                    HStack{
+                        backWards
+                        play
+                        forward
+                    }
+                   
+                
                 }
-                HStack{
-                    repeatButton
-                    play
-                    locationview
-                }
-                HStack{
-                    startButton
-                    simpliefiedButton
-                }
+            
             }
         }
     }
@@ -132,14 +155,18 @@ extension OverlayView {
     }
     
     private var play: some View {
-        Button { readerViewModel.playAudio() }
+        Button {
+         
+            readerViewModel.playAudio()
+            
+        }
     label: { Image(systemName: readerViewModel.stop ? "play" : "pause") }
         
-            .padding(.horizontal, 80)
-            .padding(.vertical, 12)
+            .padding(.horizontal, 50)
+            .padding(.vertical, 16)
             .padding()
             .background(.gray.opacity(0.3))
-            .cornerRadius(8)
+            .cornerRadius(16)
             .foregroundColor(.white)
             .overlay(
                 RoundedRectangle(cornerRadius: 4.0, style: .continuous)
