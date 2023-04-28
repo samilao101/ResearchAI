@@ -83,10 +83,11 @@ final class OpenAISimplifyingServicer: ObservableObject {
         }
     }
     
-    func send(text: String, completion: @escaping (String) -> Void) {
+    func send(textPrompt: String, completion: @escaping (String) -> Void) {
         
-        let prompt = "\(Constant.prompt.simplifyAndSummarize) \(text). "
+        let prompt = "\(Constant.prompt.simplifyAndSummarize) \(textPrompt). "
     
+        print("sending")
         client?.sendCompletion(with: prompt, maxTokens: 500, completionHandler: { result in
             print(result)
             switch result {

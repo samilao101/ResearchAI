@@ -11,6 +11,8 @@ struct AudioPlayerView: View {
     
     @StateObject var readerViewModel: ReaderViewModel
     @Binding var goBack: Bool
+    
+    @State var showButtons = false 
 
     
     var body: some View {
@@ -37,9 +39,16 @@ struct AudioPlayerView: View {
                 cont.addFilter(.alphaThreshold(min: 0.1))
                 cont.addFilter(.blur(radius: 10))
                 cont.drawLayer { ctx in
-                    for index in 0..<2 {
-                        if let symbol = cont.resolveSymbol(id: index) {
-                            ctx.draw(symbol, at: CGPoint(x: size.width - symbol.size.width/2, y: size.height - symbol.size.height/2))
+                    for index in 0...3 {
+                        if index == 0 {
+                            if let symbol = cont.resolveSymbol(id: index) {
+                                ctx.draw(symbol, at: CGPoint(x: size.width - symbol.size.width/2, y: size.height - symbol.size.height/2))
+                            }
+                        } else {
+                            if let symbol = cont.resolveSymbol(id: index) {
+                                ctx.draw(symbol, at: CGPoint(x: size.width - symbol.size.width/2, y: 50))
+                            }
+                            
                         }
                     }
                 }
@@ -49,7 +58,7 @@ struct AudioPlayerView: View {
                 MaskingView(readerViewModel: readerViewModel)
                     .tag(0)
                 
-                
+               
                 
             }
         }

@@ -36,7 +36,7 @@ struct AnswersGPT: View, isDoneTranscribing, didFinishSpeakingProtocol {
                     .padding()
                 Button("Send"){
                     sendWriten()
-                }.foregroundColor(.black)
+                }.foregroundColor(.primary)
             }
 //            HStack {
 //                Button {

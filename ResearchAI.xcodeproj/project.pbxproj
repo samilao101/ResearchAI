@@ -40,6 +40,7 @@
 		2256FA34295F705400049F51 /* Recognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA2D295F705400049F51 /* Recognizer.swift */; };
 		2256FA35295F705400049F51 /* SpeakerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA2E295F705400049F51 /* SpeakerButton.swift */; };
 		2256FA36295F705400049F51 /* Speaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA2F295F705400049F51 /* Speaker.swift */; };
+		2257CED029FBFD5600B1707F /* ReaderPDFViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2257CECF29FBFD5600B1707F /* ReaderPDFViewer.swift */; };
 		225B8E4129D91A3E00EC8A96 /* TextPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B8E4029D91A3E00EC8A96 /* TextPresenterView.swift */; };
 		225B8E4329D9A89900EC8A96 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B8E4229D9A89900EC8A96 /* AudioPlayerView.swift */; };
 		225B8E4529D9AD8300EC8A96 /* MaskingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B8E4429D9AD8300EC8A96 /* MaskingView.swift */; };
@@ -107,6 +108,7 @@
 		2256FA2D295F705400049F51 /* Recognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recognizer.swift; sourceTree = "<group>"; };
 		2256FA2E295F705400049F51 /* SpeakerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeakerButton.swift; sourceTree = "<group>"; };
 		2256FA2F295F705400049F51 /* Speaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Speaker.swift; sourceTree = "<group>"; };
+		2257CECF29FBFD5600B1707F /* ReaderPDFViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderPDFViewer.swift; sourceTree = "<group>"; };
 		225B8E4029D91A3E00EC8A96 /* TextPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPresenterView.swift; sourceTree = "<group>"; };
 		225B8E4229D9A89900EC8A96 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		225B8E4429D9AD8300EC8A96 /* MaskingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskingView.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				22BADD5829741CAE00F6163B /* SavedPaperPDFView.swift */,
+				2257CECF29FBFD5600B1707F /* ReaderPDFViewer.swift */,
 				226EAC2029B2E1CE002C060D /* Components */,
 			);
 			path = "Saved Paper View";
@@ -593,6 +596,7 @@
 				229C3B3F29C87B0E00ABE6BD /* ReaderViewModel.swift in Sources */,
 				22259CF329C5D40F00D08815 /* BackwardButton.swift in Sources */,
 				220EA12F29A12DCE00914032 /* LocalFileManager.swift in Sources */,
+				2257CED029FBFD5600B1707F /* ReaderPDFViewer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,9 +18,18 @@ struct SimplificationView: View {
     ScrollView{
         VStack {
             VStack{
-                Text("Simplification:")
+                Text("Paragraph Simplification:")
                     .bold()
-                Text(simplified)
+                    .underline()
+                if simplified.isEmpty {
+                   ProgressView()
+                        .foregroundColor(.black)
+                    HStack {
+                        Spacer()
+                    }
+                } else {
+                    Text(simplified)
+                }
             }
             .padding(6.0)
             .background(RoundedRectangle(cornerRadius: 4.0, style: .continuous)
@@ -34,6 +43,7 @@ struct SimplificationView: View {
         }
     }
             .onAppear{
+                viewModel.setup()
                 let prompt = "rewrite and provide only a simplified version of this research paper summary in a way that a high school student would understand: \(originalText). Then provide a list of all the technical terms used in the text. "
                 viewModel.send(text: prompt) { response in
                     DispatchQueue.main.async {

@@ -34,6 +34,14 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
         }
     }
     
+    @Published var showButtons = false {
+        didSet {
+            print("changing")
+        }
+    }
+
+    @Published var showAIChat = false
+    @Published var showPaper = false 
     
     var imageExtractor = ImageExtractor()
     var speaker = SpeechService()
@@ -55,7 +63,7 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     let line = "\n" + "\n"
 
     @Published var stop = true
-    var showSettings = false
+    @Published var showSettings = false
     var simpleText = false
     var paused = false
     var pdfDocument : PDFDocument
@@ -134,6 +142,7 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     }
     
     func speak(text: String, speakLocation: Int) {
+        
         
         print("Speaking: \(speakLocation)")
         speaker.speak(location: speakLocation, text: text, voiceType: .wavenetEnglishFemale) {
