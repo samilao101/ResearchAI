@@ -41,6 +41,7 @@
 		2256FA35295F705400049F51 /* SpeakerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA2E295F705400049F51 /* SpeakerButton.swift */; };
 		2256FA36295F705400049F51 /* Speaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA2F295F705400049F51 /* Speaker.swift */; };
 		2257CED029FBFD5600B1707F /* ReaderPDFViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2257CECF29FBFD5600B1707F /* ReaderPDFViewer.swift */; };
+		2257CED229FD2B0200B1707F /* SavedPaperCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2257CED129FD2B0200B1707F /* SavedPaperCellView.swift */; };
 		225B8E4129D91A3E00EC8A96 /* TextPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B8E4029D91A3E00EC8A96 /* TextPresenterView.swift */; };
 		225B8E4329D9A89900EC8A96 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B8E4229D9A89900EC8A96 /* AudioPlayerView.swift */; };
 		225B8E4529D9AD8300EC8A96 /* MaskingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B8E4429D9AD8300EC8A96 /* MaskingView.swift */; };
@@ -109,6 +110,7 @@
 		2256FA2E295F705400049F51 /* SpeakerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeakerButton.swift; sourceTree = "<group>"; };
 		2256FA2F295F705400049F51 /* Speaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Speaker.swift; sourceTree = "<group>"; };
 		2257CECF29FBFD5600B1707F /* ReaderPDFViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderPDFViewer.swift; sourceTree = "<group>"; };
+		2257CED129FD2B0200B1707F /* SavedPaperCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPaperCellView.swift; sourceTree = "<group>"; };
 		225B8E4029D91A3E00EC8A96 /* TextPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPresenterView.swift; sourceTree = "<group>"; };
 		225B8E4229D9A89900EC8A96 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		225B8E4429D9AD8300EC8A96 /* MaskingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskingView.swift; sourceTree = "<group>"; };
@@ -135,7 +137,7 @@
 		22BADD632974583200F6163B /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		22BADD6529748B7E00F6163B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		22C2D9A9296FAB010010CBF7 /* SpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
-		22D2FA33295CB06400D670D0 /* ResearchAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ResearchAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		22D2FA33295CB06400D670D0 /* Paiper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Paiper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22D2FA36295CB06400D670D0 /* ResearchAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResearchAIApp.swift; sourceTree = "<group>"; };
 		22D2FA38295CB06400D670D0 /* ResearchPaperListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResearchPaperListView.swift; sourceTree = "<group>"; };
 		22D2FA3A295CB06400D670D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				22356A9C299A425500136E90 /* SavedPaperListView.swift */,
+				2257CED129FD2B0200B1707F /* SavedPaperCellView.swift */,
 			);
 			path = "Articles Saved List";
 			sourceTree = "<group>";
@@ -423,7 +426,7 @@
 		22D2FA34295CB06400D670D0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				22D2FA33295CB06400D670D0 /* ResearchAI.app */,
+				22D2FA33295CB06400D670D0 /* Paiper.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -477,7 +480,7 @@
 				224282E22969DAA200E636DD /* Alamofire */,
 			);
 			productName = ResearchAI;
-			productReference = 22D2FA33295CB06400D670D0 /* ResearchAI.app */;
+			productReference = 22D2FA33295CB06400D670D0 /* Paiper.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -567,6 +570,7 @@
 				22B566BC298B57DB00332804 /* ParsedPaper.swift in Sources */,
 				225B8E4E29DAD49E00EC8A96 /* XMLHandler.swift in Sources */,
 				2256FA24295E17B200049F51 /* SimplificationView.swift in Sources */,
+				2257CED229FD2B0200B1707F /* SavedPaperCellView.swift in Sources */,
 				225B8E4729D9BAE700EC8A96 /* OverlayView.swift in Sources */,
 				226EAC0E29B2D408002C060D /* View+Modifiers.swift in Sources */,
 				224AE0932991F33400F3EA17 /* RAISummary.swift in Sources */,
@@ -744,7 +748,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = mwc.ResearchAI;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Paiper;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -778,7 +782,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = mwc.ResearchAI;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Paiper;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
