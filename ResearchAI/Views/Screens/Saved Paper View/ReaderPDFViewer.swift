@@ -175,9 +175,9 @@ struct ReaderPDFViewer: View {
         
         print("function fired")
         
-//        let compToSave = Comprehension(id: comprehension!.id, summary: comprehension!.summary, pdfData: newData, decodedPaper: comprehension!.decodedPaper)
-//        comprehensionLocalFileManager.saveModel(object: compToSave, id: comprehension!.id.uuidString)
-//
+        let compToSave = Comprehension(id: readerViewModel.comprehension.id, summary: readerViewModel.comprehension.summary, pdfData: newData, decodedPaper: readerViewModel.comprehension.decodedPaper)
+        comprehensionLocalFileManager.saveModel(object: compToSave, id: readerViewModel.comprehension.id.uuidString)
+
     }
 }
 

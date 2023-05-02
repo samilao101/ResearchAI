@@ -39,6 +39,8 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
             print("changing")
         }
     }
+    
+
 
     @Published var showAIChat = false
     @Published var showPaper = false 
