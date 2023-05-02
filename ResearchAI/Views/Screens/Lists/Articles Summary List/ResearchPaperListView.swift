@@ -18,13 +18,16 @@ struct ResearchPaperListView: View {
         
         VStack {
             HStack {
-                TextField("Type here...", text: $textWriten)
+                TextField("Search Arxiv...", text: $textWriten)
                     .textViewModifier()
                 Button("Send"){send(string: textWriten)}
                     .buttonStyle(.borderedProminent)
                     .foregroundColor(.white)
+                    .tint(.black)
             }
             .padding(.horizontal)
+            Divider()
+                .font(.largeTitle)
             if appState.noResults {
                 Text("No Results...")
                 Spacer()
@@ -53,7 +56,7 @@ struct ResearchPaperListView: View {
                     } label: {
                         HStack{
                             Image(systemName: "newspaper")
-                            Text("Saved Papers")
+                            Text("Saved")
                         }
                     }
 

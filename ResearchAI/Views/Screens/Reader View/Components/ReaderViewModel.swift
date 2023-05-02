@@ -53,6 +53,7 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     
     @Published var currentText: TextTypeString
     
+    var comprehension: Comprehension
     var paper: ParsedPaper
     @Published var location = 0 {
         didSet {
@@ -68,10 +69,11 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     var paused = false
     var pdfDocument : PDFDocument
     
-    init(parsedPaper: ParsedPaper, savedPaper: Bool, pdfDoc: PDFDocument) {
-        self.paper = parsedPaper
+    init(comprehension: Comprehension, savedPaper: Bool, pdfDoc: PDFDocument) {
+        self.paper = comprehension.decodedPaper!
+        self.comprehension = comprehension
         self.savedPaper = savedPaper
-        self.currentText = TextTypeString(string: parsedPaper.title, type: .title)
+        self.currentText = TextTypeString(string: comprehension.decodedPaper?.title ?? "", type: .title)
         self.pdfDocument = pdfDoc
         setup()
 
