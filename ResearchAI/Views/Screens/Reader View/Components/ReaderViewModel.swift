@@ -59,6 +59,7 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     var paper: ParsedPaper
     @Published var location = 0 {
         didSet {
+            UserDefaults.standard.set(location, forKey: paper.id.uuidString)
             currentText = textArray[location]
         }
     }
