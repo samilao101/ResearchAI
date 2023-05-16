@@ -13,6 +13,8 @@ struct OverlayView: View {
     
     @StateObject var readerViewModel: ReaderViewModel
     @Binding var goBack: Bool
+    @Environment(\.managedObjectContext) private var viewContext
+
      
     
     var body: some View {
@@ -87,7 +89,7 @@ struct OverlayView: View {
         }
         .sheet(isPresented: $readerViewModel.showAIChat) {
             VStack{
-                SimplificationView(originalText: readerViewModel.currentText.string, viewModel: readerViewModel.openAI)
+                ConversationAndSimplification(originalText: readerViewModel.currentText.string, viewModel: readerViewModel.openAI, paperID: readerViewModel.paper.id.uuidString, paragraph: readerViewModel.location)
                     .presentationDetents([.medium, .large])
                     .preferredColorScheme(.dark)
             }
@@ -272,7 +274,7 @@ extension OverlayView {
     }
     private var note: some View {
         Button {
-                
+            readerViewModel.showNoteViewer.toggle()
             }
         label: {
             
@@ -283,6 +285,12 @@ extension OverlayView {
                     .stroke(style: .init(lineWidth: 2))
                     .padding(6)
                     .frame(width: 50)
+            }
+            .sheet(isPresented: $readerViewModel.showNoteViewer) {
+                NotesViewer(citation: "\(readerViewModel.comprehension.summary!.raiAuthors.map { $0 }.joined(separator: ", ")) (\(readerViewModel.comprehension.summary!.raiPublished.prefix(4))), \"\(readerViewModel.comprehension.summary!.raiTitle)\", p: \(readerViewModel.location)", location: readerViewModel.location, paperid: readerViewModel.comprehension.id.uuidString, paragraph: readerViewModel.currentText.string, showNoteViewer: $readerViewModel.showNoteViewer)
+                    .preferredColorScheme(.dark)
+                    .environment(\.managedObjectContext, self.viewContext)
+
             }
             
         }

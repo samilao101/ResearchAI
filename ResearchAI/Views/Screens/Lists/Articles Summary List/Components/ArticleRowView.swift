@@ -23,18 +23,17 @@ struct ArticleRowView: View {
             if tags.isEmpty {
                 EmptyView()
             } else {
-                
-                    FlowLayout {
-                        ForEach(tags, id: \.self) { tag in
-                            Text(tag)
-                                .font(.caption)
-                                .foregroundColor(.white)
-                                .padding(.horizontal, 4)
-                                .padding(.vertical, 2)
-                                .background(Color.gray)
-                                .cornerRadius(10)
-                        }
+                FlowLayout {
+                    ForEach(tags, id: \.self) { tag in
+                        Text(tag)
+                            .font(.caption)
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 4)
+                            .padding(.vertical, 2)
+                            .background(Color.gray)
+                            .cornerRadius(10)
                     }
+                }
                 
             }
         }

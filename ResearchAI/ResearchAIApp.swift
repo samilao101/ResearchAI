@@ -14,6 +14,7 @@ struct ResearchAIApp: App {
     @ObservedObject var appState : AppState = AppState.shared
     @State var selectingDatabase = true
     var settingsModel = SettingsModel.shared
+
     
     var body: some Scene {
         WindowGroup {
@@ -21,10 +22,11 @@ struct ResearchAIApp: App {
                 ZStack{
                     ResearchPaperListView(comprehensions: ComprehensionLocalFileManager.getAllModels())
                         .environmentObject(appState)
+
                     }
-                        .navigationDestination(for: RAISummary.self) { summary in
-                            RAISummaryView(summary: summary)
-                        }
+                .navigationDestination(for: RAISummary.self) { summary in
+                        RAISummaryView(summary: summary)
+                }
             }
             .environment(\.colorScheme, .light)
             .onAppear {

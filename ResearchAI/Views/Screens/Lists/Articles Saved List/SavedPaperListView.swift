@@ -56,6 +56,8 @@ struct SavedPaperAlbumView: View {
     @EnvironmentObject var appState: AppState
     @State var showReader = false
     @State var paper: Comprehension? = nil
+    let persistenceController = PersistenceController.shared
+
 
     var body: some View {
         ScrollView {
@@ -66,8 +68,9 @@ struct SavedPaperAlbumView: View {
                             title: doc.summary?.raiTitle ?? "",
                             icon: generatePdfThumbnail(for: doc.pdfDocument) ?? UIImage(),
                             authors: doc.summary?.raiAuthors ?? [""],
-                            publishedDate: doc.summary?.raiPublished ?? ""
+                            publishedDate: doc.summary?.raiPublished ?? "", id: doc.decodedPaper!.id.uuidString
                         )
+                        .environment(\.managedObjectContext, persistenceController.container.viewContext)
                         .padding()
                     }
                     .onTapGesture {
@@ -91,6 +94,8 @@ struct SavedPaperAlbumView: View {
                     ),
                     goBack: $showReader
                 )
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+
             } else {
                 EmptyView()
             }

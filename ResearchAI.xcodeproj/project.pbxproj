@@ -28,6 +28,9 @@
 		224282E7296A768B00E636DD /* GrobidDecodedPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224282E6296A768B00E636DD /* GrobidDecodedPaper.swift */; };
 		224282E9296A93E300E636DD /* ReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224282E8296A93E300E636DD /* ReaderView.swift */; };
 		224282ED296C22E400E636DD /* AudioControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224282EC296C22E400E636DD /* AudioControlView.swift */; };
+		224292282A0E3CE60054E547 /* ConversationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224292272A0E3CE60054E547 /* ConversationStorage.swift */; };
+		2242922A2A0E53480054E547 /* ConversationGPT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224292292A0E53480054E547 /* ConversationGPT.swift */; };
+		2242922C2A0E541C0054E547 /* ConversationAndSimplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242922B2A0E541C0054E547 /* ConversationAndSimplication.swift */; };
 		224AE08C298F132900F3EA17 /* Wrappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AE08B298F132900F3EA17 /* Wrappers.swift */; };
 		224AE0932991F33400F3EA17 /* RAISummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AE0922991F33400F3EA17 /* RAISummary.swift */; };
 		224AE09529926E7200F3EA17 /* RAISummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AE09429926E7200F3EA17 /* RAISummaryView.swift */; };
@@ -42,6 +45,10 @@
 		2256FA36295F705400049F51 /* Speaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256FA2F295F705400049F51 /* Speaker.swift */; };
 		2257CED029FBFD5600B1707F /* ReaderPDFViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2257CECF29FBFD5600B1707F /* ReaderPDFViewer.swift */; };
 		2257CED229FD2B0200B1707F /* SavedPaperCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2257CED129FD2B0200B1707F /* SavedPaperCellView.swift */; };
+		2257CEF02A01216F00B1707F /* NotesViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2257CEEF2A01216F00B1707F /* NotesViewer.swift */; };
+		2257CEF32A01235000B1707F /* CoreStorage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2257CEF12A01235000B1707F /* CoreStorage.xcdatamodeld */; };
+		2257CEF52A013A4A00B1707F /* NotesEditorViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2257CEF42A013A4A00B1707F /* NotesEditorViewer.swift */; };
+		2257CEF72A01401E00B1707F /* PersistanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2257CEF62A01401E00B1707F /* PersistanceController.swift */; };
 		225B8E4129D91A3E00EC8A96 /* TextPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B8E4029D91A3E00EC8A96 /* TextPresenterView.swift */; };
 		225B8E4329D9A89900EC8A96 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B8E4229D9A89900EC8A96 /* AudioPlayerView.swift */; };
 		225B8E4529D9AD8300EC8A96 /* MaskingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225B8E4429D9AD8300EC8A96 /* MaskingView.swift */; };
@@ -97,6 +104,9 @@
 		224282E6296A768B00E636DD /* GrobidDecodedPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrobidDecodedPaper.swift; sourceTree = "<group>"; };
 		224282E8296A93E300E636DD /* ReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderView.swift; sourceTree = "<group>"; };
 		224282EC296C22E400E636DD /* AudioControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioControlView.swift; sourceTree = "<group>"; };
+		224292272A0E3CE60054E547 /* ConversationStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationStorage.swift; sourceTree = "<group>"; };
+		224292292A0E53480054E547 /* ConversationGPT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationGPT.swift; sourceTree = "<group>"; };
+		2242922B2A0E541C0054E547 /* ConversationAndSimplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationAndSimplication.swift; sourceTree = "<group>"; };
 		224AE08B298F132900F3EA17 /* Wrappers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wrappers.swift; sourceTree = "<group>"; };
 		224AE0922991F33400F3EA17 /* RAISummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAISummary.swift; sourceTree = "<group>"; };
 		224AE09429926E7200F3EA17 /* RAISummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAISummaryView.swift; sourceTree = "<group>"; };
@@ -111,6 +121,10 @@
 		2256FA2F295F705400049F51 /* Speaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Speaker.swift; sourceTree = "<group>"; };
 		2257CECF29FBFD5600B1707F /* ReaderPDFViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderPDFViewer.swift; sourceTree = "<group>"; };
 		2257CED129FD2B0200B1707F /* SavedPaperCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPaperCellView.swift; sourceTree = "<group>"; };
+		2257CEEF2A01216F00B1707F /* NotesViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewer.swift; sourceTree = "<group>"; };
+		2257CEF22A01235000B1707F /* CoreStorage.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreStorage.xcdatamodel; sourceTree = "<group>"; };
+		2257CEF42A013A4A00B1707F /* NotesEditorViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesEditorViewer.swift; sourceTree = "<group>"; };
+		2257CEF62A01401E00B1707F /* PersistanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceController.swift; sourceTree = "<group>"; };
 		225B8E4029D91A3E00EC8A96 /* TextPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPresenterView.swift; sourceTree = "<group>"; };
 		225B8E4229D9A89900EC8A96 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		225B8E4429D9AD8300EC8A96 /* MaskingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskingView.swift; sourceTree = "<group>"; };
@@ -167,6 +181,7 @@
 				220EA12E29A12DCE00914032 /* LocalFileManager.swift */,
 				221F11392972E710007C507F /* ReadingStorageManager.swift */,
 				221F113B2972E84F007C507F /* AppContainer.xcdatamodeld */,
+				224292272A0E3CE60054E547 /* ConversationStorage.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -188,8 +203,21 @@
 				2256FA2F295F705400049F51 /* Speaker.swift */,
 				2256FA2E295F705400049F51 /* SpeakerButton.swift */,
 				2256FA2C295F705400049F51 /* TranscriptionDataService.swift */,
+				2242922B2A0E541C0054E547 /* ConversationAndSimplication.swift */,
+				224292292A0E53480054E547 /* ConversationGPT.swift */,
 			);
 			path = ChatAI;
+			sourceTree = "<group>";
+		};
+		2257CEEE2A011BA500B1707F /* Notes */ = {
+			isa = PBXGroup;
+			children = (
+				2257CEEF2A01216F00B1707F /* NotesViewer.swift */,
+				2257CEF42A013A4A00B1707F /* NotesEditorViewer.swift */,
+				2257CEF62A01401E00B1707F /* PersistanceController.swift */,
+				2257CEF12A01235000B1707F /* CoreStorage.xcdatamodeld */,
+			);
+			path = Notes;
 			sourceTree = "<group>";
 		};
 		225B8E4C29DAD48900EC8A96 /* Custom Parser */ = {
@@ -355,6 +383,7 @@
 				22259CF429C5D4EE00D08815 /* AudioButton.swift */,
 				2264A7DF29DBB43E00825D98 /* ZoomScrollView .swift */,
 				220ED50329F6B521004D2619 /* ImageExtractor.swift */,
+				2257CEEE2A011BA500B1707F /* Notes */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -542,9 +571,12 @@
 			files = (
 				226EAC2F29B2EA9E002C060D /* PDFLoadingView.swift in Sources */,
 				22D2FA4F295CF8A600D670D0 /* OpenAIServicer.swift in Sources */,
+				2242922A2A0E53480054E547 /* ConversationGPT.swift in Sources */,
 				2256FA31295F705400049F51 /* AnswersGPT.swift in Sources */,
 				22D90A4A29DC3E7000F9726C /* AudioHotLoader.swift in Sources */,
 				225B8E4B29DA030F00EC8A96 /* ArxivPaperServicer.swift in Sources */,
+				2257CEF72A01401E00B1707F /* PersistanceController.swift in Sources */,
+				2257CEF32A01235000B1707F /* CoreStorage.xcdatamodeld in Sources */,
 				2256FA34295F705400049F51 /* Recognizer.swift in Sources */,
 				226EAC2C29B2E91C002C060D /* SummarizingView.swift in Sources */,
 				2256FA32295F705400049F51 /* MessageBubble.swift in Sources */,
@@ -559,6 +591,7 @@
 				224AE0972992A39700F3EA17 /* RAIPaperDatabase.swift in Sources */,
 				22D90A7D29E040FD00F9726C /* Color.swift in Sources */,
 				221F113A2972E710007C507F /* ReadingStorageManager.swift in Sources */,
+				2257CEF52A013A4A00B1707F /* NotesEditorViewer.swift in Sources */,
 				221F113D2972E84F007C507F /* AppContainer.xcdatamodeld in Sources */,
 				224282ED296C22E400E636DD /* AudioControlView.swift in Sources */,
 				22BADD5B29741E3800F6163B /* ResearchPaperPDFView.swift in Sources */,
@@ -585,6 +618,8 @@
 				22B566BE298B5B5100332804 /* AppState.swift in Sources */,
 				22259CF129C5D3F200D08815 /* ForwardButton.swift in Sources */,
 				225B8E4529D9AD8300EC8A96 /* MaskingView.swift in Sources */,
+				224292282A0E3CE60054E547 /* ConversationStorage.swift in Sources */,
+				2242922C2A0E541C0054E547 /* ConversationAndSimplication.swift in Sources */,
 				224282E5296A743A00E636DD /* PaperDecoder.swift in Sources */,
 				22356A9D299A425500136E90 /* SavedPaperListView.swift in Sources */,
 				2256FA20295DDA5200049F51 /* PDFResearchPaperView.swift in Sources */,
@@ -601,6 +636,7 @@
 				22259CF329C5D40F00D08815 /* BackwardButton.swift in Sources */,
 				220EA12F29A12DCE00914032 /* LocalFileManager.swift in Sources */,
 				2257CED029FBFD5600B1707F /* ReaderPDFViewer.swift in Sources */,
+				2257CEF02A01216F00B1707F /* NotesViewer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -865,6 +901,16 @@
 			);
 			currentVersion = 221F113C2972E84F007C507F /* AppContainer.xcdatamodel */;
 			path = AppContainer.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		2257CEF12A01235000B1707F /* CoreStorage.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2257CEF22A01235000B1707F /* CoreStorage.xcdatamodel */,
+			);
+			currentVersion = 2257CEF22A01235000B1707F /* CoreStorage.xcdatamodel */;
+			path = CoreStorage.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

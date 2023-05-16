@@ -43,7 +43,8 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
 
 
     @Published var showAIChat = false
-    @Published var showPaper = false 
+    @Published var showPaper = false
+    @Published var showNoteViewer = false 
     
     var imageExtractor = ImageExtractor()
     var speaker = SpeechService()

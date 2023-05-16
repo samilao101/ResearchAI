@@ -52,8 +52,8 @@ final class OpenAIServicer: ObservableObject {
                 
             case .success(let response):
                 print(response)
-                self.chatMessages.append(response.choices.last?.message ?? ChatMessage(role: .system, content: "No response"))
-                completion(response.choices.last?.message.content ?? "No response")
+                self.chatMessages.append(response.choices?.last?.message ?? ChatMessage(role: .system, content: "No response"))
+                completion(response.choices?.last?.message.content ?? "No response")
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -93,7 +93,7 @@ final class OpenAISimplifyingServicer: ObservableObject {
             switch result {
             case .success(let model):
                 print("returned")
-                let output = model.choices.first?.text ?? ""
+                let output = model.choices?.first?.text ?? ""
                 completion(output)
             case .failure(let error):
                 print(error)
@@ -112,8 +112,8 @@ final class OpenAISimplifyingServicer: ObservableObject {
             switch result {
                 
             case .success(let response):
-                self.chatMessages.append(response.choices.last?.message ?? ChatMessage(role: .system, content: "No response"))
-                completion(response.choices.last?.message.content ?? "No response")
+                self.chatMessages.append(response.choices?.last?.message ?? ChatMessage(role: .system, content: "No response"))
+                completion(response.choices?.last?.message.content ?? "No response")
             case .failure(let error):
                 print(error.localizedDescription)
             }

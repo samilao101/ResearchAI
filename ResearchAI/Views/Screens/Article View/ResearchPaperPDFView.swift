@@ -104,6 +104,8 @@ struct ResearchPaperPDFView: View {
             comprehensionLocalFileManager.savedDocument = false
             
         }
+        
+        
     }
     
     

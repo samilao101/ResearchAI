@@ -5,6 +5,10 @@
 //  Created by Sam Santos on 4/29/23.
 //
 
+extension Color {
+    static let offWhite = Color(red: 225 / 255, green: 225 / 255, blue: 235 / 255)
+}
+
 import SwiftUI
 
 struct SavedPaperCellView: View {
@@ -12,12 +16,14 @@ struct SavedPaperCellView: View {
     let icon: UIImage?
     let authors: [String]
     let publishedDate: String
+    let id: String
+    
+    @State var showNotesEditor: Bool = false
+    @State var savedLocation: Int = 0
     
     var body: some View {
         ZStack{
           
-           
-                
 
             VStack {
                
@@ -40,15 +46,19 @@ struct SavedPaperCellView: View {
                             .padding(.horizontal, 10)
                             .multilineTextAlignment(.leading)
                         HStack {
-                            Label("6", systemImage: "bookmark.fill")
+                            Label("\(savedLocation)", systemImage: "bookmark.fill")
                                 .font(.subheadline)
-                            Label("Notes", systemImage: "note.text")
-                                .font(.subheadline)
+                            Button {
+                                showNotesEditor.toggle()
+                            } label: {
+                                Label("Notes", systemImage: "note.text")
+                                    .font(.subheadline)
+                            }
+
                             
                         }.padding()
                         Spacer()
                        
-                        
                     }
                     VStack{
                         if let icon = icon {
@@ -60,10 +70,11 @@ struct SavedPaperCellView: View {
                                 .frame(maxWidth: .infinity)
                                 .padding(.horizontal, 10)
                                 .frame(width: 120, height: 160)
-                                .overlay(RoundedRectangle(cornerRadius: 10).stroke(style: .init(lineWidth: 1))
-                                    .padding(2)
-                                )
+                                
                                 .padding(.trailing, 40)
+                                .background(Color.offWhite)
+
+
                                 
                         }
                         Spacer()
@@ -72,10 +83,18 @@ struct SavedPaperCellView: View {
                 Spacer()
 
             }
-                        
+            .sheet(isPresented: $showNotesEditor, content: {
+                NotesEditorViewer()
+            })
             .foregroundColor(.black)
             .padding(3)
+            .padding(.leading, 2)
             .padding(.top)
+            .background(Color.offWhite.opacity(0.5).cornerRadius(6))
+
+            .onAppear {
+                savedLocation = UserDefaults.standard.integer(forKey: id)
+            }
 
            
             
@@ -87,9 +106,7 @@ struct SavedPaperCellView: View {
         
             .frame(maxWidth: .infinity)
             .frame(height: 250)
-            .overlay(RoundedRectangle(cornerRadius: 10).stroke(style: .init(lineWidth: 3))
-                .padding(2)
-            )
+           
         
             
             
@@ -100,7 +117,7 @@ struct SavedPaperCellView: View {
 
 struct SavedPaperCellView_Previews: PreviewProvider {
     static var previews: some View {
-        SavedPaperCellView(title: "Neural Manifolds in the AI age", icon: thumbnail, authors: ["Samil Cruz", "Paveli Cruz", "Pamela Cruz"], publishedDate: "12/31/1988")
+        SavedPaperCellView(title: "Neural Manifolds in the AI age", icon: thumbnail, authors: ["Samil Cruz", "Paveli Cruz", "Pamela Cruz"], publishedDate: "12/31/1988", id: "san0haonasans8")
         
             .previewLayout(.sizeThatFits)
     }
