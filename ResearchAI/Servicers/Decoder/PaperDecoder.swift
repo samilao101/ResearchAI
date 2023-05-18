@@ -104,6 +104,50 @@ class PaperDecoder : ObservableObject {
             }
         }.resume()
     }
+    
+    func sendPDF(withData: Data) {
+        
+        let session = URLSession.shared
+        var request = URLRequest(url: URL(string: "https://kermitt2-grobid.hf.space/api/processFulltextDocument")!)
+        request.httpMethod = "POST"
+
+        let formData = MultipartFormData()
+        
+        let teiCoordinates = ["persName", "figure", "ref", "biblStruct", "formula"]
+        
+        do {
+            formData.append(withData, withName: "input")
+            for coordinate in teiCoordinates {
+            formData.append(coordinate.data(using: .utf8)!, withName: "teiCoordinates")}
+            
+            request.setValue(formData.contentType, forHTTPHeaderField: "Content-Type")
+            request.httpBody = try formData.encode()
+
+            let task = session.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Error: \(error)")
+                    return
+                }
+
+                guard let httpResponse = response as? HTTPURLResponse,
+                      (200...299).contains(httpResponse.statusCode) else {
+                    print("Error: Invalid HTTP response code")
+                    return
+                }
+
+                if let data = data, let _ = String(data: data, encoding: .utf8) {
+                   self.getDecodedPaper(data: data)
+                } else {
+                    print("Error: Could not parse data as XML")
+                }
+            }
+
+            task.resume()
+        } catch {
+            print("Error encoding form data: \(error)")
+        }
+
+    }
 
     
     

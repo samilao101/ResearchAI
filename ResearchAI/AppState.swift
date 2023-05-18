@@ -57,6 +57,19 @@ class AppState: ObservableObject {
         print("getting all")
     }
     
+    func addSummaryToComprehension(summary: RAISummary) {
+        comprehension = Comprehension(summary: summary)
+
+    }
     
+    func addPDFDataToComprehension(pdfData: Data ) {
+        comprehension = Comprehension(pdfData: pdfData)
+    }
+    
+    func addDecodedPaperToComprehension(decodedPaper: ParsedPaper) {
+        comprehension = Comprehension(decodedPaper: decodedPaper)
+     
+    }
+
     
 }

@@ -73,12 +73,12 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     var paused = false
     var pdfDocument : PDFDocument
     
-    init(comprehension: Comprehension, savedPaper: Bool, pdfDoc: PDFDocument) {
+    init(comprehension: Comprehension, savedPaper: Bool) {
         self.paper = comprehension.decodedPaper!
         self.comprehension = comprehension
         self.savedPaper = savedPaper
         self.currentText = TextTypeString(string: comprehension.decodedPaper?.title ?? "", type: .title)
-        self.pdfDocument = pdfDoc
+        self.pdfDocument = comprehension.pdfDocument!
         setup()
 
     }

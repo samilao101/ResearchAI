@@ -62,6 +62,7 @@ struct ResearchPaperPDFView: View {
                                         print("storing encoding")
                                         print(paperDecoder.paper)
                                         appState.comprehension.decodedPaper = paperDecoder.paper
+                                        saveDocument()
                                     }
                             } else {
                                 VStack{
@@ -74,9 +75,7 @@ struct ResearchPaperPDFView: View {
                                 .cornerRadius(8)
                             }
                             Spacer()
-                            if paperDecoder.gotPaper == true {
-                                saveButton
-                            }
+                           
                         }
                         
                     }
@@ -96,7 +95,9 @@ struct ResearchPaperPDFView: View {
             
         }
         .fullScreenCover(isPresented: $showReader, content: {
-//            ReaderView( showReader: $showReader, readerViewModel: ReaderViewModel(comprehension: paperDecoder.paper!, savedPaper: false, pdfDoc: pdf))
+
+            AudioPlayerView(readerViewModel: ReaderViewModel(comprehension: appState.comprehension, savedPaper: true), goBack: $showReader)
+            
         })
         .onAppear {
             viewModel.setup()
@@ -105,7 +106,13 @@ struct ResearchPaperPDFView: View {
             
         }
         
-        
+       
+    }
+    
+    func saveDocument() {
+        let comprehension = appState.comprehension
+        comprehensionLocalFileManager.saveModel(object: comprehension, id: comprehension.id.uuidString)
+        appState.getSavedAllComprehensions()
     }
     
     
@@ -146,10 +153,13 @@ extension ResearchPaperPDFView {
             }
             
         } label: {
-            Text("Reader")
+            HStack{
+                Image(systemName: "book")
+                Text("Reader")
+            }
         }
         .padding()
-        .background(Color.orange)
+        .background(Color.black)
         .cornerRadius(8)
         .foregroundColor(.white)
         .padding(.bottom, 34)
@@ -161,10 +171,10 @@ extension ResearchPaperPDFView {
         Button {
             goBack.toggle()
         } label: {
-            Text("Back")
+            Text(" << ")
         }
         .padding()
-        .background(Color.red)
+        .background(Color.gray)
         .cornerRadius(8)
         .foregroundColor(.white)
         .padding(.top, 34)

@@ -24,10 +24,8 @@ struct ResearchPaperListView: View {
                     .buttonStyle(.borderedProminent)
                     .foregroundColor(.white)
                     .tint(.black)
-            }
-            .padding(.horizontal)
-            Divider()
-                .font(.largeTitle)
+            }.padding(.horizontal)
+            Divider().font(.largeTitle)
             if appState.noResults {
                 Text("No Results...")
                 Spacer()
@@ -43,11 +41,13 @@ struct ResearchPaperListView: View {
         }
         .navigationTitle("Research Papers:")
         .toolbar {
+            
             ToolbarItemGroup(placement: .navigationBarLeading) {
                 Toggle("online", isOn: $urlModel.online)
                     .toggleStyle(.button)
                     .tint(.green)
             }
+            
             if appState.savedComprehesions != nil {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     NavigationLink {
@@ -66,7 +66,7 @@ struct ResearchPaperListView: View {
         
     }
     func send(string: String) {
-        Task { await appState.query(string)}
+        Task { await appState.query(string) }
     }
 }
 

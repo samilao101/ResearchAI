@@ -166,7 +166,7 @@ struct ReaderPDFViewer: View {
             saveDocument(newData: newData)
         }
         .onDisappear {
-            appState.getSavedAllComprehensions()
+//            appState.getSavedAllComprehensions()
 
         }
     }

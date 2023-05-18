@@ -89,9 +89,7 @@ struct SavedPaperAlbumView: View {
                 AudioPlayerView(
                     readerViewModel: ReaderViewModel(
                         comprehension: paper, // Provide default value or make ReaderViewModel handle nil values
-                        savedPaper: true,
-                        pdfDoc: paper.pdfDocument!
-                    ),
+                        savedPaper: true),
                     goBack: $showReader
                 )
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)

@@ -25,7 +25,7 @@ struct ResearchAIApp: App {
 
                     }
                 .navigationDestination(for: RAISummary.self) { summary in
-                        RAISummaryView(summary: summary)
+                    RAISummaryView(paperManager: DatabasePaperManager(appState: appState, url: summary.raiLink), summary: summary)
                 }
             }
             .environment(\.colorScheme, .light)

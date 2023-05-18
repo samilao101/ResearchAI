@@ -10,16 +10,20 @@
  import Combine
 
 
- struct RAISummaryView: View {
+ struct RAISummaryView: View, PaperViewProtocol {
      
-     let ComprehensionLocalFileManager = LocalFileManager<Comprehension>(folder: .comprehensions , model: Comprehension.self )
-     @ObservedObject var appState : AppState = AppState.shared
      @ObservedObject var viewModel = OpenAIServicer()
      @State var simplified: String = ""
      @State var showPDF = false
      @State var pdf: PDFDocument? = nil
      @State var summarizing: Bool = false
-     @StateObject var paperDownloadManager = PaperDownloadManager()
+     var paperManager : PaperManagerProtocol
+     
+    
+     init(paperManager: PaperManagerProtocol, summary: RAISummary) {
+         self.paperManager = paperManager
+         self.summary = summary
+     }
      
      @State var progress: Double = 0.0
      
@@ -49,7 +53,7 @@
                  }, label: {
                      SummarizingView(isSummarizing: summarizing, simplifiedSummary: simplified)
                  })
-                 .onReceive(paperDownloadManager.progressPublisher, perform: { value in
+                 .onReceive(paperManager.progressPublisher, perform: { value in
                      self.progress = value
                  })
                  .task { await fetchPaper()}
@@ -59,7 +63,7 @@
                      }
                  }
                  .fullScreenCover(isPresented: $showPDF) {
-                     ResearchPaperPDFView(paperName: summary.raiTitle, goBack: $showPDF, pdf: pdf!, displayedPDFURL: URL(string:summary.raiLink)!)
+                     PDFPreView(appState: paperManager.appState, goBack: $showPDF, pdf: pdf!)
                          .ignoresSafeArea()
                  }
                  .navigationTitle("Paper:")
@@ -84,15 +88,8 @@
          }
      }
      
-     fileprivate func fetchPaper() async {
-         appState.comprehension = Comprehension(summary: summary, pdfData: nil, decodedPaper: nil)
-         
-         if case let (fetchedPDF?, data?) = await paperDownloadManager.fetchPaper(url: summary.raiLink.toHttps()) {
-             await MainActor.run(body: {
-                 pdf = fetchedPDF
-                 appState.comprehension.pdfData = data
-             })
-         }
+      func fetchPaper() async {
+         self.pdf = await paperManager.getPDFData()
      }
  }
 

@@ -17,6 +17,7 @@
 		2226C2FA29ABA95000B624E7 /* Protocols+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2226C2F929ABA95000B624E7 /* Protocols+Extensions.swift */; };
 		22356A9D299A425500136E90 /* SavedPaperListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22356A9C299A425500136E90 /* SavedPaperListView.swift */; };
 		22356A9F299A489100136E90 /* researchpaper1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 22356A9E299A489100136E90 /* researchpaper1.pdf */; };
+		223CAD642A168CD900BB71CD /* Interfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223CAD632A168CD900BB71CD /* Interfaces.swift */; };
 		2240FC7329B8AC8D00BF850A /* SavedArticlePDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240FC7229B8AC8D00BF850A /* SavedArticlePDFView.swift */; };
 		2240FC7529B8AD4600BF850A /* PDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240FC7429B8AD4600BF850A /* PDFViewController.swift */; };
 		2240FCB329C071E100BF850A /* AnnotationEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240FCB229C071E100BF850A /* AnnotationEditorView.swift */; };
@@ -75,6 +76,7 @@
 		22BADD642974583200F6163B /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BADD632974583200F6163B /* SettingsModel.swift */; };
 		22BADD6629748B7E00F6163B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BADD6529748B7E00F6163B /* Constants.swift */; };
 		22C2D9AA296FAB010010CBF7 /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C2D9A9296FAB010010CBF7 /* SpeechService.swift */; };
+		22C7BCE62A1552C3004905B7 /* PDFPreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C7BCE52A1552C3004905B7 /* PDFPreView.swift */; };
 		22D2FA37295CB06400D670D0 /* ResearchAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D2FA36295CB06400D670D0 /* ResearchAIApp.swift */; };
 		22D2FA39295CB06400D670D0 /* ResearchPaperListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D2FA38295CB06400D670D0 /* ResearchPaperListView.swift */; };
 		22D2FA3B295CB06400D670D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22D2FA3A295CB06400D670D0 /* Assets.xcassets */; };
@@ -95,6 +97,7 @@
 		2226C2F929ABA95000B624E7 /* Protocols+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Protocols+Extensions.swift"; sourceTree = "<group>"; };
 		22356A9C299A425500136E90 /* SavedPaperListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPaperListView.swift; sourceTree = "<group>"; };
 		22356A9E299A489100136E90 /* researchpaper1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = researchpaper1.pdf; sourceTree = "<group>"; };
+		223CAD632A168CD900BB71CD /* Interfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interfaces.swift; sourceTree = "<group>"; };
 		2240FC7229B8AC8D00BF850A /* SavedArticlePDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlePDFView.swift; sourceTree = "<group>"; };
 		2240FC7429B8AD4600BF850A /* PDFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewController.swift; sourceTree = "<group>"; };
 		2240FCB229C071E100BF850A /* AnnotationEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationEditorView.swift; sourceTree = "<group>"; };
@@ -151,6 +154,7 @@
 		22BADD632974583200F6163B /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		22BADD6529748B7E00F6163B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		22C2D9A9296FAB010010CBF7 /* SpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
+		22C7BCE52A1552C3004905B7 /* PDFPreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFPreView.swift; sourceTree = "<group>"; };
 		22D2FA33295CB06400D670D0 /* Paiper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Paiper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22D2FA36295CB06400D670D0 /* ResearchAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResearchAIApp.swift; sourceTree = "<group>"; };
 		22D2FA38295CB06400D670D0 /* ResearchPaperListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResearchPaperListView.swift; sourceTree = "<group>"; };
@@ -307,6 +311,7 @@
 		226EAC2129B2E20A002C060D /* Article View */ = {
 			isa = PBXGroup;
 			children = (
+				22C7BCE52A1552C3004905B7 /* PDFPreView.swift */,
 				22BADD5A29741E3800F6163B /* ResearchPaperPDFView.swift */,
 				2240FC7629B8D22F00BF850A /* Components */,
 			);
@@ -447,6 +452,7 @@
 		22D2FA2A295CB06300D670D0 = {
 			isa = PBXGroup;
 			children = (
+				223CAD632A168CD900BB71CD /* Interfaces.swift */,
 				22D2FA35295CB06400D670D0 /* ResearchAI */,
 				22D2FA34295CB06400D670D0 /* Products */,
 			);
@@ -571,6 +577,7 @@
 			files = (
 				226EAC2F29B2EA9E002C060D /* PDFLoadingView.swift in Sources */,
 				22D2FA4F295CF8A600D670D0 /* OpenAIServicer.swift in Sources */,
+				22C7BCE62A1552C3004905B7 /* PDFPreView.swift in Sources */,
 				2242922A2A0E53480054E547 /* ConversationGPT.swift in Sources */,
 				2256FA31295F705400049F51 /* AnswersGPT.swift in Sources */,
 				22D90A4A29DC3E7000F9726C /* AudioHotLoader.swift in Sources */,
@@ -635,6 +642,7 @@
 				229C3B3F29C87B0E00ABE6BD /* ReaderViewModel.swift in Sources */,
 				22259CF329C5D40F00D08815 /* BackwardButton.swift in Sources */,
 				220EA12F29A12DCE00914032 /* LocalFileManager.swift in Sources */,
+				223CAD642A168CD900BB71CD /* Interfaces.swift in Sources */,
 				2257CED029FBFD5600B1707F /* ReaderPDFViewer.swift in Sources */,
 				2257CEF02A01216F00B1707F /* NotesViewer.swift in Sources */,
 			);
