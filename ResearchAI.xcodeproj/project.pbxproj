@@ -81,7 +81,6 @@
 		22BADD5929741CAE00F6163B /* SavedPaperPDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BADD5829741CAE00F6163B /* SavedPaperPDFView.swift */; };
 		22BADD5B29741E3800F6163B /* ResearchPaperPDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BADD5A29741E3800F6163B /* ResearchPaperPDFView.swift */; };
 		22BADD642974583200F6163B /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BADD632974583200F6163B /* SettingsModel.swift */; };
-		22BADD6629748B7E00F6163B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BADD6529748B7E00F6163B /* Constants.swift */; };
 		22C2D9AA296FAB010010CBF7 /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C2D9A9296FAB010010CBF7 /* SpeechService.swift */; };
 		22C4F9152A178DE600D2E53C /* PDFToSummaryDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C4F9142A178DE600D2E53C /* PDFToSummaryDecoder.swift */; };
 		22C4F93F2A17D5C800D2E53C /* Tei.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C4F93E2A17D5C800D2E53C /* Tei.swift */; };
@@ -93,6 +92,7 @@
 		22D2FA4F295CF8A600D670D0 /* OpenAIServicer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D2FA4E295CF8A600D670D0 /* OpenAIServicer.swift */; };
 		22D90A4A29DC3E7000F9726C /* AudioHotLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D90A4929DC3E7000F9726C /* AudioHotLoader.swift */; };
 		22D90A7D29E040FD00F9726C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D90A7C29E040FD00F9726C /* Color.swift */; };
+		22F368862A4710E500645D08 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F368852A4710E500645D08 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -169,7 +169,6 @@
 		22BADD5829741CAE00F6163B /* SavedPaperPDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPaperPDFView.swift; sourceTree = "<group>"; };
 		22BADD5A29741E3800F6163B /* ResearchPaperPDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResearchPaperPDFView.swift; sourceTree = "<group>"; };
 		22BADD632974583200F6163B /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
-		22BADD6529748B7E00F6163B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		22C2D9A9296FAB010010CBF7 /* SpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
 		22C4F9142A178DE600D2E53C /* PDFToSummaryDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFToSummaryDecoder.swift; sourceTree = "<group>"; };
 		22C4F93E2A17D5C800D2E53C /* Tei.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tei.swift; sourceTree = "<group>"; };
@@ -182,6 +181,7 @@
 		22D2FA4E295CF8A600D670D0 /* OpenAIServicer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIServicer.swift; sourceTree = "<group>"; };
 		22D90A4929DC3E7000F9726C /* AudioHotLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioHotLoader.swift; sourceTree = "<group>"; };
 		22D90A7C29E040FD00F9726C /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		22F368852A4710E500645D08 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = "../../../../../Learning/LOAL/Essential/EssentialFeed/EssentialFeed/Feed API/Constants.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -437,7 +437,7 @@
 		229806D22A470245009437E0 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				22BADD6529748B7E00F6163B /* Constants.swift */,
+				22F368852A4710E500645D08 /* Constants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -653,7 +653,6 @@
 				22BADD642974583200F6163B /* SettingsModel.swift in Sources */,
 				226EAC1929B2DF1A002C060D /* ArticleRowView.swift in Sources */,
 				225B8E6B29DB016A00EC8A96 /* SoundManager.swift in Sources */,
-				22BADD6629748B7E00F6163B /* Constants.swift in Sources */,
 				226EAC2A29B2E540002C060D /* PaperDownloadManager.swift in Sources */,
 				225B8E4129D91A3E00EC8A96 /* TextPresenterView.swift in Sources */,
 				2240FC7529B8AD4600BF850A /* PDFViewController.swift in Sources */,
@@ -674,6 +673,7 @@
 				223CAD672A16914300BB71CD /* OnlinePaperViewer.swift in Sources */,
 				2245A0B92A281AB7004E0282 /* LocalPDFPreView.swift in Sources */,
 				22BADD5929741CAE00F6163B /* SavedPaperPDFView.swift in Sources */,
+				22F368862A4710E500645D08 /* Constants.swift in Sources */,
 				22B566BC298B57DB00332804 /* ParsedPaper.swift in Sources */,
 				225B8E4E29DAD49E00EC8A96 /* XMLHandler.swift in Sources */,
 				2256FA24295E17B200049F51 /* SimplificationView.swift in Sources */,
