@@ -118,6 +118,7 @@ final class OpenAISimplifyingServicer: ObservableObject {
                 print(error.localizedDescription)
             }
         })
+        
        
   
         
