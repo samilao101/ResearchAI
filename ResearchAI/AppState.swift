@@ -28,6 +28,10 @@ class AppState: ObservableObject {
     
     @Published var savedComprehesions : [Comprehension]? = nil
     
+    var comprehensionStored: [Comprehension] {
+        return savedComprehesions?.compactMap({$0}) ?? []
+    }
+    
     var comprehension = Comprehension(summary: nil, pdfData: nil, decodedPaper: nil) {
         didSet {
             print("seeing if decoded is not nil")
@@ -58,17 +62,26 @@ class AppState: ObservableObject {
     }
     
     func addSummaryToComprehension(summary: RAISummary) {
-        comprehension = Comprehension(summary: summary)
+        comprehension.summary = summary
 
     }
     
     func addPDFDataToComprehension(pdfData: Data ) {
-        comprehension = Comprehension(pdfData: pdfData)
+        comprehension.pdfData = pdfData
     }
     
     func addDecodedPaperToComprehension(decodedPaper: ParsedPaper) {
-        comprehension = Comprehension(decodedPaper: decodedPaper)
+        comprehension.decodedPaper = decodedPaper
      
+    }
+    
+    func clearComprehension() {
+        self.comprehension = Comprehension(summary: nil, pdfData: nil, decodedPaper: nil)
+    }
+    
+    func removeComprehensionFromStorage(id: String) {
+        comprehensionLocalFileManager.deleteModel(id: id)
+        getSavedAllComprehensions()
     }
 
     

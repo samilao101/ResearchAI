@@ -7,7 +7,20 @@
 
 import SwiftUI
 
+extension String {
+    
+    func localized() -> LocalizedStringKey {
+        let local:LocalizedStringKey = LocalizedStringKey(self)
+        return local
+    }
+}
+
 struct TextPresenterView: View {
+    
+    @State var locationURL = ""
+    @EnvironmentObject var readerViewModel : ReaderViewModel
+    @State var showPDFFigure = false
+
     
     let text: TextTypeString
     
@@ -28,6 +41,7 @@ struct TextPresenterView: View {
 }
 
 extension TextPresenterView {
+        
     
     @ViewBuilder private var presenterView: some View {
         switch text.type {
@@ -39,7 +53,57 @@ extension TextPresenterView {
             Text(text.string)
                 .font(.title)
         case .paragraph:
-            ParagraphWithImageViewer(text: text)
+            Text(text.string.localized())
+                .font(.headline)
+                .environment(\.openURL, OpenURLAction { url in
+
+                    showPDFFigure.toggle()
+
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+
+                        getFigureLocation(fig: url.absoluteString)
+                    }
+                  return .handled
+                })
+                .padding()
+                .sheet(isPresented: $showPDFFigure) {
+                    ZStack{
+                        PDFZoomingView(pdf: readerViewModel.pdfDocument, locURLString: $locationURL)
+                        VStack {
+                            HStack {
+                                Spacer()
+                                Button {
+                                    locationURL = ""
+                                    showPDFFigure.toggle()
+                                } label: {
+                                    Text("Done")
+                                }
+                                .buttonStyle(.borderedProminent)
+
+                            }
+                            Spacer()
+                        }
+                    }
+                       
+                }
+        }
+    }
+    
+    func getFigureLocation(fig: String) {
+        let newFig = fig.replacingOccurrences(of: "#", with: "")
+        print("New Figure")
+        print(newFig)
+        print(readerViewModel.paper.figures)
+        
+        if let figure = readerViewModel.paper.figures?.first(where: {$0.attributes["xml:id"] == newFig}) {
+            print("Om here")
+            let attributeCoords = figure.attributes["coords"]?.components(separatedBy: ";").first
+            
+            let structuredCoords = attributeCoords?.replacingOccurrences(of: ",", with: ":")
+            if let structuredCoords = structuredCoords {
+                locationURL = structuredCoords
+                print(locationURL)
+            }
         }
     }
 }
@@ -56,8 +120,15 @@ struct ParagraphWithImageViewer: View {
             if showImages && (text.images != nil) {
                 ImagesViewer(images: text.images!, done: $showImages)
             } else {
-                Text(text.string)
+                Text(text.string.localized())
                     .font(.headline)
+                    .environment(\.openURL, OpenURLAction { url in
+//
+                        
+                        
+                        
+                      return .handled
+                    })
                     .padding()
                 
                 if let _ = text.images {

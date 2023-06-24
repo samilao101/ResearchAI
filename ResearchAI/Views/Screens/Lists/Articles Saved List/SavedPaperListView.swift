@@ -7,48 +7,14 @@
 
 import SwiftUI
 import PDFKit
+//
+//struct SavedPaper : Identifiable {
+//    let id = UUID()
+//    let title: String
+//    let pdf : PDFDocument
+//}
 
-struct SavedPaper : Identifiable {
-    let id = UUID()
-    let title: String
-    let pdf : PDFDocument
-}
 
-
-struct SavedPaperListView: View {
-    
-    @EnvironmentObject var appState : AppState
-
-    var body: some View {
-        VStack{
-            List(appState.savedComprehesions!) { paper in
-                NavigationLink {
-                    SavedPaperPDFView(pdfDocument:PDFDocument(data:paper.pdfData!)!, comprehension: paper)
-                        .environmentObject(appState)
-                } label: {
-                    HStack{
-                        Text(paper.summary!.raiTitle)
-                        Spacer()
-                        if let image = generatePdfThumbnail(for: paper.pdfDocument!) {
-                            Image(uiImage: image)
-                                .border(Color.black, width: 2)
-                                .cornerRadius(3)
-                        }
-                    }
-                }
-            }
-            
-        }.navigationTitle("Saved Papers:")
-    }
-    
-    func generatePdfThumbnail(of thumbnailSize: CGSize = CGSize(width: 200, height: 200) , for pdfDoc: PDFDocument, atPage pageIndex: Int = 0) -> UIImage? {
-        
-        let pdfDocumentPage = pdfDoc.page(at: pageIndex)
-        return pdfDocumentPage?.thumbnail(of: thumbnailSize, for: PDFDisplayBox.trimBox)
-    }
-    
-    
-}
 
 
 struct SavedPaperAlbumView: View {
@@ -57,32 +23,72 @@ struct SavedPaperAlbumView: View {
     @State var showReader = false
     @State var paper: Comprehension? = nil
     let persistenceController = PersistenceController.shared
-
+    @State private var searchTerm = ""
+    var filteredComprehensions: [Comprehension]? {
+        guard !searchTerm.isEmpty else { return appState.savedComprehesions }
+        return appState.savedComprehesions?.filter({ $0.summary!.raiTitle.localizedStandardContains(searchTerm) }) ?? []
+    }
+    @State var editMode = false
 
     var body: some View {
-        ScrollView {
-          
-                ForEach(appState.savedComprehesions ?? [], id: \.self) { doc in
-                    VStack(alignment: .trailing) {
-                        SavedPaperCellView(
-                            title: doc.summary?.raiTitle ?? "",
-                            icon: generatePdfThumbnail(for: doc.pdfDocument) ?? UIImage(),
-                            authors: doc.summary?.raiAuthors ?? [""],
-                            publishedDate: doc.summary?.raiPublished ?? "", id: doc.decodedPaper!.id.uuidString
-                        )
-                        .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                        .padding()
+        NavigationStack{
+            ScrollView {
+              
+                    ForEach(filteredComprehensions ?? [], id: \.self) { doc in
+                        VStack(alignment: .trailing) {
+                            ZStack{
+                                SavedPaperCellView(
+                                    title: doc.summary?.raiTitle ?? "",
+                                    icon: generatePdfThumbnail(for: doc.pdfDocument) ?? UIImage(),
+                                    authors: doc.summary?.raiAuthors ?? [""],
+                                    publishedDate: doc.summary?.raiPublished ?? "Uknown", id: doc.decodedPaper!.id.uuidString
+                                )
+                                if editMode {
+                                    Button {
+                                        removeItem(id: doc.id.uuidString)
+
+                                    } label: {
+                                        ZStack {
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .fill(.gray.opacity(0.4))
+                                            Image(systemName: "trash")
+                                                .font(.largeTitle)
+                                                .foregroundColor(.red)
+                                        }
+                                    }
+                                }
+                            }
+                            .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                            .padding()
+                        }
+                        .onTapGesture {
+                            self.paper = doc
+                            showReader.toggle()
+                        }
+                        if paper != nil {
+                           EmptyView()
+                        }
+                
+                }
+                
+                .navigationTitle("Saved Articles:")
+                .searchable(text: $searchTerm, placement: .automatic, prompt: "Search titles...")
+                
+                .toolbar {
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        Button {
+                            editMode.toggle()
+                        } label: {
+                            if editMode {
+                                Text("Done")
+                            } else {
+                                Text("Edit")
+                            }
+                        }
+
                     }
-                    .onTapGesture {
-                        self.paper = doc
-                        showReader.toggle()
-                    }
-                    if paper != nil {
-                       EmptyView()
-                    }
-            
+                }
             }
-            .navigationTitle("Saved Articles:")
         }
         .fullScreenCover(isPresented: $showReader) {
             if let paper = paper {
@@ -98,6 +104,7 @@ struct SavedPaperAlbumView: View {
                 EmptyView()
             }
         }
+        
     }
 
     func generatePdfThumbnail(of thumbnailSize: CGSize = CGSize(width: 200, height: 200), for pdfDoc: PDFDocument?, atPage pageIndex: Int = 0) -> UIImage? {
@@ -105,6 +112,10 @@ struct SavedPaperAlbumView: View {
             return nil
         }
         return pdfDocumentPage.thumbnail(of: thumbnailSize, for: PDFDisplayBox.trimBox)
+    }
+    
+    func removeItem(id: String ){
+        appState.removeComprehensionFromStorage(id: id)
     }
 }
 
@@ -138,4 +149,48 @@ let thumbnail = generatePdfThumbnail(for: pdf)
 //    }
 //    
 //  
+//}
+
+//
+//struct SavedPaperListView: View {
+//
+//    @EnvironmentObject var appState : AppState
+//
+//    var body: some View {
+//        VStack{
+//            List(appState.savedComprehesions!) { paper in
+//                NavigationLink {
+//                    SavedPaperPDFView(pdfDocument:PDFDocument(data:paper.pdfData!)!, comprehension: paper)
+//                        .environmentObject(appState)
+//                } label: {
+//                    HStack{
+//                        Text(paper.summary!.raiTitle)
+//                        Spacer()
+//                        if let image = generatePdfThumbnail(for: paper.pdfDocument!) {
+//                            Image(uiImage: image)
+//                                .border(Color.black, width: 2)
+//                                .cornerRadius(3)
+//                        }
+//                    }
+//                }
+//            }
+//
+//        }.navigationTitle("Saved Papers:")
+//    }
+//
+//    func generatePdfThumbnail(of thumbnailSize: CGSize = CGSize(width: 200, height: 200) , for pdfDoc: PDFDocument, atPage pageIndex: Int = 0) -> UIImage? {
+//
+//        let pdfDocumentPage = pdfDoc.page(at: pageIndex)
+//        return pdfDocumentPage?.thumbnail(of: thumbnailSize, for: PDFDisplayBox.trimBox)
+//    }
+//
+//
+//}
+
+
+
+//struct SavedPaper : Identifiable {
+//    let id = UUID()
+//    let title: String
+//    let pdf : PDFDocument
 //}

@@ -16,9 +16,11 @@ class DatabasePaperManager: NSObject, ObservableObject, PaperManagerProtocol {
     
     var appState : AppState
     
-    init(appState: AppState, url: String) {
+    init(appState: AppState, url: String, summary: RAISummary? = nil) {
         self.url = url
         self.appState = appState
+        self.summary = summary
+        
     }
 
     var progressPublisher = PassthroughSubject<Double, Never>()
@@ -63,7 +65,7 @@ class DatabasePaperManager: NSObject, ObservableObject, PaperManagerProtocol {
         return (nil, nil)
     }
     
-    func getPDFData() async -> PDFDocument {
+    func getPDFData() async -> PDFDocument? {
         let (pdf, data) = await fetchPaper(url: url)
         pdfData = data
         await saveSummary()
@@ -72,6 +74,8 @@ class DatabasePaperManager: NSObject, ObservableObject, PaperManagerProtocol {
     }
     
     @MainActor func saveSummary() {
+        print("Saving Summary:")
+        print(summary)
         if let summary = summary {
             appState.addSummaryToComprehension(summary: summary)
         }

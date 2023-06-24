@@ -327,7 +327,12 @@ extension OverlayView {
     private var add: some View {
         Button {
             withAnimation(.spring()) {
-                readerViewModel.showButtons.toggle()
+                
+                if readerViewModel.savedPaper {
+                    readerViewModel.showButtons.toggle()
+                } else {
+                    readerViewModel.saveDocument()
+                }
 
             }
 
@@ -335,12 +340,26 @@ extension OverlayView {
         label: {
             
             ZStack{
-                Text("+")
-                    .font(.system(size: 20))
-                Circle()
-                    .stroke(style: .init(lineWidth: 2))
-                    .padding(6)
-                    .frame(width: 50)
+                if readerViewModel.savedPaper {
+                    Text("+")
+                        .font(.system(size: 20))
+                    Circle()
+                        .stroke(style: .init(lineWidth: 2))
+                        .padding(6)
+                        .frame(width: 50)
+                } else {
+                    Circle()
+                        .stroke(style: .init(lineWidth: 2))
+                        .padding(6)
+                        .frame(width: 55)
+                    VStack{
+                        Image(systemName: "square.and.arrow.down")
+                            .font(.system(.subheadline))
+                        Text("Save")
+                            .font(.system(.caption))
+                    }
+                  
+                }
             }
             .rotationEffect(.degrees(readerViewModel.showButtons ? 45 : 0))
             

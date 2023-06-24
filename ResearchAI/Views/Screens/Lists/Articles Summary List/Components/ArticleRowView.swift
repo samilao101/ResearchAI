@@ -11,7 +11,8 @@ struct ArticleRowView: View {
     
     let title: String
     let authors: [String]
-    let tags: [String]
+    let publishedDate: String
+//    let tags: [String]
     let columns = [GridItem(.adaptive(minimum: 80), spacing: 0), GridItem(.adaptive(minimum: 80), spacing: 0), GridItem(.adaptive(minimum: 80), spacing: 0)]
     
     var body: some View {
@@ -20,32 +21,35 @@ struct ArticleRowView: View {
                 .font(.headline)
             Text(authors.map { $0 }.joined(separator: ", "))
                 .font(.subheadline)
-            if tags.isEmpty {
-                EmptyView()
-            } else {
-                FlowLayout {
-                    ForEach(tags, id: \.self) { tag in
-                        Text(tag)
-                            .font(.caption)
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 4)
-                            .padding(.vertical, 2)
-                            .background(Color.gray)
-                            .cornerRadius(10)
-                    }
-                }
-                
-            }
+            Text("**Published:** \(publishedDate)")
+                .font(.caption)
+                .padding(.top, 1)
+//            if tags.isEmpty {
+//                EmptyView()
+//            } else {
+//                FlowLayout {
+//                    ForEach(tags, id: \.self) { tag in
+//                        Text(tag)
+//                            .font(.caption)
+//                            .foregroundColor(.white)
+//                            .padding(.horizontal, 4)
+//                            .padding(.vertical, 2)
+//                            .background(Color.gray)
+//                            .cornerRadius(10)
+//                    }
+//                }
+//
+//            }
         }
     }
 }
 
-struct ArticleRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        ArticleRowView(title: "Machine Learning Maniforlds", authors: ["Samil Cruz", "Paveli Cruz", "Pamela Cruz"], tags: ["Computer Science", "Machine Learning", "Mathematics", "Neurosciences"])
-            .previewLayout(.sizeThatFits)
-    }
-}
+//struct ArticleRowView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ArticleRowView(title: "Machine Learning Maniforlds", authors: ["Samil Cruz", "Paveli Cruz", "Pamela Cruz"], tags: ["Computer Science", "Machine Learning", "Mathematics", "Neurosciences"])
+//            .previewLayout(.sizeThatFits)
+//    }
+//}
 
 struct FlowLayout: Layout {
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {

@@ -16,7 +16,7 @@ protocol PaperManagerProtocol {
     var pdfData: Data? { get set }
     var progressPublisher: PassthroughSubject<Double, Never> { get }
     
-    func getPDFData() async -> PDFDocument
+    func getPDFData() async -> PDFDocument?
     func saveSummary()
     func savePDFData()
 }

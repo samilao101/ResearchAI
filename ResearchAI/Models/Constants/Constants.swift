@@ -17,7 +17,9 @@ struct Constant {
         
         static let local = "http://192.168.12.152:8070/api/processFulltextDocument"
 
-        static let online = "https://cloud.science-miner.com/grobid/api/processFulltextDocument"
+//        static let online = "https://cloud.science-miner.com/grobid/api/processFulltextDocument"
+        static let online = "http://209.222.18.235:8070/api/processFulltextDocument"
+        
         
         static let ArxivSearch = "https://export.arxiv.org/api/query?search_query=all:"
         
@@ -42,6 +44,15 @@ struct Constant {
         
         static let GoogleTTS = "AIzaSyA5HlIBfcb8qdbYqznaWTykuGicC8PRIIA"
         
+        static let coreAPIkey = "e21OkXlMqLhrH6buRUgDJioQ5K04BIFZ"
+        
+        
+    }
+    
+    struct ips {
+        
+        static let vultrServer =
+            "http://209.222.18.235:8070/api/processFulltextDocument"
     }
     
     struct log {

@@ -21,6 +21,9 @@ struct ImageExtractor {
             let y1 = CGFloat(coordinateValues[2])
             let x2 = CGFloat(coordinateValues[3])
             let y2 = CGFloat(coordinateValues[4])
+            
+//            print("COORDINATES:")
+//            print(coordinates)
 
             if let image = extractImages(from: pdfDocument, page: page, x1: x1, y1: y1, x2: x2, y2: y2) {
                return image

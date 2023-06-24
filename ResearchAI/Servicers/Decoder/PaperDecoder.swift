@@ -10,28 +10,41 @@ import Alamofire
 import XMLParsing
 
 
-class PaperDecoder : ObservableObject {
+class PaperDecoder  : ObservableObject {
     
+    let pdfToSummaryDecoder = PDFToSummaryDecoder()
+    @Published var summary: RAISummary?
     @Published var paper: ParsedPaper?
     @Published var gotPaper = false
     var object: Object = Object(div: [DIV(head: "", p: [P(value: "", ref: [REF(attributes: ["":""], content: "")])])], figures: [FIGURE(attributes: ["": ""], head: "", label: "", figDesc: "")])
     
     private func getDecodedPaper(data: Data)  {
         
-        
         do {
+            
+            //One way to decode:
             let decoded = try XMLDecoder().decode(GrobidDecodedPaper.self, from: data)
-//
+            
+            let paper = ParsedPaper(title: decoded.teiHeader.fileDesc.titleStmt.title, sections: decoded.text.body.div.map({ division in
+                         ParsedPaper.Section(head: division.head ?? "" , paragraph: division.paragraphs ?? [""] )}))
+            
+            //Another way to decode:
             let parser = XMLParser(data: data)
             let handler = XMLHandler()
             parser.delegate = handler
             parser.parse()
             
+
+
+            let tempSummary = self.pdfToSummaryDecoder.convertDataToSummary(data: data)
+            
+            
             self.object = handler.currentObject
             
-            let paper = ParsedPaper(title: decoded.teiHeader.fileDesc.titleStmt.title, sections: decoded.text.body.div.map({ division in
-                         ParsedPaper.Section(head: division.head ?? "" , paragraph: division.paragraphs ?? [""] )}))
-
+            print("Attributes:")
+            object.figures.forEach { fig in
+                print(fig.attributes)
+            }
          
             var customPaper = ParsedPaper(title: decoded.teiHeader.fileDesc.titleStmt.title, sections: object.div.map({ div in
                 ParsedPaper.Section(head: div.head, paragraph: div.p.map({ p in
@@ -40,10 +53,13 @@ class PaperDecoder : ObservableObject {
             }))
             
             customPaper.figures = object.figures
+            
+           
            
             DispatchQueue.main.async {
-                self.gotPaper = true
+                self.summary = tempSummary
                 self.paper = customPaper
+                self.gotPaper = true
             }
             
         } catch(let error) {
@@ -55,8 +71,10 @@ class PaperDecoder : ObservableObject {
     func sendPDF(pdfFileURL: URL) {
         
         let session = URLSession.shared
-        var request = URLRequest(url: URL(string: "https://kermitt2-grobid.hf.space/api/processFulltextDocument")!)
+//        var request = URLRequest(url: URL(string: "https://kermitt2-grobid.hf.space/api/processFulltextDocument")!)
+        var request = URLRequest(url: URL(string: "\(Constant.ips.vultrServer)")!)
         request.httpMethod = "POST"
+        print("SENDING TO PRIVATE SERVER: \(request.url?.absoluteString)")
 
         let formData = MultipartFormData()
         
@@ -108,8 +126,10 @@ class PaperDecoder : ObservableObject {
     func sendPDF(withData: Data) {
         
         let session = URLSession.shared
-        var request = URLRequest(url: URL(string: "https://kermitt2-grobid.hf.space/api/processFulltextDocument")!)
+//        var request = URLRequest(url: URL(string: "https://kermitt2-grobid.hf.space/api/processFulltextDocument")!)
+        var request = URLRequest(url: URL(string: "\(Constant.ips.vultrServer)")!)
         request.httpMethod = "POST"
+        print("SENDING TO PRIVATE SERVER: \(request.url?.absoluteString)")
 
         let formData = MultipartFormData()
         

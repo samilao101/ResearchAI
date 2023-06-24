@@ -14,25 +14,25 @@ struct ResearchAIApp: App {
     @ObservedObject var appState : AppState = AppState.shared
     @State var selectingDatabase = true
     var settingsModel = SettingsModel.shared
-
+    
     
     var body: some Scene {
         WindowGroup {
             NavigationStack{
                 ZStack{
-                    ResearchPaperListView(comprehensions: ComprehensionLocalFileManager.getAllModels())
+                    ResearchPaperListView()
                         .environmentObject(appState)
-
-                    }
+                    
+                }
                 .navigationDestination(for: RAISummary.self) { summary in
-                    RAISummaryView(paperManager: DatabasePaperManager(appState: appState, url: summary.raiLink), summary: summary)
+                    RAISummaryView(paperManager: DatabasePaperManager(appState: appState, url: summary.raiLink, summary: summary), summary: summary)
                 }
             }
             .environment(\.colorScheme, .light)
             .onAppear {
                 settingsModel.setupAudioDefaults()
             }
-          
+            
             
         }
     }

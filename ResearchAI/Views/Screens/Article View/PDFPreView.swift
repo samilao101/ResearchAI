@@ -39,14 +39,7 @@ struct PDFPreView: View {
                                         appState.comprehension.decodedPaper = paperDecoder.paper
                                     }
                             } else {
-                                VStack{
-                                    ProgressView()
-                                    Text("Decoding")
-                                }
-                                .padding()
-                                .background(Color.gray)
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
+                                 loadingView
                             }
                             Spacer()
                         }
@@ -119,6 +112,17 @@ extension PDFPreView {
         .padding()
         .padding()
         
+    }
+    
+    private var loadingView: some View {
+        HStack{
+            ProgressView()
+            Text("Decoding")
+        }
+        .padding()
+        .background(Color.gray)
+        .foregroundColor(.white)
+        .cornerRadius(8)
     }
 }
 //

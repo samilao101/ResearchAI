@@ -20,6 +20,7 @@ struct AudioPlayerView: View {
             TextPresenterView(text: readerViewModel.currentText)
                 .padding(20)
                 .foregroundColor(.white)
+                .environmentObject(readerViewModel)
             
             Rectangle()
                 .fill(.black)

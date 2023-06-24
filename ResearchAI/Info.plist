@@ -6,7 +6,7 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>http://localhost:8070/api/processFulltextDocument</key>
+			<key>http://209.222.18.235:8070/api/processFulltextDocument</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>

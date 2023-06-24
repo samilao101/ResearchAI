@@ -41,6 +41,7 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     }
     
 
+    let comprehensionLocalFileManager = LocalFileManager<Comprehension>(folder: .comprehensions , model: Comprehension.self )
 
     @Published var showAIChat = false
     @Published var showPaper = false
@@ -64,7 +65,7 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
             currentText = textArray[location]
         }
     }
-    var savedPaper: Bool
+    @Published var savedPaper: Bool
     let line = "\n" + "\n"
 
     @Published var stop = true
@@ -98,6 +99,7 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     
     
     func compileTextArray() {
+        print("Compiling")
         textArray.append(TextTypeString(string: paper.title, type: .title, ref: nil))
         paper.sections.forEach { section in
             textArray.append(TextTypeString(string: section.head, type: .section, ref: nil))
@@ -108,6 +110,7 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
                     
                     p.ref.forEach { ref in
                         if ref.attributes["type"] == "figure" {
+                            print(ref)
                             images.append(imageExtractor.extractImageWithCoordinates(coordinates: ref.attributes["coords"]!, pdfDocument: pdfDocument)!)
                         }
                     }
@@ -149,6 +152,7 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
     
     func speak(text: String, speakLocation: Int) {
         
+        let text = removeFigureReferenceFromString(text)
         
         print("Speaking: \(speakLocation)")
         speaker.speak(location: speakLocation, text: text, voiceType: .wavenetEnglishFemale) {
@@ -233,6 +237,23 @@ class ReaderViewModel: ObservableObject, didFinishSpeakingProtocol  {
         fullText = ""
         speaker.pause()
         didFinishSpeaking()
+    }
+    
+    func saveDocument() {
+        savedPaper = true 
+        comprehensionLocalFileManager.saveModel(object: comprehension, id: comprehension.id.uuidString)
+        Task {
+            await AppState.shared.getSavedAllComprehensions()
+            await AppState.shared.clearComprehension()
+        }
+    }
+    
+    func removeFigureReferenceFromString(_ originalString: String) -> String {
+        let regexPattern = "\\(.*#.*\\)"
+        let regex = try! NSRegularExpression(pattern: regexPattern, options: [])
+        let range = NSRange(location: 0, length: originalString.utf16.count)
+        return regex.stringByReplacingMatches(in: originalString, options: [], range: range, withTemplate: "")
+
     }
     
     

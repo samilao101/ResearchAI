@@ -23,10 +23,7 @@ struct SavedPaperCellView: View {
     
     var body: some View {
         ZStack{
-          
-
             VStack {
-               
                 Text(title)
                     .font(.subheadline).bold().underline()
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -54,11 +51,8 @@ struct SavedPaperCellView: View {
                                 Label("Notes", systemImage: "note.text")
                                     .font(.subheadline)
                             }
-
-                            
                         }.padding()
                         Spacer()
-                       
                     }
                     VStack{
                         if let icon = icon {
@@ -115,13 +109,13 @@ struct SavedPaperCellView: View {
     }
 }
 
-struct SavedPaperCellView_Previews: PreviewProvider {
-    static var previews: some View {
-        SavedPaperCellView(title: "Neural Manifolds in the AI age", icon: thumbnail, authors: ["Samil Cruz", "Paveli Cruz", "Pamela Cruz"], publishedDate: "12/31/1988", id: "san0haonasans8")
-        
-            .previewLayout(.sizeThatFits)
-    }
-}
+//struct SavedPaperCellView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SavedPaperCellView(title: "Neural Manifolds in the AI age", icon: thumbnail, authors: ["Samil Cruz", "Paveli Cruz", "Pamela Cruz"], publishedDate: "12/31/1988", id: "san0haonasans8")
+//        
+//            .previewLayout(.sizeThatFits)
+//    }
+//}
 
 
 struct BackgroundColor: ViewModifier {

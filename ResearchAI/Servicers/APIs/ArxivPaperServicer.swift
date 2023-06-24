@@ -19,8 +19,10 @@ class ArxivPaperServicer: ObservableObject, PaperServicerProtocol {
     func querySearch(query: String) async throws -> [RAISummary] {
         
         let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let url = URL(string: "\(url)\(encodedQuery)")!
-    
+
+        let url = URL(string: "\(url)\(encodedQuery)&max_results=15")!
+        print(url)
+
         let request = URLRequest(url: url)
         
         let (data, _) = try await URLSession.shared.data(for: request)
@@ -58,15 +60,15 @@ struct ArxivResearchPaperEntry: Codable, RAISummaryEntryProtocol {
         }
         
         var raiPublished: String {
-            published
+            published.changeDateFormat()
         }
         
         var raiUpdated: String {
-            updated
+            updated.changeDateFormat()
         }
         
         var raiSummary: String {
-            summary
+            summary.replacingOccurrences(of: "\n", with: " ")
         }
         
         var raiLink: String {
@@ -98,5 +100,29 @@ struct ArxivResearchPaperEntry: Codable, RAISummaryEntryProtocol {
 
    
     }
+    
+    
 }
 
+extension String {
+    
+
+    func changeDateFormat() -> String {
+        
+        let inputDateFormatter = DateFormatter()
+        inputDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+
+        guard let date = inputDateFormatter.date(from: self) else {
+            print("failed to parse date string")
+            return self
+        }
+        
+        let outputDateFormatter = DateFormatter()
+        outputDateFormatter.dateFormat = "MMM dd, yyyy"
+        
+        let formattedDateString = outputDateFormatter.string(from: date)
+        
+        return formattedDateString
+         
+    }
+}

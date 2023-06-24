@@ -15,14 +15,14 @@ class CoreAPIPaperServicer: ObservableObject, PaperServicerProtocol {
     
     let url = Constant.URLstring.CoreAPIBaseURL
             
-    let apiKey = "e21OkXlMqLhrH6buRUgDJioQ5K04BIFZ"
+  
     
     func querySearch(query: String) async throws -> [RAISummary] {
         print("searching core api")
         let baseURL = URL(string: url)!
         let urlFragment = "search/outputs"
         
-        let headers = ["Authorization": "Bearer " + apiKey]
+        let headers = ["Authorization": "Bearer " + Constant.keys.coreAPIkey]
         let query = ["q": query, "limit": Int(20)] as [String : Any]
             let jsonData = try! JSONSerialization.data(withJSONObject: query)
             let url =   baseURL.appendingPathComponent(urlFragment)
