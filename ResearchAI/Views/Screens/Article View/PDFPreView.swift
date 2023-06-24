@@ -125,9 +125,17 @@ extension PDFPreView {
         .cornerRadius(8)
     }
 }
-//
-//struct PDFPreView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PDFPreView()
-//    }
-//}
+
+
+
+struct PDFPreView_Previews: PreviewProvider {
+    
+    static let pdfPath = Bundle.main.path(forResource: "researchpaper1", ofType: "pdf")
+    static let pdfUrl = URL(fileURLWithPath: pdfPath!)
+    static let pdfData = try! Data(contentsOf: pdfUrl)
+    static let pdf = PDFDocument(data: pdfData)!
+    
+    static var previews: some View {
+        PDFPreView(appState: AppState.shared , goBack: .constant(false), pdf: pdf)
+    }
+}
