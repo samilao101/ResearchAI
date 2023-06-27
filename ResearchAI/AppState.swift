@@ -46,7 +46,9 @@ class AppState: ObservableObject {
     func query(_ query: String) async {
         
         do {
-            summaries = try await paperSearchServicer.querySearch(query: query)
+            summaries = try await paperSearchServicer.querySearch(query: query).sorted(by: { rai1, rai2 in
+                rai1.raiPublished > rai2.raiPublished
+            })
         } catch(let error) {
             print(error)
         }
