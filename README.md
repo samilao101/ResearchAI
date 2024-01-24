@@ -3,7 +3,7 @@
 ## Overview
 Paiper transforms research papers into podcast formats, making academic research more accessible. It features interactive discussions using a Language Model (LLM) to enrich the learning experience.
 
-[![How to Use Paiper]([https://img.youtube.com/vi/YOUTUBE_VIDEO_ID/0.jpg](https://i.ytimg.com/vi/Q16raN7Usn4/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AHOBIACgAqKAgwIABABGGsgayhrMA8=&rs=AOn4CLAJWLMisNK4APBqpd4awdKTqatJUg))](https://www.youtube.com/watch?v=Q16raN7Usn4 "Watch the video")
+[![How to Use Paiper]([https://img.youtube.com/vi/YOUTUBE_VIDEO_ID/0.jpg](https://i.ytimg.com/vi/Q16raN7Usn4/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AHOBIACgAqKAgwIABABGGsgayhrMA8=&rs=AOn4CLAJWLMisNK4APBqpd4awdKTqatJUg)](https://www.youtube.com/watch?v=Q16raN7Usn4 "Watch the video")
 
 ## Features
 - **Paper-to-Podcast Conversion**: Converts research papers into audio format for easy listening.
